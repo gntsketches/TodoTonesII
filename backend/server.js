@@ -36,6 +36,12 @@ app.use(router.allowedMethods())
 app.use(require('koa-static')('./build'))
 
 
-mongoose.connect(process.env.DATABASE)
+// mongoose.connect(process.env.DATABASE)
+mongoose.connect('mongodb://localhost/todotones', {useNewUrlParser: true})
+
+mongoose.connection.once('open', function(){console.log('>>> MongoDB connected...')})
+.on('error', function(error){
+  console.log('>>> Connection error:', error);
+});
 
 module.exports = app
