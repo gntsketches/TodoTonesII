@@ -5,10 +5,12 @@ class Header extends Component {
   render() {
     return (
       <section
-        className="level"
-        style={{"minHeight": "15vh"}}
+        className="hero is-primary"
+        style={{"minHeight": "15vh", "marginBottom": "5vh"}}
       >
-        <h1 className="title white level-item">Todo Tones II</h1>
+        <div className="hero-body">
+          <h1 className="title white level-item">Todo Tones II</h1>
+        </div>
       </section>
     )
   }
