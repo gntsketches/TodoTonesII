@@ -1,0 +1,22 @@
+https://hackernoon.com/moving-api-requests-to-redux-saga-21780f49cbc8
+
+what is the registerServiceWorker good for?
+optimize todo recognition: https://www.jetbrains.com/help/webstorm/using-todo.html
+
+
+TODO study
+    review Udemy Sagas vids
+
+
+FIRST GOAL: play all the todd's in your database without repeat
+    translate todd's  from todd tones and plug into crud
+    create fetch next todd
+    set up audio
+
+
+
+    https://medium.com/jtribe/node-js-in-2018-full-stack-tutorial-with-koa-react-redux-sagas-and-mongodb-14a7efaee4d4
+        don't forget u can deploy!
+    https://blog.usejournal.com/serving-react-and-koa-together-720ba6668298
+
+    https://zellwk.com/blog/mongoose-subdocuments/
