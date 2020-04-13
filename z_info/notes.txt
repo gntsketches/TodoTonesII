@@ -6,10 +6,29 @@ optimize todo recognition: https://www.jetbrains.com/help/webstorm/using-todo.ht
 
 TODO study
     review Udemy Sagas vids
+    https://medium.com/@adlusk/a-newbs-guide-to-redux-saga-e597d8e6c486    https://stackoverflow.com/questions/22677931/react-js-onchange-event-for-contenteditable
 
 
 FIRST GOAL: play all the todd's in your database without repeat
-    translate todd's  from todd tones and plug into crud
+    translate todd's from todd tones and plug into crud
+        click sidebar to set todd to playing and editing
+            install update and new todd functions
+                will need a 'editing' and 'now playing' fields in redux,
+            change 'add' button to 'update' - 'active' todd is always listed and presented on the top of sidebar
+                so that way you get a warn if there are unsaved changes before switching
+            and a button for 'new'
+
+    first, load up:
+        calls fetchTodos
+            if todos.length > 0, it sets the top of the list to editing
+            else it generates a new one
+                puts it in the list
+                sets it to editing
+        consider state of list, todos component when length === 0
+
+    second, click to change editing
+
+    use TodoModel
     create fetch next todd
     set up audio
 
@@ -17,6 +36,17 @@ FIRST GOAL: play all the todd's in your database without repeat
 
     https://medium.com/jtribe/node-js-in-2018-full-stack-tutorial-with-koa-react-redux-sagas-and-mongodb-14a7efaee4d4
         don't forget u can deploy!
-    https://blog.usejournal.com/serving-react-and-koa-together-720ba6668298
+        https://blog.usejournal.com/serving-react-and-koa-together-720ba6668298
 
     https://zellwk.com/blog/mongoose-subdocuments/
+    https://www.taniarascia.com/content-editable-elements-in-javascript-react/
+
+
+
+
+      try {
+        const updateData = { ...body, createdAt: new Date() }
+        const todo = await Todo.findByIdAndUpdate(id, updateData);
+        ctx.body = todo
+      } catch(e) {
+        ctx.throw(e);

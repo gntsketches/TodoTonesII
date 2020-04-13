@@ -24,14 +24,33 @@ async function destroy (ctx) {
 }
 
 async function update (ctx) {
-  // Find Todo based on id, then toggle done on/off
   const id = ctx.params.id
-  const todo = await Todo.findById(id)
-  todo.done = !todo.done
+  console.log('>>>id ', id)
+  const { body } = ctx.request;
+  console.log('>>>body ', body)
 
-  // Update todo in database
-  const updatedTodo = await todo.save()
-  ctx.body = updatedTodo
+  try {
+    const updateData = { ...body, createdAt: new Date() }
+    const todo = await Todo.findByIdAndUpdate(id, updateData);
+    ctx.body = todo
+  } catch(e) {
+    ctx.throw(e);
+  }
+
+  // const todo = await Todo.findById(id)
+  // todo.done = !todo.done
+  // // Update todo in database
+  // const updatedTodo = await todo.save()
+  // ctx.body = updatedTodo
+
+  // const { body } = ctx.request;
+  // try {
+  //   const postData = { ...body, createdAt: new Date() }
+  //   const post = await Post.findByIdAndUpdate(id, postData);
+  //   ctx.redirect(`/post/${post.id}`);
+  // } catch(e) {
+  //   ctx.throw(e);
+  // }
 }
 
 module.exports = {

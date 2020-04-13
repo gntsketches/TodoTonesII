@@ -4,8 +4,9 @@ const mongoose = require('mongoose')
 // Declare Schema
 const TodoSchema = new mongoose.Schema(
   {
+    title: { type: String },
     description: { type: String },
-    done: { type: Boolean },
+    // done: { type: Boolean },
   },
   { timestamps: true }
 );

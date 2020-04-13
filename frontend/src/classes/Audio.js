@@ -1,5 +1,7 @@
 import Tone from 'tone'
 
+import { getRandomElement } from "../utils/helpers"
+
 
 export default class AudioModule {
     constructor(model) {

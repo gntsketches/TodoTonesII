@@ -43,10 +43,6 @@ body {
   cursor: pointer;
 }
 
-.todo-list {
-  max-width: 400px !important;
-}
-
 .form {
   margin-bottom: 50px;
 }

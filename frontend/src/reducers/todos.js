@@ -2,17 +2,20 @@ import {
   ADD_TODO,
   ADD_TODO_SUCCESS,
   TODOS_FAILURE,
-  TOGGLE_TODO,
+  UPDATE_TODO,
   DELETE_TODO,
   LOADED_TODOS,
-  FETCH_TODOS
+  FETCH_TODOS,
+
+  SET_EDITING_TODO,
 } from '../actions/todos'
 
 export const TODOS_DEFAULT_STATE = {
   loading: false,
   saving: false,
   error: '',
-  items: []
+  items: [],
+  editingTodo: { title: '', description: ''},
 }
 
 export default function todos (state = TODOS_DEFAULT_STATE, action) {
@@ -37,12 +40,12 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
     case TODOS_FAILURE:
       return {...state, loading: false, saving: false, error: action.error}
 
-    case TOGGLE_TODO:
+    case UPDATE_TODO:
       return {
         ...state,
-        items: state.items.map((todo) =>
-          todo._id === action.id ? {...todo, done: !todo.done} : todo
-        )
+        // items: state.items.map((todo) =>
+        //   todo._id === action.id ? {...todo, done: !todo.done} : todo
+        // )
       }
 
     case DELETE_TODO:
@@ -51,6 +54,13 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
         items: state.items.reduce((items, todo) =>
           todo._id !== action.id ? items.concat(todo) : items, []
         )
+      }
+
+    case SET_EDITING_TODO:
+      console.log('action.todo', action.todo)
+      return {
+        ...state,
+        editingTodo: action.todo,
       }
 
     default:
