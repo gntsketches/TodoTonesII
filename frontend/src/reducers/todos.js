@@ -10,6 +10,8 @@ import {
   SET_NOW_PLAYING,
 } from '../actions/todos'
 
+import TodoModel from "../classes/TodoModel"
+
 export const TODOS_DEFAULT_STATE = {
   loading: false,
   saving: false,
@@ -68,7 +70,10 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       console.log('action.todo', action.todo)
       return {
         ...state,
-        nowPlaying: action.todo,
+        nowPlaying: {
+          ...action.todo,
+          model: new TodoModel(action.todo.description),
+        },
       }
 
     default:

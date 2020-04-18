@@ -59,8 +59,3 @@ export function setNowPlaying(todo) {
 
 
 
-// currently using a a saveTodo method for both add and update
-// export function updateEditingTodo(todo) {
-//   return { type: UPDATE__EDITING_TODO, todo }
-// }
-

@@ -13,6 +13,9 @@ import {
   setEditingTodo,
 } from '../actions/todos'
 
+import TodoModel from "../classes/TodoModel"
+
+
 function* getAllTodos () {
   console.log('in getAllTodos')
   try {
@@ -52,10 +55,7 @@ function* saveTodo (action) {
 // should really be saveTodo
 function* updateTodo (action) {
   console.log('updateTodo action', action)
-  if (action.todo._id == null) {
-    yield put(addTodo(action.todo))
-    return
-  }
+
 
   try {
     const filterIdFromTodo = ({ title, description, createdAt }) => ({ title, description, createdAt })

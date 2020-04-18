@@ -2,29 +2,11 @@ import React, { Component } from 'react'
 import 'bulma/css/bulma.css'
 import { connect } from 'react-redux'
 
-import TodoModel from "../classes/TodoModel"
 import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying} from '../actions/todos';
 
 
 
 class Todos extends Component {
-  state = {
-    // editingID: null,
-  }
-
-  // componentDidUpdate() {
-  //   const { editingID } = this.state
-  //   const { todos, editingTodoID } = this.props
-
-    // console.log('editingTodoID in todos', editingTodoID)
-    // if (editingTodoID != null && editingID !== editingTodoID) {
-    //   const editingTodo = todos.find(t => t._id === editingTodoID)
-    //   console.log('editingTodo', editingTodo)
-    //   this.setState({
-    //     editingID: editingTodoID,
-    //   })
-    // }
-  // }
 
   clearEditingTodo = () => {
     // compare for changes and worn
@@ -32,25 +14,21 @@ class Todos extends Component {
     this.props.setEditingTodo(todo)
   }
 
-  // should be saveTodo
-  updateTodo = () => {
+  handleSaveClick = () => {
     const { editingTodo } = this.props
     console.log('editingTodo in update', editingTodo)
 
-
     if(editingTodo.description || editingTodo.description) {
-      this.props.updateTodo(editingTodo)
-
-      // elsa throw an error
-
-      // this.setState({
-      //   newTodoTitle: '',
-      //   newTodo: ''
-      // })
+      if (editingTodo._id == null) {
+        this.props.addTodo(editingTodo)
+      } else {
+        this.props.updateTodo(editingTodo)
+      }
+    // else show a message that says they need title or description
     }
   }
 
-  setTodo(field, value) {
+  handleFieldUpdate(field, value) {
     const { editingTodo, setEditingTodo } = this.props
 
     const newTodo = {
@@ -92,13 +70,14 @@ class Todos extends Component {
             <input className="input"
                    value={editingTodo.title}
                    placeholder="title..."
-                   onChange={(e) => this.setTodo( 'title', e.target.value )}/>
+                   onChange={(e) => this.handleFieldUpdate( 'title', e.target.value )}/>
           </div>
           <div className="control">
             <button
               className={`button is-success ${(isLoading || isSaving) && "is-loading"}`}
               disabled={isLoading || isSaving}
-              onClick={this.updateTodo}
+              onClick={this.handleSaveClick}
+              // text should be 'add' for no _id
             >
               Save
             </button>
@@ -110,7 +89,7 @@ class Todos extends Component {
           <textarea
             className="level-item"
             value={editingTodo.description}
-            onChange={(e) => this.setTodo('description', e.target.value)}
+            onChange={(e) => this.handleFieldUpdate('description', e.target.value)}
             rows="10"
             cols="75"
           />
@@ -124,7 +103,7 @@ class Todos extends Component {
               disabled={isLoading || isSaving}
               onClick={this.clearEditingTodo}
             >
-              Clear
+              New
             </button>
           </div>
         </div>
