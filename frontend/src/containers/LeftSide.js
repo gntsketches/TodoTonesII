@@ -2,10 +2,14 @@ import React, { Component } from 'react'
 import {connect} from "react-redux"
 // import 'bulma/css/bulma.css'
 
-import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo } from '../actions/todos';
+import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying } from '../actions/todos';
 
-const Todo = ({ todo, id, onDelete, onEditClick }) => (
-  <div className="box todo-item level is-mobile" onClick={onEditClick}>
+const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick }) => (
+  <div
+    className="box todo-item level is-mobile"
+    onClick={onLeftClick}
+    onContextMenu={onRightClick}
+  >
     <div className="level-left">
       <span>{todo.title ? todo.title : 'untitled'}</span>
       {/*<span>{todo._id}</span>*/}
@@ -22,7 +26,7 @@ class LeftSide extends Component {
   }
 
   render() {
-    const { todos, isLoading, isSaving, error, deleteTodo, editingTodo, setEditingTodo } = this.props
+    const { todos, isLoading, isSaving, error, deleteTodo, editingTodo, setEditingTodo, setNowPlaying } = this.props
     // console.log('left side todos', todos)
 
     return (
@@ -56,7 +60,11 @@ class LeftSide extends Component {
                 e.stopPropagation()
                 deleteTodo(todo._id)
               }}
-              onEditClick={() => setEditingTodo(todo)}
+              onLeftClick={() => setEditingTodo(todo)}
+              onRightClick={(e) => {
+                e.preventDefault()
+                setNowPlaying(todo)
+              }}
             />
            ))}
 
@@ -81,6 +89,7 @@ const mapDispatchToProps = {
   deleteTodo,
   fetchTodos,
   setEditingTodo,
+  setNowPlaying,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeftSide)

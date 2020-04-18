@@ -49,6 +49,7 @@ function* saveTodo (action) {
   }
 }
 
+// should really be saveTodo
 function* updateTodo (action) {
   console.log('updateTodo action', action)
   if (action.todo._id == null) {
@@ -89,7 +90,7 @@ function* deleteTodo (action) {
   }
 }
 
-// RootSaga seems to take the place of the 'watcher'
+// RootSaga seems to take the place of the 'watcher' sagas
 function* rootSaga() {
   yield takeLatest(FETCH_TODOS, getAllTodos)
   yield takeLatest(ADD_TODO, saveTodo);

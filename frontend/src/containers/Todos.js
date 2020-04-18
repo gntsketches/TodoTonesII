@@ -3,7 +3,7 @@ import 'bulma/css/bulma.css'
 import { connect } from 'react-redux'
 
 import TodoModel from "../classes/TodoModel"
-import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo } from '../actions/todos';
+import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying} from '../actions/todos';
 
 
 
@@ -27,17 +27,21 @@ class Todos extends Component {
   // }
 
   clearEditingTodo = () => {
+    // compare for changes and worn
     const todo = { title: '', description: ''}
     this.props.setEditingTodo(todo)
   }
 
+  // should be saveTodo
   updateTodo = () => {
     const { editingTodo } = this.props
     console.log('editingTodo in update', editingTodo)
 
 
-    if(editingTodo.description) {
+    if(editingTodo.description || editingTodo.description) {
       this.props.updateTodo(editingTodo)
+
+      // elsa throw an error
 
       // this.setState({
       //   newTodoTitle: '',
@@ -62,7 +66,7 @@ class Todos extends Component {
     const {
       todos,
       editingTodo,
-      isLoading, isSaving, error,
+      isLoading, isSaving, error, setNowPlaying
     } = this.props
     // console.log('todos', todos)
     // console.log('editingTodo', editingTodo)
@@ -74,7 +78,15 @@ class Todos extends Component {
 
         <div className="level field has-addons" style={{ justifyContent: 'center' }}>
           <div className="control">
-            <button className="control button">Play</button>
+            <button
+              className="control button"
+              disabled={!editingTodo._id}
+              // disabling for now if no _id, later should check content and save?
+              // or since you're passing in the whole todo, maybe it's fine, just check for untitled...
+              onClick={()=>setNowPlaying(editingTodo)}
+            >
+              Play
+            </button>
           </div>
           <div className="control">
             <input className="input"
@@ -112,7 +124,7 @@ class Todos extends Component {
               disabled={isLoading || isSaving}
               onClick={this.clearEditingTodo}
             >
-              Clear Todo Fields
+              Clear
             </button>
           </div>
         </div>
@@ -138,6 +150,7 @@ const mapDispatchToProps = {
   deleteTodo,
   fetchTodos,
   setEditingTodo,
+  setNowPlaying,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todos)

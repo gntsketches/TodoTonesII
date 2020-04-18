@@ -6,8 +6,8 @@ import {
   DELETE_TODO,
   LOADED_TODOS,
   FETCH_TODOS,
-
   SET_EDITING_TODO,
+  SET_NOW_PLAYING,
 } from '../actions/todos'
 
 export const TODOS_DEFAULT_STATE = {
@@ -16,6 +16,7 @@ export const TODOS_DEFAULT_STATE = {
   error: '',
   items: [],
   editingTodo: { title: '', description: ''},
+  nowPlaying: null,
 }
 
 export default function todos (state = TODOS_DEFAULT_STATE, action) {
@@ -61,6 +62,13 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       return {
         ...state,
         editingTodo: action.todo,
+      }
+
+    case SET_NOW_PLAYING:
+      console.log('action.todo', action.todo)
+      return {
+        ...state,
+        nowPlaying: action.todo,
       }
 
     default:

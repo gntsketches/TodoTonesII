@@ -8,6 +8,7 @@ export const UPDATE_TODO_SUCCESS = 'UPDATE_TODO_SUCCESS'
 export const DELETE_TODO = 'DELETE_TODO'
 export const TODOS_FAILURE = 'TODOS_FAILURE'
 export const SET_EDITING_TODO = 'SET_EDITING_TODO'
+export const SET_NOW_PLAYING = 'SET_NOW_PLAYING'
 
 
 // action creators
@@ -45,10 +46,20 @@ export function todosFailure(error) {
 }
 
 export function setEditingTodo(todo) {
-  console.log('set edit action')
+  // receives whole todo, not just id. good choice?
   return { type: SET_EDITING_TODO, todo}
 }
 
+export function setNowPlaying(todo) {
+  // receives whole todo, not just id. good choice?
+  console.log('now\Playing action')
+  return { type: SET_NOW_PLAYING, todo}
+}
+
+
+
+
+// currently using a a saveTodo method for both add and update
 // export function updateEditingTodo(todo) {
 //   return { type: UPDATE__EDITING_TODO, todo }
 // }
