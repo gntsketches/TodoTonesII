@@ -23,9 +23,8 @@ function* getAllTodos () {
     const todos = yield res.json()
     yield put(loadedTodos(todos))
 
-    // set the editingTodo EVERY TIME? no just if hmm...
-      // might not even need this...?
     // if (todos.length > 0) {
+      // might not even need this...? eventually you'll use localstorage for editingTodo...
     //   yield put(setEditingTodo(todos[0]))
     // }
   } catch (e) {

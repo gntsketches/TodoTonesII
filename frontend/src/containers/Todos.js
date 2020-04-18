@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import 'bulma/css/bulma.css'
 import { connect } from 'react-redux'
 
+import TodoModel from "../classes/TodoModel"
 import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying} from '../actions/todos';
 
-
+console.log('model method', TodoModel.buildDisplayText)
 
 class Todos extends Component {
 
   clearEditingTodo = () => {
-    // compare for changes and worn
+    // compare for changes and warn of overwrite
     const todo = { title: '', description: ''}
     this.props.setEditingTodo(todo)
   }
@@ -18,14 +19,36 @@ class Todos extends Component {
     const { editingTodo } = this.props
     console.log('editingTodo in update', editingTodo)
 
-    if(editingTodo.description || editingTodo.description) {
-      if (editingTodo._id == null) {
-        this.props.addTodo(editingTodo)
+    if(editingTodo.title || editingTodo.description) {
+
+      const newTodoModel = new TodoModel(editingTodo.description)
+      // const newTodoModelText = new TodoModel(editingTodo.description).text  // can you do like that?
+      const newEditingTodo = {
+        ...editingTodo,
+        description: newTodoModel.text,
+      }
+      setEditingTodo(newEditingTodo)
+
+      // OK below you're passing in the newEditingTodo. BUT how would it work if you referred to the editingTodo (ie from Redux) below instead? Ie: do you need to try to make this async? Handle in Sagas? Like with setState it is async and unreliable, you need to use the callback
+      //    because if you abstract this so you can setEditingTodo on handlePlayClick you'll want to.
+      if (newEditingTodo._id == null) {
+        this.props.addTodo(newEditingTodo)
       } else {
-        this.props.updateTodo(editingTodo)
+        this.props.updateTodo(newEditingTodo)
       }
     // else show a message that says they need title or description
     }
+  }
+
+  handlePlayClick = () => {
+    const { editingTodo, setNowPlaying } = this.props
+
+    const playableTodo = {
+      ...editingTodo,
+      playableTodo: new TodoModel(editingTodo.description),
+    }
+    // also set editingTodo?
+    setNowPlaying(playableTodo)
   }
 
   handleFieldUpdate(field, value) {
@@ -61,7 +84,7 @@ class Todos extends Component {
               disabled={!editingTodo._id}
               // disabling for now if no _id, later should check content and save?
               // or since you're passing in the whole todo, maybe it's fine, just check for untitled...
-              onClick={()=>setNowPlaying(editingTodo)}
+              onClick={this.handlePlayClick}
             >
               Play
             </button>
