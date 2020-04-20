@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import {connect} from "react-redux"
 
-// import {addTodo, deleteTodo, fetchTodos, updateTodo} from "../actions/todos"
+import {addTodo, deleteTodo, fetchTodos, updateTodo, play} from "../actions/todos"
 
 class Header extends Component {
+
+  handlePlayPauseClick = () => {
+    console.log('click')
+    const { nowPlaying, play } = this.props
+
+    play(nowPlaying)
+  }
 
   render() {
     const { nowPlaying, todos } = this.props;
@@ -20,6 +27,13 @@ class Header extends Component {
           <h1 className="title white level-item">Todo Tones II</h1>
         </div>
         <div>
+          <button
+            className={`button`}
+            disabled={nowPlaying == null}
+            onClick={this.handlePlayPauseClick}
+          >
+            Play/Pause
+          </button>
           <span>Now Playing: </span>
           <span>{title}</span>
         </div>
@@ -35,6 +49,7 @@ const mapStateToProps = (state) => {
     // isSaving: state.todos.saving,
     // error: state.todos.error,
     nowPlaying: state.todos.nowPlaying,
+    isPlaying: state.todos.isPlaying,
   }
 }
 
@@ -43,6 +58,7 @@ const mapDispatchToProps = {
   // addTodo,
   // updateTodo,
   // deleteTodo,
+  play,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

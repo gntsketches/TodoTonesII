@@ -4,8 +4,7 @@ import { getRandomElement } from "../utils/helpers"
 
 
 export default class AudioModule {
-    constructor(model) {
-        this.model = model
+    constructor() {
         this.activeTodo = null
         this.monoSynths = {
             'sin' : new Tone.Synth().set({
@@ -47,18 +46,18 @@ export default class AudioModule {
         this.loop = new Tone.Loop(time => {
 
             // console.log(time)
-            const note = getRandomElement(this.model.activeTodo.pitchSet)
-            if (!this.model.activeTodo.waiting && Math.random()*100 < this.model.activeTodo.percent ) {
-                const synthWave = getRandomElement(this.model.activeTodo.synthWaves)
-                // console.log(this.model.activeTodo)
-                if (this.model.activeTodo.synthType === 'poly') {
-                    this.polySynths[synthWave].triggerAttackRelease(note, this.model.activeTodo.duration)
+            const note = getRandomElement(this.activeTodo.pitchSet)
+            if (!this.activeTodo.waiting && Math.random()*100 < this.activeTodo.percent ) {
+                const synthWave = getRandomElement(this.activeTodo.synthWaves)
+                // console.log(this.activeTodo)
+                if (this.activeTodo.synthType === 'poly') {
+                    this.polySynths[synthWave].triggerAttackRelease(note, this.activeTodo.duration)
                 } else {
-                    this.monoSynths[synthWave].triggerAttackRelease(note, this.model.activeTodo.duration)
+                    this.monoSynths[synthWave].triggerAttackRelease(note, this.activeTodo.duration)
                 }
             }
 
-            const waitOrPlay = this.model.activeTodo.waiting ? this.model.activeTodo.waitTime : this.model.activeTodo.playTime
+            const waitOrPlay = this.activeTodo.waiting ? this.activeTodo.waitTime : this.activeTodo.playTime
             const timeCheck = this.timeTag + waitOrPlay
             // console.log('seconds', Tone.Transport.seconds)
             if (Tone.Transport.seconds >= timeCheck) {
@@ -75,21 +74,22 @@ export default class AudioModule {
 
 
     // BINDINGS ******************************************************************************
-    bindChangeNowPlaying(handler) {
-        this.changeNowPlaying = handler
-    }
+    // bindChangeNowPlaying(handler) {
+    //     this.changeNowPlaying = handler
+    // }
 
 
     // UPDATE PLAY STATUS AND INSTRUMENT PARAMS
     changeAudio = () => {  // changeAudioPlayStatus
-        if (this.model.nowPlaying === false) {
-            this.stop()
+        // if (this.model.nowPlaying === false) {
+        //     this.stop()
+        if (false) {
         } else {
             const envelope = {
-                attack: this.model.activeTodo.envelope.attack,
-                decay: this.model.activeTodo.envelope.decay,
-                sustain: this.model.activeTodo.envelope.sustain,
-                release: this.model.activeTodo.envelope.release
+                attack: this.activeTodo.envelope.attack,
+                decay: this.activeTodo.envelope.decay,
+                sustain: this.activeTodo.envelope.sustain,
+                release: this.activeTodo.envelope.release
             }
             for (const type in this.polySynths) {
                 this.polySynths[type].set({envelope: envelope})
@@ -98,16 +98,16 @@ export default class AudioModule {
             for (const type in this.monoSynths) {
                 this.monoSynths[type].set( { envelope: envelope } )
                 // console.log('env', this.monoSynths[type])
-                this.monoSynths[type].portamento = this.model.activeTodo.portamento
+                this.monoSynths[type].portamento = this.activeTodo.portamento
             }
-                // this.monoSynths[type].envelope.attack = this.model.activeTodo.envelope.attack
-                // this.monoSynths[type].envelope.decay = this.model.activeTodo.envelope.decay
-                // this.monoSynths[type].envelope.sustain = this.model.activeTodo.envelope.sustain
-                // this.monoSynths[type].envelope.release = this.model.activeTodo.envelope.release
+                // this.monoSynths[type].envelope.attack = this.activeTodo.envelope.attack
+                // this.monoSynths[type].envelope.decay = this.activeTodo.envelope.decay
+                // this.monoSynths[type].envelope.sustain = this.activeTodo.envelope.sustain
+                // this.monoSynths[type].envelope.release = this.activeTodo.envelope.release
 
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Object/values
-            if (this.model.activeTodo.tempo !== Tone.Transport.bpm.value) {
-                Tone.Transport.bpm.value = this.model.activeTodo.tempo
+            if (this.activeTodo.tempo !== Tone.Transport.bpm.value) {
+                Tone.Transport.bpm.value = this.activeTodo.tempo
             }
             this.timeTag = Tone.Transport.seconds
             // console.log('timeTag', this.timeTag)
@@ -116,8 +116,9 @@ export default class AudioModule {
 
     }
 
-    start = () => {
-        // console.log('start')
+    start = (todo) => {
+        console.log('start todo', todo)
+        this.activeTodo = todo.model
         Tone.Transport.start();
     }
 

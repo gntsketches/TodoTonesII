@@ -8,6 +8,7 @@ import {
   FETCH_TODOS,
   SET_EDITING_TODO,
   SET_NOW_PLAYING,
+  PLAY,
 } from '../actions/todos'
 
 import TodoModel from "../classes/TodoModel"
@@ -19,6 +20,7 @@ export const TODOS_DEFAULT_STATE = {
   items: [],
   editingTodo: { title: '', description: ''},
   nowPlaying: null,
+  isPlaying: false,
 }
 
 export default function todos (state = TODOS_DEFAULT_STATE, action) {
@@ -60,20 +62,27 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case SET_EDITING_TODO:
-      console.log('action.todo', action.todo)
+      // console.log('action.todo', action.todo)
       return {
         ...state,
         editingTodo: action.todo,
       }
 
     case SET_NOW_PLAYING:
-      console.log('action.todo', action.todo)
+      // console.log('action.todo', action.todo)
       return {
         ...state,
         nowPlaying: {
           ...action.todo,
           model: new TodoModel(action.todo.description),
         },
+      }
+
+    case PLAY:
+      // console.log('action.todo', action.todo)
+      return {
+        ...state,
+        isPlaying: !state.isPlaying,
       }
 
     default:

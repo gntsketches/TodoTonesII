@@ -4,6 +4,7 @@ import {
   DELETE_TODO,
   UPDATE_TODO,
   FETCH_TODOS,
+  PLAY,
   loadedTodos,
   addTodo,
   addTodoSuccess,
@@ -14,6 +15,9 @@ import {
 } from '../actions/todos'
 
 import TodoModel from "../classes/TodoModel"
+import AudioModule from "../classes/AudioModule"
+
+const audioModule = new AudioModule()
 
 
 function* getAllTodos () {
@@ -89,12 +93,19 @@ function* deleteTodo (action) {
   }
 }
 
+function* playApp(action) {
+  console.log('play action', action)
+  audioModule.start(action.todo)
+}
+
+
 // RootSaga seems to take the place of the 'watcher' sagas
 function* rootSaga() {
   yield takeLatest(FETCH_TODOS, getAllTodos)
-  yield takeLatest(ADD_TODO, saveTodo);
-  yield takeLatest(DELETE_TODO, deleteTodo);
-  yield takeEvery(UPDATE_TODO, updateTodo);
+  yield takeLatest(ADD_TODO, saveTodo)
+  yield takeLatest(DELETE_TODO, deleteTodo)
+  yield takeEvery(UPDATE_TODO, updateTodo)
+  yield takeEvery(PLAY, playApp)
 }
 
 export default rootSaga;

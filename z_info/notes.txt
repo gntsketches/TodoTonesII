@@ -9,28 +9,47 @@ TODO study
     https://medium.com/@adlusk/a-newbs-guide-to-redux-saga-e597d8e6c486    https://stackoverflow.com/questions/22677931/react-js-onchange-event-for-contenteditable
 
 
+
+
+
 FIRST GOAL: play all the todd's in your database without repeat
     translate todd's from todd tones and plug into crud
-        click sidebar to set todd to playing and editing
-            install update and new todd functions
-                will need a 'editing' and 'now playing' fields in redux,
-            change 'add' button to 'update' - 'active' todd is always listed and presented on the top of sidebar
-                so that way you get a warn if there are unsaved changes before switching
-            and a button for 'new'
-
-    first, load up:
-        calls fetchTodos
-            if todos.length > 0, it sets the top of the list to editing
-            else it generates a new one
-                puts it in the list
-                sets it to editing
-        consider state of list, todos component when length === 0
-
-    second, click to change editing
-
     use TodoModel
+        Todo: test handleSaveClick
+            then test handlePlayClick
+        handlePlayClick should also update editingTodo... abstract that...
+
+        buildDisplayText - can/should that process be abstracted?
+
+        omg the naming
+            Todo vs instance of TodoModel
+        which Todos have ids and which don't? where are they stored?
+
+        note how you are using the TodoModel both
+            to be playable (in nowPlaying)
+            and as a faux-static method to get the description
+            this seems to be a consequence of keeping the title and description as separate from a (playable) TodoModel instance
+                which you are doing deliberately because it keeps the Mongoose model simpler, and all you really need to remember *is* the description
+                but it makes this business a little more complicated!
+
+
+        (de)hydrate when transferring to/from DB
+            all items? or just the editingTodo?
+            actually, maybe it's just the nowPlayingTodo
+            is there anything other than audio that needs any todo-class info (other than _id, title, other meta)
+                maybe for filtering: tempo, pitchset?
+            you may have to try both. let's start with just nowPlayingTodo
+
+
+    REFACTORING
+        "nowPlaying" - rename to be more clear, "currentPlayingTodo"
+        "play" - playPause? playStop?
+        Bulma, is this really useable?
+
     create fetch next todd
     set up audio
+        will need a 'editing' and 'now playing' fields in redux,
+
 
 
 

@@ -16,16 +16,16 @@ class Todos extends Component {
   }
 
   handleSaveClick = () => {
-    const { editingTodo } = this.props
+    const { editingTodo, setEditingTodo } = this.props
     console.log('editingTodo in update', editingTodo)
 
     if(editingTodo.title || editingTodo.description) {
 
-      const newTodoModel = new TodoModel(editingTodo.description)
+      const todoModel = new TodoModel(editingTodo.description)
       // const newTodoModelText = new TodoModel(editingTodo.description).text  // can you do like that?
       const newEditingTodo = {
         ...editingTodo,
-        description: newTodoModel.text,
+        description: todoModel.text,
       }
       setEditingTodo(newEditingTodo)
 
@@ -81,7 +81,7 @@ class Todos extends Component {
           <div className="control">
             <button
               className="control button"
-              disabled={!editingTodo._id}
+              disabled={!editingTodo.description}
               // disabling for now if no _id, later should check content and save?
               // or since you're passing in the whole todo, maybe it's fine, just check for untitled...
               onClick={this.handlePlayClick}
@@ -110,7 +110,9 @@ class Todos extends Component {
         <div className="level field has-addons" style={{ justifyContent: 'center' }}>
           <div className="control">
           <textarea
+            style={{ padding: '0 2px', border: '2px solid #ddd', borderRadius: '8px', }}
             className="level-item"
+            placeholder="c d e ..."
             value={editingTodo.description}
             onChange={(e) => this.handleFieldUpdate('description', e.target.value)}
             rows="10"
