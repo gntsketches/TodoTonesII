@@ -13,11 +13,14 @@ TODO study
 
 
 FIRST GOAL: play all the todd's in your database without repeat
-    translate todd's from todd tones and plug into crud
-    use TodoModel
-        Todo: test handleSaveClick
-            then test handlePlayClick
+
+    Todo:
+        >>> plug store into audio
+        test handleSaveClick
+        then test handlePlayClick
         handlePlayClick should also update editingTodo... abstract that...
+        take stock of things
+
 
         buildDisplayText - can/should that process be abstracted?
 
