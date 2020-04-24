@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
 import {connect} from "react-redux"
 
-import {addTodo, deleteTodo, fetchTodos, updateTodo, play} from "../actions/todos"
+import {addTodo, deleteTodo, fetchTodos, updateTodo, playPause} from "../actions/todos"
 
 class Header extends Component {
 
   handlePlayPauseClick = () => {
-    console.log('click')
-    const { play } = this.props
-
-    play()
+    const { playPause, isPlaying } = this.props
+    if (isPlaying) {
+      playPause('pause')
+    } else {
+      playPause('play')
+    }
   }
 
   render() {
-    const { nowPlaying, todos } = this.props;
-    console.log("now playing in header", nowPlaying)
-    console.log("todos in header", todos)
+    const { nowPlaying, todos, isPlaying } = this.props;
+    // console.log("now playing in header", nowPlaying)
+    // console.log("todos in header", todos)
     const title = nowPlaying ? nowPlaying.title : null
 
     return (
@@ -32,7 +34,7 @@ class Header extends Component {
             disabled={nowPlaying == null}
             onClick={this.handlePlayPauseClick}
           >
-            Play/Pause
+            {isPlaying ? 'Pause' : 'Play'}
           </button>
           <span>Now Playing: </span>
           <span>{title}</span>
@@ -58,7 +60,7 @@ const mapDispatchToProps = {
   // addTodo,
   // updateTodo,
   // deleteTodo,
-  play,
+  playPause,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

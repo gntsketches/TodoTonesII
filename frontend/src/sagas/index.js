@@ -12,7 +12,7 @@ import {
   updateTodoSuccess,
   todosFailure,
   fetchTodos,
-  setEditingTodo,
+  setEditingTodo, PLAY_PAUSE,
 } from '../actions/todos'
 import store from "../redux/store"
 import AudioModule from "../classes/AudioModule"
@@ -93,15 +93,22 @@ function* deleteTodo (action) {
   }
 }
 
-function* playApp(action) {
-  console.log('play action', action)
-  const state = store.getState()
-  const { isPlaying } = state.todos
-  if (isPlaying) {
+function* playPause(action) {
+  console.log('play action in sagas', action)
+  if (action.playPause === 'pause') {
     audioModule.stop()
   } else {
     audioModule.start()
   }
+  // below, redux store reducer runs *before* this is called, causing the if to behave "backward"
+  // const state = store.getState()
+  // const { isPlaying } = state.todos
+  // console.log('isPlaying', isPlaying)
+  // if (isPlaying) {
+  //   audioModule.stop()
+  // } else {
+  //   audioModule.start()
+  // }
 }
 
 
@@ -111,7 +118,7 @@ function* rootSaga() {
   yield takeLatest(ADD_TODO, saveTodo)
   yield takeLatest(DELETE_TODO, deleteTodo)
   yield takeEvery(UPDATE_TODO, updateTodo)
-  yield takeEvery(PLAY, playApp)
+  yield takeEvery(PLAY_PAUSE, playPause)
 }
 
 export default rootSaga;

@@ -9,7 +9,7 @@ export const DELETE_TODO = 'DELETE_TODO'
 export const TODOS_FAILURE = 'TODOS_FAILURE'
 export const SET_EDITING_TODO = 'SET_EDITING_TODO'
 export const SET_NOW_PLAYING = 'SET_NOW_PLAYING'
-export const PLAY = 'PLAY'
+export const PLAY_PAUSE = 'PLAY_PAUSE'
 
 
 // action creators
@@ -57,8 +57,8 @@ export function setNowPlaying(todo) {
   return { type: SET_NOW_PLAYING, todo}
 }
 
-export function play() {
-  return { type: PLAY }
+export function playPause(playPause) {
+  return { type: PLAY_PAUSE, playPause}
 }
 
 

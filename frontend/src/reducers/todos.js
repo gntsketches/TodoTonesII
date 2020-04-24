@@ -8,7 +8,7 @@ import {
   FETCH_TODOS,
   SET_EDITING_TODO,
   SET_NOW_PLAYING,
-  PLAY,
+  PLAY_PAUSE,
 } from '../actions/todos'
 
 import TodoModel from "../classes/TodoModel"
@@ -78,8 +78,9 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
         },
       }
 
-    case PLAY:
-      // console.log('action.todo', action.todo)
+    case PLAY_PAUSE:
+      // action accepts play vs pause, but this doesn't use it...
+      console.log('play reducer')
       return {
         ...state,
         isPlaying: !state.isPlaying,

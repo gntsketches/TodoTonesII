@@ -110,7 +110,7 @@ export default class TodoModel {
         // const portamento = todoText.match(/p(\d{1,2})?(\.\d{1,2})?/i)
         //  doesn't match anything but 'p'!
         const portamento = todoText.match(/p\d{1,2}(\.\d{1,2})?/i)
-        console.log('portamento', portamento)
+        // console.log('portamento', portamento)
         if (portamento === null) { return false }
         const port = parseFloat(portamento[0].slice(1))
         console.log('port', port)

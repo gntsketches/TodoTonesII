@@ -118,7 +118,6 @@ export default class AudioModule {
 
     }
 
-    // start = (todo) => {
     start = () => {
         const state = store.getState()
         console.log('start state', state)
