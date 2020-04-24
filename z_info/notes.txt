@@ -15,7 +15,6 @@ TODO study
 FIRST GOAL: play all the todd's in your database without repeat
 
     Todo:
-        >>> plug store into audio
         test handleSaveClick
         then test handlePlayClick
         handlePlayClick should also update editingTodo... abstract that...

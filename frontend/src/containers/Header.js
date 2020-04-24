@@ -7,9 +7,9 @@ class Header extends Component {
 
   handlePlayPauseClick = () => {
     console.log('click')
-    const { nowPlaying, play } = this.props
+    const { play } = this.props
 
-    play(nowPlaying)
+    play()
   }
 
   render() {

@@ -1,5 +1,7 @@
 import Tone from 'tone'
 
+import store from "../redux/store"
+
 import { getRandomElement } from "../utils/helpers"
 
 
@@ -116,9 +118,12 @@ export default class AudioModule {
 
     }
 
-    start = (todo) => {
-        console.log('start todo', todo)
-        this.activeTodo = todo.model
+    // start = (todo) => {
+    start = () => {
+        const state = store.getState()
+        console.log('start state', state)
+        const { nowPlaying } = state.todos
+        this.activeTodo = nowPlaying.model
         Tone.Transport.start();
     }
 

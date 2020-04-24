@@ -1,4 +1,5 @@
 import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'
+
 import {
   ADD_TODO,
   DELETE_TODO,
@@ -13,8 +14,7 @@ import {
   fetchTodos,
   setEditingTodo,
 } from '../actions/todos'
-
-import TodoModel from "../classes/TodoModel"
+import store from "../redux/store"
 import AudioModule from "../classes/AudioModule"
 
 const audioModule = new AudioModule()
@@ -95,7 +95,13 @@ function* deleteTodo (action) {
 
 function* playApp(action) {
   console.log('play action', action)
-  audioModule.start(action.todo)
+  const state = store.getState()
+  const { isPlaying } = state.todos
+  if (isPlaying) {
+    audioModule.stop()
+  } else {
+    audioModule.start()
+  }
 }
 
 

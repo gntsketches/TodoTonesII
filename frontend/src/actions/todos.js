@@ -57,8 +57,8 @@ export function setNowPlaying(todo) {
   return { type: SET_NOW_PLAYING, todo}
 }
 
-export function play(todo) {
-  return { type: PLAY, todo }
+export function play() {
+  return { type: PLAY }
 }
 
 
