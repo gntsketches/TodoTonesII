@@ -63,7 +63,7 @@ export default class AudioModule {
             const timeCheck = this.timeTag + waitOrPlay
             // console.log('seconds', Tone.Transport.seconds)
             if (Tone.Transport.seconds >= timeCheck) {
-                this.changeNowPlaying()
+                this.updateAudioStatus()
                 this.timeTag = Tone.Transport.seconds
             }
 
@@ -75,17 +75,15 @@ export default class AudioModule {
     }
 
 
-    // BINDINGS ******************************************************************************
-    // bindChangeNowPlaying(handler) {
-    //     this.changeNowPlaying = handler
-    // }
-
 
     // UPDATE PLAY STATUS AND INSTRUMENT PARAMS
-    changeAudio = () => {  // changeAudioPlayStatus
-        // if (this.model.nowPlaying === false) {
-        //     this.stop()
-        if (false) {
+    updateAudioStatus = () => {  // changeAudioPlayStatus
+        console.log('updateAudioStatus')
+        const state = store.getState()
+        const { nowPlaying, isPlaying } = state.todos
+        this.activeTodo = nowPlaying.model
+        if (isPlaying === false) {
+            this.stop()
         } else {
             const envelope = {
                 attack: this.activeTodo.envelope.attack,
@@ -119,10 +117,6 @@ export default class AudioModule {
     }
 
     start = () => {
-        const state = store.getState()
-        console.log('start state', state)
-        const { nowPlaying } = state.todos
-        this.activeTodo = nowPlaying.model
         Tone.Transport.start();
     }
 

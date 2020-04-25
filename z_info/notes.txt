@@ -15,9 +15,9 @@ TODO study
 FIRST GOAL: play all the todd's in your database without repeat
 
     Todo:
-        test handleSaveClick
-        then test handlePlayClick
-        handlePlayClick should also update editingTodo... abstract that...
+        new TodoModel created in handlePlayClick, handleSaveClick, and setNowPlaying reducer
+            refactor this?
+            refactor logic ( eg re: setEditingTodo) specifically in Todos.js?
         take stock of things
 
         MAYBE the loop should auto-off

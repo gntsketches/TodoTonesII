@@ -44,9 +44,9 @@ class Todos extends Component {
   }
 
   handlePlayClick = () => {
-    const { editingTodo, setEditingTodo, setNowPlaying, playPause } = this.props
+    const { editingTodo, setEditingTodo, setNowPlaying, playPause, nowPlaying } = this.props
 
-    const todoModel = new TodoModel(editingTodo.description)
+    const todoModel = new TodoModel(editingTodo.description) // you are setting a new TodoModel twice - also in reducers...
     console.log('handlePlayClick todoModel', todoModel)
     const newTodo = {
       ...editingTodo,
@@ -55,7 +55,9 @@ class Todos extends Component {
     }
 
     setEditingTodo(newTodo)
+    console.log('nowPlaying Pre', nowPlaying)
     setNowPlaying(newTodo)
+    console.log('newPlaying post', nowPlaying)
     // this is fishy. will it necessarily happen after setNowPlaying?
       // also, it toggles the nowPlaying (without stopping it).
         // so that's weird. a case for passing the boolean rather than a toggle
@@ -132,7 +134,7 @@ class Todos extends Component {
           </div>
         </div>
 
-        <div className="level field has-addons" style={{ justifyContent: 'center' }}>
+          <div className="level field has-addons" style={{ justifyContent: 'center' }}>
           <div className="control">
             <button
               className={`button is-success ${(isLoading || isSaving) && "is-loading"}`}

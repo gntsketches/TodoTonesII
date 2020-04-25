@@ -95,11 +95,15 @@ function* deleteTodo (action) {
 
 function* playPause(action) {
   console.log('play action in sagas', action)
-  if (action.playPause === 'pause') {
-    audioModule.stop()
-  } else {
-    audioModule.start()
-  }
+  audioModule.updateAudioStatus()
+
+  // not necessary as audioModule reads state...
+  // if (action.playPause === 'pause') {
+  //   audioModule.stop()
+  // } else {
+  //   audioModule.changeAudio()
+  // }
+
   // below, redux store reducer runs *before* this is called, causing the if to behave "backward"
   // const state = store.getState()
   // const { isPlaying } = state.todos

@@ -3,9 +3,9 @@ import {connect} from "react-redux"
 
 import './App.css'
 import Header from "./containers/Header"
-import LeftSide from "./containers/LeftSide"
+import RightPanel from "./containers/RightPanel"
 import Todos from './containers/Todos'
-import RightSide from "./containers/RightSide"
+import LeftPanel from "./containers/LeftPanel"
 import {addTodo, deleteTodo, fetchTodos, updateTodo} from "./actions/todos"
 
 class App extends Component {
@@ -19,9 +19,9 @@ class App extends Component {
       <div className="App">
         <Header />
         <div className="columns">
-          <LeftSide />
+          <LeftPanel />
           <Todos />
-          <RightSide />
+          <RightPanel />
         </div>
       </div>
     )

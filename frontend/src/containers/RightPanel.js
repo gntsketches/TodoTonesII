@@ -20,7 +20,7 @@ const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick }) => (
   </div>
 )
 
-class LeftSide extends Component {
+class RightPanel extends Component {
   componentDidMount() {
     this.props.fetchTodos()
   }
@@ -92,4 +92,4 @@ const mapDispatchToProps = {
   setNowPlaying,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftSide)
+export default connect(mapStateToProps, mapDispatchToProps)(RightPanel)

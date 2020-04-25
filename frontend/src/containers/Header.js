@@ -23,21 +23,25 @@ class Header extends Component {
     return (
       <section
         className="hero is-primary"
-        style={{"minHeight": "15vh", "marginBottom": "5vh"}}
+        style={{
+          "minHeight": "15vh", "marginBottom": "5vh",
+          "padding": "2px"
+        }}
       >
         <div className="hero-body">
           <h1 className="title white level-item">Todo Tones II</h1>
         </div>
-        <div>
+        <div style={{"display": "flex", "justify-content": "center", "align-items": "center"}}>
           <button
-            className={`button`}
+            className="button"
             disabled={nowPlaying == null}
             onClick={this.handlePlayPauseClick}
+            style={{"margin": "2px"}}
           >
             {isPlaying ? 'Pause' : 'Play'}
           </button>
-          <span>Now Playing: </span>
-          <span>{title == null ? '' : title || 'untitled'}</span>
+          <div>Now Playing: </div>
+          <div>{title == null ? '' : title || 'untitled'}</div>
         </div>
       </section>
     )

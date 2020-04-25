@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 
-class RightSide extends Component {
+class LeftPanel extends Component {
   render() {
     return (
 
@@ -17,4 +17,4 @@ class RightSide extends Component {
   }
 }
 
-export default RightSide
+export default LeftPanel
