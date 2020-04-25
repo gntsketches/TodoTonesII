@@ -20,6 +20,9 @@ FIRST GOAL: play all the todd's in your database without repeat
         handlePlayClick should also update editingTodo... abstract that...
         take stock of things
 
+        MAYBE the loop should auto-off
+            based on reading isPlaying false
+                rather than having off have to be called externally
 
         buildDisplayText - can/should that process be abstracted?
 

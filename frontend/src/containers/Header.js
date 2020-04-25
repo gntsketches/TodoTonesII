@@ -37,7 +37,7 @@ class Header extends Component {
             {isPlaying ? 'Pause' : 'Play'}
           </button>
           <span>Now Playing: </span>
-          <span>{title}</span>
+          <span>{title == null ? '' : title || 'untitled'}</span>
         </div>
       </section>
     )

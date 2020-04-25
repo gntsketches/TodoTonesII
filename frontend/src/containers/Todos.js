@@ -3,7 +3,10 @@ import 'bulma/css/bulma.css'
 import { connect } from 'react-redux'
 
 import TodoModel from "../classes/TodoModel"
-import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying} from '../actions/todos';
+import {
+  addTodo, updateTodo, deleteTodo, fetchTodos,
+  setEditingTodo, setNowPlaying, playPause
+} from '../actions/todos';
 
 console.log('model method', TodoModel.buildDisplayText)
 
@@ -41,14 +44,22 @@ class Todos extends Component {
   }
 
   handlePlayClick = () => {
-    const { editingTodo, setNowPlaying } = this.props
+    const { editingTodo, setEditingTodo, setNowPlaying, playPause } = this.props
 
-    const playableTodo = {
+    const todoModel = new TodoModel(editingTodo.description)
+    console.log('handlePlayClick todoModel', todoModel)
+    const newTodo = {
       ...editingTodo,
-      playableTodo: new TodoModel(editingTodo.description),
+      description: todoModel.text,
+      playableTodo: todoModel,
     }
-    // also set editingTodo?
-    setNowPlaying(playableTodo)
+
+    setEditingTodo(newTodo)
+    setNowPlaying(newTodo)
+    // this is fishy. will it necessarily happen after setNowPlaying?
+      // also, it toggles the nowPlaying (without stopping it).
+        // so that's weird. a case for passing the boolean rather than a toggle
+    playPause()
   }
 
   handleFieldUpdate(field, value) {
@@ -155,6 +166,7 @@ const mapDispatchToProps = {
   fetchTodos,
   setEditingTodo,
   setNowPlaying,
+  playPause,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todos)
