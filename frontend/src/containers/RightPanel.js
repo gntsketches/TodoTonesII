@@ -27,7 +27,7 @@ class RightPanel extends Component {
 
   render() {
     const { todos, isLoading, isSaving, error, deleteTodo, editingTodo, setEditingTodo, setNowPlaying } = this.props
-    // console.log('left side todos', todos)
+    console.log('RightPanel todos', todos)
 
     return (
 

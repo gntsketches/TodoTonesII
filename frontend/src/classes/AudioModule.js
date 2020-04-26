@@ -1,8 +1,8 @@
 import Tone from 'tone'
 
-import store from "../redux/store"
-
 import { getRandomElement } from "../utils/helpers"
+import store from "../redux/store"
+import { advancePlayCounter } from "../actions/todos"
 
 
 export default class AudioModule {
@@ -59,10 +59,17 @@ export default class AudioModule {
                 }
             }
 
+            // "waiting" was managed on the TodoModel
+            // so for now it will always be false
+            // later it can be managed here (seems bad form to manage it on the model)
+            // checks can be added to bypass wait time if it is turned off by user (including immediately canceling the wait)
             const waitOrPlay = this.activeTodo.waiting ? this.activeTodo.waitTime : this.activeTodo.playTime
             const timeCheck = this.timeTag + waitOrPlay
             // console.log('seconds', Tone.Transport.seconds)
             if (Tone.Transport.seconds >= timeCheck) {
+                store.dispatch(advancePlayCounter())
+                    // that's not "hooked in" to anything
+                    // you want changeNowPlaying
                 this.updateAudioStatus()
                 this.timeTag = Tone.Transport.seconds
             }
@@ -73,7 +80,6 @@ export default class AudioModule {
         this.timeTag = null
 
     }
-
 
 
     // UPDATE PLAY STATUS AND INSTRUMENT PARAMS

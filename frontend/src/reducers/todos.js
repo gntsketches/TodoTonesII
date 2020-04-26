@@ -21,12 +21,24 @@ export const TODOS_DEFAULT_STATE = {
   editingTodo: { title: '', description: ''},
   nowPlaying: null,
   isPlaying: false,
+  playCounter: 0,
+  playThroughList: true,
+  loopPlay: false,
 }
+
+
 
 export default function todos (state = TODOS_DEFAULT_STATE, action) {
   switch (action.type) {
     case LOADED_TODOS:
-      return {...state, items: action.todos, loading: false}
+      return {
+        ...state,
+        items: action.todos,
+        loading: false,
+        // playQueue: action.todos,
+        // it's going to be more complicated than that
+        // randomize, click repertoire, click unsaved,
+      }
 
     case FETCH_TODOS: {
       return {...state, loading: true}
@@ -84,6 +96,25 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       return {
         ...state,
         isPlaying: !state.isPlaying,
+      }
+
+    case 'TOGGLE_PLAY_THROUGH_LIST':
+      return {
+        state,
+        playThroughList: !state.playThroughList,
+      }
+
+    case 'TOGGLE_LOOP_PLAY':
+      return {
+        state,
+        loopPlay: !state.loopPlay,
+      }
+
+    case 'ADVANCE_PLAY_COUNTER':
+      const count = state.playCounter >= state.items.length-1 ? 0 : state.playCounter+1
+      return {
+        ...state,
+        playCounter: count,
       }
 
     default:

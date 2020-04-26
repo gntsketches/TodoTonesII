@@ -31,7 +31,7 @@ class Header extends Component {
         <div className="hero-body">
           <h1 className="title white level-item">Todo Tones II</h1>
         </div>
-        <div style={{"display": "flex", "justify-content": "center", "align-items": "center"}}>
+        <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
           <button
             className="button"
             disabled={nowPlaying == null}

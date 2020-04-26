@@ -1,34 +1,77 @@
-https://hackernoon.com/moving-api-requests-to-redux-saga-21780f49cbc8
 
-what is the registerServiceWorker good for?
 optimize todo recognition: https://www.jetbrains.com/help/webstorm/using-todo.html
 
 
 TODO study
-    review Udemy Sagas vids
-    https://medium.com/@adlusk/a-newbs-guide-to-redux-saga-e597d8e6c486    https://stackoverflow.com/questions/22677931/react-js-onchange-event-for-contenteditable
+    https://medium.com/@adlusk/a-newbs-guide-to-redux-saga-e597d8e6c486
+    https://stackoverflow.com/questions/22677931/react-js-onchange-event-for-contenteditable
+    https://hackernoon.com/moving-api-requests-to-redux-saga-21780f49cbc8
+
+TODO misc
+    move things into the redux folder
+    "nowPlaying" - rename to be more clear, "currentPlayingTodo"
+
+
+
+FIRST GOAL: play all the Todo's in your database without repeat
+    remember: you're going to have to do it wrong...
+
+TODO: Audio: how to switch Todos
+    timing-override feature
+            easy. audio just reads the timing from the store
+    how are new Todos called?
+        seems like you want a queue... don't assume DB call can be timely...
+            how big is the queue?
+                how about everything that matches the tag query with a configurable limit
+            how often is it refreshed?
+                on new play click?
+                on new tag filter
+                does it need to be refreshed? based on what the user is doing.
+                    if there are more matches passed the queue limit
+                    if there is some other option of, like, ordered playlists
+            do you change the list order? or move a counter?
+                how do you identify each item to avoid duplication?
+            randomize vs
+                https://news.ycombinator.com/item?id=20346406
+            what's actually in the queue?
+                can store by id or whole Todo & use typeof?
+                    consider info-referencing logic
+                        eg: "Next Up:"...
+                how about: queue only stores saved items
+                    ie: you can play a pre-saved todo in now playing,
+                        but it doesn't "participate" in a list
+                            playing an unsaved Todo exits the queue
+                SO you *can* organize lists by _id
+            what's the difference between the q and your Todo sidebar?
+                for now let's say they're the same
+                    build them with notion that they will be differentiated
+                    TodosBar is for editing your personal work vs Radio contains other people's items,
+                    both will need search and sort capacities
+                        same API for each?
+                        sorting will be different...
+    first test: start with play-all in Radio section
+        but just play from todos. No queue...
+            use a counter
+            randomizing shuffles the list (but for now does not affect counter)
+            (highlight the current Todo in the list)
+            is there really such a distinction between radio and workbench?
+            clicking on a repertoire todo cancels list play (yes please!)
+    SO you click "Play through list", then what?
+        set PLAY_THROUGH to true (should *not* be toggle, always pass true)
+        set nowPlaying to first in list
+        use a 'changeNowPlaying' function like original
+            what is relationship with setNowPlaying and advancePlayCounter?
+                two updates must be called. how is this best managed?
+        https://www.reddit.com/r/reactjs/comments/86lk43/redux_updating_multiple_state_objects_with_a/
+            "If they are part of the same payload, you should listen for it in multiple reducers (1). That is what makes Redux great; that you can react to the same action multiple places."
+        https://stackoverflow.com/questions/34531563/pattern-for-updating-multiple-parts-of-redux-state
+        https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns
 
 
 
 
-
-FIRST GOAL: play all the todd's in your database without repeat
-
-    Todo:
-        new TodoModel created in handlePlayClick, handleSaveClick, and setNowPlaying reducer
-            refactor this?
-            refactor logic ( eg re: setEditingTodo) specifically in Todos.js?
-        take stock of things
-
-        MAYBE the loop should auto-off
-            based on reading isPlaying false
-                rather than having off have to be called externally
-
-        buildDisplayText - can/should that process be abstracted?
-
-        omg the naming
-            Todo vs instance of TodoModel
-        which Todos have ids and which don't? where are they stored?
+        take stock of other things?
+            entire redux structure
 
         note how you are using the TodoModel both
             to be playable (in nowPlaying)
@@ -36,6 +79,7 @@ FIRST GOAL: play all the todd's in your database without repeat
             this seems to be a consequence of keeping the title and description as separate from a (playable) TodoModel instance
                 which you are doing deliberately because it keeps the Mongoose model simpler, and all you really need to remember *is* the description
                 but it makes this business a little more complicated!
+            buildDisplayText - can/should that process be abstracted?
 
 
         (de)hydrate when transferring to/from DB
@@ -45,11 +89,19 @@ FIRST GOAL: play all the todd's in your database without repeat
                 maybe for filtering: tempo, pitchset?
             you may have to try both. let's start with just nowPlayingTodo
 
+NEXT GOAL: SORT BY TAG AND PLAY
+    save as user 'playlists' (just "lists" for Todos)
+
+
 
     REFACTORING
-        "nowPlaying" - rename to be more clear, "currentPlayingTodo"
+        omg the naming
+            Todo vs instance of TodoModel
+        which Todos have ids and which don't? where are they stored?
         "play" - playPause? playStop?
-        Bulma, is this really useable?
+        new TodoModel created in handlePlayClick, handleSaveClick, and setNowPlaying reducer
+            refactor this?
+            refactor logic ( eg re: setEditingTodo) specifically in Todos.js?
 
     create fetch next todd
     set up audio

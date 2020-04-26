@@ -61,4 +61,11 @@ export function playPause(playPause) {
   return { type: PLAY_PAUSE, playPause}
 }
 
+export function advancePlayCounter() {
+  console.log('action advancePlayCounter')
+  return { type: 'ADVANCE_PLAY_COUNTER' }
+}
+
+// TOGGLE_PLAY_THROUGH_LIST
+// TOGGLE_LOOP_PLAY
 

@@ -8,7 +8,6 @@ import {
   setEditingTodo, setNowPlaying, playPause
 } from '../actions/todos';
 
-console.log('model method', TodoModel.buildDisplayText)
 
 class Todos extends Component {
 
@@ -134,7 +133,7 @@ class Todos extends Component {
           </div>
         </div>
 
-          <div className="level field has-addons" style={{ justifyContent: 'center' }}>
+          <div className="level" style={{ justifyContent: 'center' }}>
           <div className="control">
             <button
               className={`button is-success ${(isLoading || isSaving) && "is-loading"}`}
