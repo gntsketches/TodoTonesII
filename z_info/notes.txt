@@ -1,5 +1,26 @@
+scope/boundaries of project
+    todos: tags, public, likes
+        (for now, no distinction between tag and playlist...
+            ie: no ordered playlists or 'compositions')
+    ROUTES
+        Home Page (later will have radio)
+        Login/Register page
+        User Page (Listing): filter by user & tag, alphabetical or most recent
+            when you
+        *Radio: filer by user and tag, play random with repeats
+            ok so you can filter like that, but what about displaying the users?
+        *Users (alphabetical, search, etc...)
+        *Todos (most recent, trending)
+    Seo: "Once the logic for users (auth, page, CRUD) is in place,
+         the other features (radio, userlist etc) are like separate apps
+         (which is why they get their own routes)
+         the data (and some api calls?) may be the same,
+            but you are using them in different ways (ie: different semantics)
 
-optimize todo recognition: https://www.jetbrains.com/help/webstorm/using-todo.html
+Steps to Login/UserPage
+    review Koa book app
+    review Routes in Grider/ToneGems & auth logic
+        ? is there something about Grider frontend routes that is incompatible with Koa book
 
 
 TODO study
@@ -119,6 +140,7 @@ NEXT GOAL: SORT BY TAG AND PLAY
 
 
 
+optimize todo recognition: https://www.jetbrains.com/help/webstorm/using-todo.html
 
       try {
         const updateData = { ...body, createdAt: new Date() }
@@ -126,3 +148,22 @@ NEXT GOAL: SORT BY TAG AND PLAY
         ctx.body = todo
       } catch(e) {
         ctx.throw(e);
+
+
+
+
+BULMA
+    layout
+        container
+        column
+        hero
+        section (class)
+        footer
+        tile
+    misc
+        card (good for users)
+        navbar
+        menu
+        media object
+    https://www.youtube.com/watch?v=ouI1_tZ1yK4
+    https://www.youtube.com/watch?v=H-2tcg_Qvhs

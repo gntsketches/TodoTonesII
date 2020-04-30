@@ -10,6 +10,7 @@ export const TODOS_FAILURE = 'TODOS_FAILURE'
 export const SET_EDITING_TODO = 'SET_EDITING_TODO'
 export const SET_NOW_PLAYING = 'SET_NOW_PLAYING'
 export const PLAY_PAUSE = 'PLAY_PAUSE'
+export const ADVANCE_PLAY_COUNTER = 'ADVANCE_PLAY_COUNTER'
 
 
 // action creators

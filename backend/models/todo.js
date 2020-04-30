@@ -7,6 +7,7 @@ const TodoSchema = new mongoose.Schema(
     title: { type: String },
     description: { type: String },
     // done: { type: Boolean },
+    // test_default: { type: String, default: 'default applied'}
   },
   { timestamps: true }
 );
