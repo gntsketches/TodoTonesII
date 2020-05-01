@@ -24,7 +24,7 @@ class Header extends Component {
       <section
         className="hero is-primary"
         style={{
-          "minHeight": "15vh", "marginBottom": "5vh",
+          "minHeight": "10vh", "marginBottom": "5vh",
           "padding": "2px"
         }}
       >

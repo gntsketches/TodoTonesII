@@ -20,10 +20,11 @@ scope/boundaries of project
 Steps to Login/UserPage
     review Koa book app
     review Routes in Grider/ToneGems & auth logic
-        ? is there something about Grider frontend routes that is incompatible with Koa book
-
+        ? is there something about Grider frontend routes that is incompatible with Koa book?
+        ? is it related to that Proxy thing?
 
 TODO study
+    saga cheatsheet https://www.udemy.com/course/redux-saga/learn/lecture/12387546#overview
     https://medium.com/@adlusk/a-newbs-guide-to-redux-saga-e597d8e6c486
     https://stackoverflow.com/questions/22677931/react-js-onchange-event-for-contenteditable
     https://hackernoon.com/moving-api-requests-to-redux-saga-21780f49cbc8
