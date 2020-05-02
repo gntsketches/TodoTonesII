@@ -4,6 +4,7 @@ import {connect} from "react-redux"
 
 import './App.css'
 import Header from "./containers/Header"
+import Login from "./containers/Login"
 import User from "./containers/User"
 
 import {addTodo, deleteTodo, fetchTodos, updateTodo} from "./actions/todos"
@@ -12,7 +13,6 @@ import {addTodo, deleteTodo, fetchTodos, updateTodo} from "./actions/todos"
 class App extends Component {
 
   componentDidMount() {
-    this.props.fetchTodos()
   }
 
   render() {
@@ -20,6 +20,7 @@ class App extends Component {
       <div className="App">
         <BrowserRouter>
           <Header />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/user" component={User} />
         </BrowserRouter>
       </div>

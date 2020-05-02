@@ -1,12 +1,14 @@
-const Todo = require('../models/todo')
+const Todo = require('../models/Todo')
 
 async function findAll (ctx) {
+  console.log("todosController findAll")
   // Fetch all Todo's from the database and return as payload
   const todos = await Todo.find({})
   ctx.body = todos
 }
 
 async function create (ctx) {
+  console.log("todosController create")
   // Create New Todo from payload sent and save to database
   const newTodo = new Todo(ctx.request.body)
   const savedTodo = await newTodo.save()
@@ -14,6 +16,7 @@ async function create (ctx) {
 }
 
 async function destroy (ctx) {
+  console.log("todosController destroy")
   // Get id from url parameters and find Todo in database
   const id = ctx.params.id
   const todo = await Todo.findById(id)
@@ -24,6 +27,7 @@ async function destroy (ctx) {
 }
 
 async function update (ctx) {
+  console.log("todosController update")
   const id = ctx.params.id
   console.log('>>>id ', id)
   const { body } = ctx.request;

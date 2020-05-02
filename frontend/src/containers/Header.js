@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from "react-redux"
+import { Link } from 'react-router-dom';
 
 import {addTodo, deleteTodo, fetchTodos, updateTodo, playPause} from "../actions/todos"
 
@@ -22,26 +23,41 @@ class Header extends Component {
 
     return (
       <section
-        className="hero is-primary"
+        // className="hero is-primary"
+        className="columns"
         style={{
-          "minHeight": "10vh", "marginBottom": "5vh",
-          "padding": "2px"
+          // "minHeight": "2vh",
+          "marginBottom": "5vh",
+          "padding": "2px", "backgroundColor": "#00d1b2",
         }}
       >
-        <div className="hero-body">
-          <h1 className="title white level-item">Todo Tones II</h1>
+        <div className="column is-10">
+          <div className="hero-body">
+            <h1 className="title white level-item">Todo Tones II</h1>
+          </div>
+          <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
+            <button
+              className="button"
+              disabled={nowPlaying == null}
+              onClick={this.handlePlayPauseClick}
+              style={{"margin": "2px"}}
+            >
+              {isPlaying ? 'Pause' : 'Play'}
+            </button>
+            <div>Now Playing: </div>
+            <div>{title == null ? '' : title || 'untitled'}</div>
+          </div>
         </div>
-        <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
-          <button
-            className="button"
-            disabled={nowPlaying == null}
-            onClick={this.handlePlayPauseClick}
-            style={{"margin": "2px"}}
-          >
-            {isPlaying ? 'Pause' : 'Play'}
-          </button>
-          <div>Now Playing: </div>
-          <div>{title == null ? '' : title || 'untitled'}</div>
+
+        <div className="column is-2">
+          {/*<div style={{"padding": "2px"}}>*/}
+            <Link
+              // to={this.props.auth ? '/login' : '/'}
+              to={'/login'}
+            >
+              Login/Register
+            </Link>
+          {/*</div>*/}
         </div>
       </section>
     )

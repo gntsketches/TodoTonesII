@@ -1,3 +1,9 @@
+
+
+const res = yield call(fetch, 'localhost:4000/todos')
+    proc.js:513 Fetch API cannot load localhost:4000/todos. URL scheme must be "http" or "https" for CORS request.
+
+
 scope/boundaries of project
     todos: tags, public, likes
         (for now, no distinction between tag and playlist...
@@ -22,6 +28,10 @@ Steps to Login/UserPage
     review Routes in Grider/ToneGems & auth logic
         ? is there something about Grider frontend routes that is incompatible with Koa book?
         ? is it related to that Proxy thing?
+    Proxy:
+        https://create-react-app.dev/docs/proxying-api-requests-in-development/
+        "any unrecognized request without a text/html accept header will be redirected to the specified proxy"
+
 
 TODO study
     saga cheatsheet https://www.udemy.com/course/redux-saga/learn/lecture/12387546#overview
@@ -152,6 +162,12 @@ optimize todo recognition: https://www.jetbrains.com/help/webstorm/using-todo.ht
 
 
 
+MISC DEV ?s
+    What can 'fetch' not do that axios can?
+    What would this look like to be 'ready to expand'?
+        ie: completed MVP
+
+
 
 BULMA
     layout
@@ -168,3 +184,16 @@ BULMA
         media object
     https://www.youtube.com/watch?v=ouI1_tZ1yK4
     https://www.youtube.com/watch?v=H-2tcg_Qvhs
+
+REMOVED from https://medium.com/jtribe/node-js-in-2018-full-stack-tutorial-with-koa-react-redux-sagas-and-mongodb-14a7efaee4d4
+    koa-helmet
+    "proxy": "http://localhost:4000" (from frontend package.json)
+        In case you want to use that sometime:
+        https://hackernoon.com/overview-of-proxy-server-and-how-we-use-them-in-react-bf67c062b929
+        https://medium.com/@Pavan_/set-up-proxy-to-work-with-multiple-apis-in-create-react-app-be595a713eb2
+    server.js file - put the code into index.js for better error tracing
+    ? to remove router.allowedMethods ... (is this doing anything?)
+
+QUIPS
+    Todos you can use. To make weird noises.
+    Look busy. No, wait... sound busy.

@@ -1,18 +1,19 @@
 import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'
 
+import { LOCALHOST_BASE_URL } from '../config/env'
 import {
   ADD_TODO,
   DELETE_TODO,
   UPDATE_TODO,
   FETCH_TODOS,
-  PLAY,
   loadedTodos,
   addTodo,
   addTodoSuccess,
   updateTodoSuccess,
   todosFailure,
   fetchTodos,
-  setEditingTodo, PLAY_PAUSE,
+  setEditingTodo,
+  PLAY_PAUSE,
 } from '../actions/todos'
 import store from "../redux/store"
 import AudioModule from "../classes/AudioModule"
@@ -23,7 +24,8 @@ const audioModule = new AudioModule()
 function* getAllTodos () {
   console.log('in getAllTodos')
   try {
-    const res = yield call(fetch, 'v1/todos')
+    // const res = yield call(fetch, 'todos')
+    const res = yield call(fetch, `${LOCALHOST_BASE_URL}/todos`)
     const todos = yield res.json()
     yield put(loadedTodos(todos))
 
@@ -47,7 +49,7 @@ function* saveTodo (action) {
       })
     }
 
-    const res = yield call(fetch, 'v1/todos', options)
+    const res = yield call(fetch, `${LOCALHOST_BASE_URL}/todos`, options)
     const todo = yield res.json()
     yield put(addTodoSuccess(todo))
   } catch (e) {
@@ -73,7 +75,7 @@ function* updateTodo (action) {
     }
 
 
-    const res = yield call(fetch, `v1/todos/${action.todo._id}`, options)
+    const res = yield call(fetch, `${LOCALHOST_BASE_URL}/todos/${action.todo._id}`, options)
     const todo = yield res.json()
     // yield put(updateTodoSuccess(todo))
     // console.log('todo res', todo) // returns the value before update. hmm.
@@ -87,7 +89,7 @@ function* updateTodo (action) {
 
 function* deleteTodo (action) {
   try {
-    yield call(fetch, `v1/todos/${action.id}`, { method: 'DELETE' })
+    yield call(fetch, `${LOCALHOST_BASE_URL}/todos/${action.id}`, { method: 'DELETE' })
   } catch (e) {
     yield put(todosFailure(e.message))
   }
