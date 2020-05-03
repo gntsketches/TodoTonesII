@@ -11,8 +11,10 @@ module.exports = {
   },
 
   async register(ctx) {
-    console.log("authController register")
     const { body } = ctx.request;
+    console.log("authController register body", body)
+    // if (!body.)
+    // ctx.redirect('/');
     const userData = {
       ...body,
       password: await bcrypt.hash(body.password, BCRYPT_SALT_ROUNDS)

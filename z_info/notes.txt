@@ -1,3 +1,7 @@
+TODO ING CURRENTLY
+    got to install session I think? ctx.session.user = user;
+    read up on fetch
+        https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 
 
 const res = yield call(fetch, 'localhost:4000/todos')
@@ -193,6 +197,8 @@ REMOVED from https://medium.com/jtribe/node-js-in-2018-full-stack-tutorial-with-
         https://medium.com/@Pavan_/set-up-proxy-to-work-with-multiple-apis-in-create-react-app-be595a713eb2
     server.js file - put the code into index.js for better error tracing
     ? to remove router.allowedMethods ... (is this doing anything?)
+    ? app.use(require('koa-static')('./build'))
+        probably need this for deployment
 
 QUIPS
     Todos you can use. To make weird noises.
