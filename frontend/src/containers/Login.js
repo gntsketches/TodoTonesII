@@ -1,36 +1,42 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux"
 
+import { registerUser } from "../actions/todos"
 
 class Login extends Component {
 
   componentDidMount() {
+    console.log('loggedIn: ', this.props.loggedIn)
+    if (this.props.loggedIn) {
+    }
   }
 
-  async onRegisterSubmit(e) {
+  onRegisterSubmit = async e => {
     e.preventDefault()
     console.log('register event', e.target.fullName.value)
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     const data = {
-      fullName: 'test1', email: 'email@email.co', password: 'pass1'
+      fullName: 'test1', email: 'email1@email.co', password: 'pass1'
     }
 
-    const response = await fetch('http://localhost:4000/auth/register', {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-
-    console.log('res', response); // parses JSON response into native JavaScript objects
+    this.props.registerUser(data)
+    // const response = await fetch('http://localhost:4000/auth/register', {
+    //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    //   mode: 'cors', // no-cors, *cors, same-origin
+    //   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    //   credentials: 'same-origin', // include, *same-origin, omit
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+      // },
+      // redirect: 'follow', // manual, *follow, error
+      // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      // body: JSON.stringify(data) // body data type must match "Content-Type" header
+    // });
+    // console.log('res', response); // parses JSON response into native JavaScript objects
+    // console.log('res.json()', response.json()); // parses JSON response into native JavaScript objects
+    // res.json() is a *Promise*...
   }
 
   onLoginSubmit(e) {
@@ -104,10 +110,14 @@ class Login extends Component {
 
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    loggedIn: state.user.loggedIn,
+  }
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+  registerUser,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
 

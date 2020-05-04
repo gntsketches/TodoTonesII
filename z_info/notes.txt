@@ -1,7 +1,51 @@
+https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
+
+
+the situation:
+  async register(ctx) {
+    const { body } = ctx.request;
+    console.log("authController register body", body)
+    (ieverything else commented out)
+    ctx.redirect('http://localhost:3000/user');
+  },
+    Gets this Error:
+        Access to fetch at 'http://localhost:3000/' (redirected from 'http://localhost:4000/auth/register')
+        from origin 'http://localhost:3000' has been blocked by CORS policy:
+        Response to preflight request doesn't pass access control check:
+        The 'Access-Control-Allow-Origin' header has a value 'http://localhost:4000/'
+        that is not equal to the supplied origin. Have the server send the header with
+        a valid value, or, if an opaque response serves your needs,
+        set the request's mode to 'no-cors'to fetch the resource with CORS disabled.
+        discusses CORS
+    tried "proxy": "http://localhost:4000"
+    tried Moesif Origin and CORS changer! Let's get rid of that.
+    WHAT Exactly is a 'redirect' doing?
+    DEVTOOLS NETWORK: is this showing requests or responses? Or both? What/huh?
+
+
+What is the difference between request and response headers?
+    DOES A REQUEST CONTAIN RESPONSE HEADERS?
+        Or are response headers added by the server?
+
 TODO ING CURRENTLY
-    got to install session I think? ctx.session.user = user;
+    review Koa book from p91
+
+TODO CORS
+    https://flaviocopes.com/http-request/
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
     read up on fetch
         https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    https://javascript.info/fetch
+        https://javascript.info/fetch-crossorigin
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+    https://hackernoon.com/overview-of-proxy-server-and-how-we-use-them-in-react-bf67c062b929
+    https://medium.com/@dtkatz/3-ways-to-fix-the-cors-error-and-how-access-control-allow-origin-works-d97d55946d9
+    https://auth0.com/blog/cors-tutorial-a-guide-to-cross-origin-resource-sharing/
+    https://www.digitalocean.com/community/questions/blocked-by-cors-policy-the-access-control-allow-origin-mean-stack
+
+
+
+
 
 
 const res = yield call(fetch, 'localhost:4000/todos')

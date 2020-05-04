@@ -6,6 +6,9 @@ import {
   DELETE_TODO,
   UPDATE_TODO,
   FETCH_TODOS,
+  PLAY_PAUSE,
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
   loadedTodos,
   addTodo,
   addTodoSuccess,
@@ -13,7 +16,8 @@ import {
   todosFailure,
   fetchTodos,
   setEditingTodo,
-  PLAY_PAUSE,
+  registerUser,
+  registerUserSuccess,
 } from '../actions/todos'
 import store from "../redux/store"
 import AudioModule from "../classes/AudioModule"
@@ -39,7 +43,7 @@ function* getAllTodos () {
 }
 
 function* saveTodo (action) {
-  console.log('saveTodo action', action)
+  console.log('saveTodo saga', action)
   try {
     const options = {
       method: 'POST',
@@ -117,6 +121,26 @@ function* playPause(action) {
   // }
 }
 
+function* saveUser (action) {
+  console.log('saveUser saga', action)
+  try {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(action.userData),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    const res = yield call(fetch, `${LOCALHOST_BASE_URL}/auth/register`, options)
+    const user = yield res.json()
+    console.log('saveUser success', user)
+    yield put(registerUserSuccess(user))
+  } catch (e) {
+    console.log('saveUser failed', e.message)
+    // yield put(userFailure(e.message))
+  }
+}
 
 // RootSaga seems to take the place of the 'watcher' sagas
 function* rootSaga() {
@@ -125,6 +149,9 @@ function* rootSaga() {
   yield takeLatest(DELETE_TODO, deleteTodo)
   yield takeEvery(UPDATE_TODO, updateTodo)
   yield takeEvery(PLAY_PAUSE, playPause)
+
+  yield takeLatest(REGISTER_USER, saveUser)
+
 }
 
 export default rootSaga;

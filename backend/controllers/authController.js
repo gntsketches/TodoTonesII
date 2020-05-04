@@ -21,7 +21,19 @@ module.exports = {
     };
     const user = await new User(userData).save();
     ctx.session.user = user;
-    ctx.redirect('/');
+      // ctx.redirect('http://localhost:3000/user');
+      // ctx.redirect('/auth');
+      // seems like the thing to do here is to send confirmation to the
+      // browser, and redirect there...
+    ctx.body = user
+    // return ctx.ok({
+    //   data: { user },
+    //   meta: {
+    //     rando: 'random text',
+    //     id: user._id,
+    //     success: true,
+    //   },
+    // });
   },
 
   async login(ctx) {

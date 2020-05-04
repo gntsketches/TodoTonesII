@@ -12,6 +12,11 @@ export const SET_NOW_PLAYING = 'SET_NOW_PLAYING'
 export const PLAY_PAUSE = 'PLAY_PAUSE'
 export const ADVANCE_PLAY_COUNTER = 'ADVANCE_PLAY_COUNTER'
 
+export const REGISTER_USER = 'REGISTER_USER'
+export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS'
+
+
+
 
 // action creators
 export function fetchTodos() {
@@ -67,6 +72,17 @@ export function advancePlayCounter() {
   return { type: 'ADVANCE_PLAY_COUNTER' }
 }
 
-// TOGGLE_PLAY_THROUGH_LIST
+// toggle_play_through_list
 // TOGGLE_LOOP_PLAY
 
+export function registerUser(userData) {
+  return { type: 'REGISTER_USER', userData}
+}
+
+export function registerUserSuccess(user) {
+  return { type: REGISTER_USER_SUCCESS, user }
+}
+
+// export function addTodoSuccess(todo) {
+//   return { type: ADD_TODO_SUCCESS, todo }
+// }
