@@ -17,6 +17,16 @@ class App extends Component {
     console.log('loggedIn: ', this.props.loggedIn)
     if (this.props.loggedIn) {
       history.push('/user');
+      /* manage that in a saga...
+      START the (login) api call from OUTSIDE the redux&saga system
+          (BECAUSE lets say you want a loading indicator, error handling, etc..
+              same logic as in the Atlas CRUDs
+        then handle the response IN the redux&saga system
+      // ... call that saga from the login component via a action
+      // a saga called loginRegister that accepts a sessionKey
+         login call another function called fetchProfile (or whatever user info)
+          because profile is, like, separate from login
+      */
     }
   }
 

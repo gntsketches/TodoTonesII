@@ -25,15 +25,36 @@ module.exports = {
       // ctx.redirect('/auth');
       // seems like the thing to do here is to send confirmation to the
       // browser, and redirect there...
+
     ctx.body = user
-    // return ctx.ok({
-    //   data: { user },
-    //   meta: {
-    //     rando: 'random text',
-    //     id: user._id,
-    //     success: true,
-    //   },
-    // });
+
+      /*
+     return ctx.ok({
+       data: {
+            SEO Tips:
+            sessionKey: randomOlString
+
+               which you save as the user's entry
+                   and just send to them when they login
+                  and 'logout' is just get rid of the sessionKey on client
+                so all the OAuth is the same, just return a sessionKey
+              so if the user is doing a secure operation, that has to be accompenied by the session key
+            multiple API endpoints for logged-in and Not-logged-in
+              (if there are differences, that is...)
+          login endpoint returns a session key too...
+          look at Atlas login for design inspiration. - two pages
+            also in Atlas, we have 'auths' in DB -
+              this links the password, sessionkey and userID
+              and is utilized by the OAuths too...
+
+        user },
+       meta: {
+         rando: 'random text',
+         id: user._id,
+         success: true,
+       },
+     });
+    */
   },
 
   async login(ctx) {

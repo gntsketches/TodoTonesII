@@ -1,5 +1,7 @@
-https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
-
+React Router Grider
+    https://www.udemy.com/course/react-redux/learn/lecture/12700531#overview
+        history =,,, see vids 258ish
+    https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 
 the situation:
   async register(ctx) {
