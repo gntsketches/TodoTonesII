@@ -1,6 +1,9 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const randomstring = require('randomstring')
+
 const BCRYPT_SALT_ROUNDS = 12;
+
 
 module.exports = {
   async index(ctx) {
@@ -14,18 +17,16 @@ module.exports = {
     const { body } = ctx.request;
     console.log("authController register body", body)
     // if (!body.)
-    // ctx.redirect('/');
+    const session_key = randomstring.generate({
+      length: 36,
+      charset: 'alphabetic'
+    });
     const userData = {
       ...body,
-      password: await bcrypt.hash(body.password, BCRYPT_SALT_ROUNDS)
+      password: await bcrypt.hash(body.password, BCRYPT_SALT_ROUNDS),
+      session_key
     };
     const user = await new User(userData).save();
-    ctx.session.user = user;
-      // ctx.redirect('http://localhost:3000/user');
-      // ctx.redirect('/auth');
-      // seems like the thing to do here is to send confirmation to the
-      // browser, and redirect there...
-
     ctx.body = user
 
       /*

@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const Koa = require('koa')
-const session = require('koa-session');
+// const session = require('koa-session');
 const Router = require('koa-router')
 const Logger = require('koa-logger')
 const Cors = require('@koa/cors')
@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 const app = new Koa()
 const router = new Router()
 
-app.keys = ['secret key'];
+// app.keys = ['secret key'];
 
 // app.use(Helmet())
 
@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(Cors())
-app.use(session(app))
+// app.use(session(app))
 app.use(BodyParser({
   enableTypes: ['json'],
   jsonLimit: '5mb',

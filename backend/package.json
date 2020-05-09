@@ -36,6 +36,7 @@
     "koa-session": "^6.0.0",
     "koa-static": "^4.0.2",
     "mongoose": "^5.0.7",
-    "mongoose-unique-validator": "^2.0.3"
+    "mongoose-unique-validator": "^2.0.3",
+    "randomstring": "^1.1.5"
   }
 }
