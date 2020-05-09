@@ -70,7 +70,4 @@ export function advancePlayCounter() {
 // toggle_play_through_list
 // TOGGLE_LOOP_PLAY
 
-export function loginUser(userData) {
-  return { type: 'LOGIN_USER', userData}
-}
 

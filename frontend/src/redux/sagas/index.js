@@ -1,4 +1,5 @@
 import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'
+import history from '../utils/history'
 
 import { LOCALHOST_BASE_URL } from '../config/env'
 import {
@@ -121,6 +122,9 @@ function* playPause(action) {
   // }
 }
 
+function* loginUser(action) {
+  history.push(`/users/${action.userData.username}`);
+}
 
 
 // RootSaga seems to take the place of the 'watcher' sagas
@@ -130,6 +134,7 @@ function* rootSaga() {
   yield takeLatest(DELETE_TODO, deleteTodo)
   yield takeEvery(UPDATE_TODO, updateTodo)
   yield takeEvery(PLAY_PAUSE, playPause)
+  yield takeEvery('LOGIN_USER', loginUser)
 
 
 }

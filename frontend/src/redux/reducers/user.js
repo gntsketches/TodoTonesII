@@ -1,5 +1,5 @@
 export const USER_DEFAULT_STATE = {
-  loggedIn: false,
+  user: false,
 }
 
 export default function user (state = USER_DEFAULT_STATE, action) {
@@ -8,7 +8,13 @@ export default function user (state = USER_DEFAULT_STATE, action) {
     case 'LOGIN_USER':
       return {
         ...state,
-        loggedIn: true,
+        user: action.userData,
+      }
+
+    case 'LOGOUT_USER':
+      return {
+        state,
+        user: false,
       }
 
     default:
