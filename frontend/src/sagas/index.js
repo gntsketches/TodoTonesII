@@ -121,6 +121,25 @@ function* playPause(action) {
   // }
 }
 
+
+
+// RootSaga seems to take the place of the 'watcher' sagas
+function* rootSaga() {
+  yield takeLatest(FETCH_TODOS, getAllTodos)
+  yield takeLatest(ADD_TODO, saveTodo)
+  yield takeLatest(DELETE_TODO, deleteTodo)
+  yield takeEvery(UPDATE_TODO, updateTodo)
+  yield takeEvery(PLAY_PAUSE, playPause)
+
+
+}
+
+export default rootSaga;
+
+
+
+
+/*
 function* saveUser (action) {
   console.log('saveUser saga', action)
   try {
@@ -141,17 +160,4 @@ function* saveUser (action) {
     // yield put(userFailure(e.message))
   }
 }
-
-// RootSaga seems to take the place of the 'watcher' sagas
-function* rootSaga() {
-  yield takeLatest(FETCH_TODOS, getAllTodos)
-  yield takeLatest(ADD_TODO, saveTodo)
-  yield takeLatest(DELETE_TODO, deleteTodo)
-  yield takeEvery(UPDATE_TODO, updateTodo)
-  yield takeEvery(PLAY_PAUSE, playPause)
-
-  yield takeLatest(REGISTER_USER, saveUser)
-
-}
-
-export default rootSaga;
+*/

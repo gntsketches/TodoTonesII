@@ -38,6 +38,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('rendering App')
     // <BrowserRouter> vs <Router>
     return (
       <div className="App">

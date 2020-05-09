@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux"
+import services from '../services'
 
-import { registerUser } from "../actions/todos"
+import { loginUser } from "../actions/todos"
+
 
 class Login extends Component {
 
@@ -15,12 +17,20 @@ class Login extends Component {
     e.preventDefault()
     console.log('register event', e.target.fullName.value)
 
-    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     const data = {
       fullName: 'test1', email: 'email1@email.co', password: 'pass1'
     }
 
-    this.props.registerUser(data)
+    services.authAPI.registerUser(data)
+    .then((res) => res.json())
+    .then((data) =>  {
+      console.log('data', data)
+      this.props.loginUser(data)
+    })
+    .catch((err)=>console.log(err))
+
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     // const response = await fetch('http://localhost:4000/auth/register', {
     //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
     //   mode: 'cors', // no-cors, *cors, same-origin
@@ -116,7 +126,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  registerUser,
+  loginUser,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

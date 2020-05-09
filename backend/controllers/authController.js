@@ -23,9 +23,11 @@ module.exports = {
     });
     const userData = {
       ...body,
+      email: randomstring.generate(),
       password: await bcrypt.hash(body.password, BCRYPT_SALT_ROUNDS),
       session_key
     };
+    console.log('session_key', session_key)
     const user = await new User(userData).save();
     ctx.body = user
 

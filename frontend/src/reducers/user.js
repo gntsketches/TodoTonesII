@@ -1,5 +1,3 @@
-import {REGISTER_USER_SUCCESS} from "../actions/todos"
-
 export const USER_DEFAULT_STATE = {
   loggedIn: false,
 }
@@ -7,7 +5,7 @@ export const USER_DEFAULT_STATE = {
 export default function user (state = USER_DEFAULT_STATE, action) {
   console.log('in user reducer')
   switch (action.type) {
-    case REGISTER_USER_SUCCESS:
+    case 'LOGIN_USER':
       return {
         ...state,
         loggedIn: true,
