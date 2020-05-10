@@ -23,7 +23,7 @@ const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick }) => (
 class RightPanel extends Component {
 
   componentDidMount() {
-    this.props.fetchTodos()
+    // this.props.fetchTodos()
   }
 
   render() {

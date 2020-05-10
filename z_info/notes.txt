@@ -4,12 +4,11 @@ React Router Grider
     https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 
 TODO Next
-    services api for userTodos (outside redux)
-        createTodo (auth with session_key, attach userId)
-            update, delete,
-            call getUserTodos
-        getUserTodos (public, attach userId, accept filter)
-            call redux updateUserTodoList
+    https://www.reddit.com/r/learnjavascript/comments/gh9fmr/extract_info_from_url/
+    test for login to display secure User components/routes
+        and build them out
+    play User todos! (whether logged in or out)
+
 TODO Hmm
     goal is to be able to play a selection in the background while browsing other pages
         so a user page loads up todos, filters, choose playstyle, play
@@ -18,6 +17,8 @@ TODO Hmm
         on navigate to a user page, compare with user_id in redux play and if it's the same load those settings
         so the 'player' is distinct from the radio & user pages, but interacts with both of them
             what is the 'management structure'?
+
+
 
 
 

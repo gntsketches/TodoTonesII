@@ -12,9 +12,9 @@ export default class userTodosAPI {
   // }
 
 
-  listTodos(userId, tag='') {
+  fetchPublicUserTodos(username, tag='') {
     // console.log('api userId', userId)
-    return fetch(`${LOCALHOST_BASE_URL}/todos/${userId}`, {
+    return fetch(`${LOCALHOST_BASE_URL}/todos/${username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

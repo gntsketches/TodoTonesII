@@ -39,7 +39,7 @@ class TodoEditor extends Component {
         .then((res) => res.json())
         .then((data) => {
           // console.log('data', data)
-          this.props.fetchUserTodos()
+          this.props.fetchPublicUserTodos()
         })
         // .catch((err) => console.log(err))
       } else {

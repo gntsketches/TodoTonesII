@@ -18,7 +18,7 @@ class Header extends Component {
 
   render() {
     const { nowPlaying, todos, isPlaying, user } = this.props;
-    console.log('user in header', user)
+    // console.log('user in header', user)
     // console.log("now playing in header", nowPlaying)
     // console.log("todos in header", todos)
     const title = nowPlaying ? nowPlaying.title : null

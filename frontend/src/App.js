@@ -48,7 +48,8 @@ class App extends Component {
           <Header />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path={`/users/${user.username}`} component={User} />
+          {/*<Route exact path={`/users/${user.username}`} component={User} />*/}
+          <Route path={`/users/`} component={User} />
         </Router>
       </div>
     )

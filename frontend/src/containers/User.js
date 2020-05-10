@@ -22,21 +22,25 @@ class User extends Component {
 
     this.state = {
       todos: [],
+      userURLFrag: window.location.href.split('/')[4],
     }
   }
 
   componentDidMount() {
-    this.fetchUserTodos()
+    const userURLFrag = window.location.href.split('/')[4]
+    console.log('url', userURLFrag)
+    console.log(this.state)
+    this.fetchPublicUserTodos()
   }
 
   componentDidUpdate() {
     // this.fetchUserTodos()
   }
 
-  fetchUserTodos = () => {
+  fetchPublicUserTodos = () => {
     const { user } = this.props
-    console.log('user in User', user)
-    services.userTodosAPI.listTodos(user._id)
+    // console.log('user in User', user)
+    services.userTodosAPI.fetchPublicUserTodos(this.state.userURLFrag)
     .then((res) => res.json())
     .then((data) => {
       // console.log('data', data)
@@ -49,7 +53,7 @@ class User extends Component {
     return (
       <div className="columns">
         <TodoEditor
-          fetchUserTodos={this.fetchUserTodos}
+          fetchPublicUserTodos={this.fetchPublicUserTodos}
         />
         <RightPanel
           userTodos={this.state.todos}

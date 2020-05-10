@@ -1,6 +1,7 @@
 const mongo = require('mongodb')
 const { ObjectID } = mongo
 const Todo = require('../models/Todo')
+const User = require('../models/User')
 
 async function findAll (ctx) {
   console.log("todosController findAll")
@@ -10,10 +11,14 @@ async function findAll (ctx) {
 }
 
 async function userTodos (ctx) {
-  const id = ctx.params.id
-  console.log("todosController userTodos", id)
-  // const todos = await Todo.find({user_id: ObjectID(id)})
-  const todos = await Todo.find({user_id: id})
+  const username = ctx.params.id
+  console.log("todosController userTodos", username)
+  const user = await User.findOne({username})
+  console.log('user', user)
+  const id = user._id
+  console.log('id', id)
+  const todos = await Todo.find({user_id: ObjectID(id)})
+  // const todos = await Todo.find({user_id: id})
   ctx.body = todos
 }
 
