@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import LeftPanel from "./LeftPanel"
-import Todos from "./Todos"
+import TodoEditor from "./TodoEditor"
 import RightPanel from "./RightPanel"
 
 
@@ -12,7 +12,7 @@ class User extends Component {
   render() {
     return (
       <div className="columns">
-        <Todos />
+        <TodoEditor />
         <RightPanel />
       </div>
   )

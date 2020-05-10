@@ -10,7 +10,6 @@ TODO Next
             call getUserTodos
         getUserTodos (public, attach userId, accept filter)
             call redux updateUserTodoList
-    oh man now you need persist because redux resets
 
 
 

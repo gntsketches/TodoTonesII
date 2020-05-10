@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'bulma/css/bulma.css'
 import { connect } from 'react-redux'
 
+import services from '../services'
 import TodoModel from "../classes/TodoModel"
 import {
   addTodo, updateTodo, deleteTodo, fetchTodos,
@@ -9,7 +10,7 @@ import {
 } from '../redux/actions/todos';
 
 
-class Todos extends Component {
+class TodoEditor extends Component {
 
   clearEditingTodo = () => {
     // compare for changes and warn of overwrite
@@ -18,7 +19,7 @@ class Todos extends Component {
   }
 
   handleSaveClick = () => {
-    const { editingTodo, setEditingTodo } = this.props
+    const { editingTodo, setEditingTodo, user } = this.props
     console.log('editingTodo in update', editingTodo)
 
     if(editingTodo.title || editingTodo.description) {
@@ -34,7 +35,13 @@ class Todos extends Component {
       // OK below you're passing in the newEditingTodo. BUT how would it work if you referred to the editingTodo (ie from Redux) below instead? Ie: do you need to try to make this async? Handle in Sagas? Like with setState it is async and unreliable, you need to use the callback
       //    because if you abstract this so you can setEditingTodo on handlePlayClick you'll want to.
       if (newEditingTodo._id == null) {
-        this.props.addTodo(newEditingTodo)
+        // this.props.addTodo(newEditingTodo)
+        services.userTodosAPI.createTodo(newEditingTodo, user)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('data', data)
+        })
+        .catch((err) => console.log(err))
       } else {
         this.props.updateTodo(newEditingTodo)
       }
@@ -157,6 +164,7 @@ const mapStateToProps = (state) => {
     isSaving: state.todos.saving,
     error: state.todos.error,
     editingTodo: state.todos.editingTodo,
+    user: state.auth.user,
   }
 }
 
@@ -168,8 +176,9 @@ const mapDispatchToProps = {
   setEditingTodo,
   setNowPlaying,
   playPause,
+
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todos)
+export default connect(mapStateToProps, mapDispatchToProps)(TodoEditor)
 
 

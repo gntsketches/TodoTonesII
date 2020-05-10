@@ -1,3 +1,6 @@
+const mongo = require('mongodb')
+const { ObjectID } = mongo
+console.log('mongo', mongo)
 const Todo = require('../models/Todo')
 
 async function findAll (ctx) {
@@ -11,7 +14,11 @@ async function create (ctx) {
   const { body } = ctx.request
   console.log("todosController create", body)
   // Create New Todo from payload sent and save to database
-  const newTodo = new Todo(ctx.request.body)
+  const todoInfo = {
+    ...body,
+    user_id: ObjectID(body._id)
+  }
+  const newTodo = new Todo(todoInfo)
   const savedTodo = await newTodo.save()
   ctx.body = savedTodo
 }

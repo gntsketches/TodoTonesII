@@ -19,9 +19,13 @@ export default class userTodosAPI {
   // }
 
 
-  createTodo(data) {
+  createTodo(todoData, user) {
     // const {} = data;
 
+    const data = {
+      ...todoData,
+      user_id: user._id,
+    }
     return fetch(`${LOCALHOST_BASE_URL}/todos`, {
       method: 'POST',
       // headers : new Headers(),
