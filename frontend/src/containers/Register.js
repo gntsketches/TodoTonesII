@@ -31,10 +31,10 @@ class Register extends Component {
     services.authAPI.registerUser(data)
     .then((res) => res.json())
     .then((data) => {
-      console.log('data', data)
+      // console.log('data', data)
       this.props.loginUser(data)
     })
-    .catch((err) => console.log(err))
+    // .catch((err) => console.log(err))
   }
 
 

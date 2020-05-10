@@ -48,7 +48,7 @@ export default class TodoModel {
         this.envelope = this.parseEnvelope(todoText) || this.envelope
         this.text = this.buildDisplayText()
 
-        console.log('todo updated:', this)
+        // console.log('todo updated:', this)
     }
 
 
@@ -113,7 +113,7 @@ export default class TodoModel {
         // console.log('portamento', portamento)
         if (portamento === null) { return false }
         const port = parseFloat(portamento[0].slice(1))
-        console.log('port', port)
+        // console.log('portamento', port)
         return port
     }
 

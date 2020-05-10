@@ -12,20 +12,25 @@ export default class userTodosAPI {
   // }
 
 
-  // list({ query }) {
-  //   return this.services.baseAPIv2.get('/admin/challenges/', false, {
-  //     match: query,
-  //   });
-  // }
+  listTodos(userId, tag='') {
+    // console.log('api userId', userId)
+    return fetch(`${LOCALHOST_BASE_URL}/todos/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
 
 
-  createTodo(todoData, user) {
+  createTodo(todoData, userId) {
     // const {} = data;
 
     const data = {
       ...todoData,
-      user_id: user._id,
+      user_id: userId,
     }
+    console.log('api data', data)
     return fetch(`${LOCALHOST_BASE_URL}/todos`, {
       method: 'POST',
       // headers : new Headers(),
@@ -39,7 +44,7 @@ export default class userTodosAPI {
 
   /*
   function* saveTodo (action) {
-    console.log('saveTodo saga', action)
+    // console.log('saveTodo saga', action)
     try {
       const options = {
         method: 'POST',

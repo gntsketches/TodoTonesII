@@ -27,8 +27,8 @@ class RightPanel extends Component {
   }
 
   render() {
-    const { todos, isLoading, isSaving, error, deleteTodo, editingTodo, setEditingTodo, setNowPlaying } = this.props
-    console.log('RightPanel todos', todos)
+    const { userTodos, isLoading, isSaving, error, deleteTodo, editingTodo, setEditingTodo, setNowPlaying } = this.props
+    // console.log('RightPanel todos', userTodos)
 
     return (
 
@@ -52,7 +52,7 @@ class RightPanel extends Component {
 
           <p className="">Repertoire</p>
 
-          {todos.map(todo => (
+          {userTodos.map(todo => (
             <Todo
               key={todo._id}
               id={todo._id}
@@ -76,7 +76,7 @@ class RightPanel extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos.items,
+    // todos: state.todos.items,
     isLoading: state.todos.loading,
     isSaving: state.todos.saving,
     error: state.todos.error,

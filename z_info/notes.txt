@@ -10,7 +10,14 @@ TODO Next
             call getUserTodos
         getUserTodos (public, attach userId, accept filter)
             call redux updateUserTodoList
-
+TODO Hmm
+    goal is to be able to play a selection in the background while browsing other pages
+        so a user page loads up todos, filters, choose playstyle, play
+        on play, redux gets a copy of whatever the selection was.
+        user can go away, other pages load etc.
+        on navigate to a user page, compare with user_id in redux play and if it's the same load those settings
+        so the 'player' is distinct from the radio & user pages, but interacts with both of them
+            what is the 'management structure'?
 
 
 

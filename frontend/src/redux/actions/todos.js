@@ -39,7 +39,7 @@ export function updateTodoSuccess(todo) {
 }
 
 export function deleteTodo(id) {
-  console.log('delete action')
+  // console.log('delete action')
   return { type: DELETE_TODO, id }
 }
 
@@ -63,7 +63,7 @@ export function playPause(playPause) {
 }
 
 export function advancePlayCounter() {
-  console.log('action advancePlayCounter')
+  // console.log('action advancePlayCounter')
   return { type: 'ADVANCE_PLAY_COUNTER' }
 }
 

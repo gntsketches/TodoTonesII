@@ -7,7 +7,7 @@ const TodoSchema = new mongoose.Schema(
     title: { type: String },
     description: { type: String },
     user_id: { type:mongoose.Schema.Types.ObjectId, ref: 'User' },
-    // done: { type: Boolean },  // Ha! How to make them done?
+    done: { type: Boolean },  // Ha! How to make them done?
   },
   { timestamps: true }
 );

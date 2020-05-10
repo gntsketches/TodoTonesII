@@ -92,7 +92,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
 
     case PLAY_PAUSE:
       // action accepts play vs pause, but this doesn't use it...
-      console.log('play reducer')
+      // console.log('play reducer')
       return {
         ...state,
         isPlaying: !state.isPlaying,

@@ -27,7 +27,7 @@ const audioModule = new AudioModule()
 
 
 function* getAllTodos () {
-  console.log('in getAllTodos')
+  // console.log('in getAllTodos')
   try {
     // const res = yield call(fetch, 'todos')
     const res = yield call(fetch, `${LOCALHOST_BASE_URL}/todos`)
@@ -44,7 +44,7 @@ function* getAllTodos () {
 }
 
 function* saveTodo (action) {
-  console.log('saveTodo saga', action)
+  // console.log('saveTodo saga', action)
   try {
     const options = {
       method: 'POST',
@@ -64,7 +64,7 @@ function* saveTodo (action) {
 
 // should really be saveTodo
 function* updateTodo (action) {
-  console.log('updateTodo action', action)
+  // console.log('updateTodo action', action)
 
 
   try {
@@ -87,7 +87,7 @@ function* updateTodo (action) {
 
     yield put(fetchTodos());
   } catch (e) {
-    console.log('update todo failed', e)
+    // console.log('update todo failed', e)
     yield put(todosFailure(e.message))
   }
 }
@@ -101,7 +101,7 @@ function* deleteTodo (action) {
 }
 
 function* playPause(action) {
-  console.log('play action in sagas', action)
+  // console.log('play action in sagas', action)
   audioModule.updateAudioStatus()
 
   // not necessary as audioModule reads state...

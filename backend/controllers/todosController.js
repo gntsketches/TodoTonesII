@@ -1,6 +1,5 @@
 const mongo = require('mongodb')
 const { ObjectID } = mongo
-console.log('mongo', mongo)
 const Todo = require('../models/Todo')
 
 async function findAll (ctx) {
@@ -10,13 +9,20 @@ async function findAll (ctx) {
   ctx.body = todos
 }
 
+async function userTodos (ctx) {
+  const id = ctx.params.id
+  console.log("todosController userTodos", id)
+  // const todos = await Todo.find({user_id: ObjectID(id)})
+  const todos = await Todo.find({user_id: id})
+  ctx.body = todos
+}
+
 async function create (ctx) {
   const { body } = ctx.request
-  console.log("todosController create", body)
-  // Create New Todo from payload sent and save to database
+  const user_id = ObjectID(body.user_id)
   const todoInfo = {
     ...body,
-    user_id: ObjectID(body._id)
+    user_id,
   }
   const newTodo = new Todo(todoInfo)
   const savedTodo = await newTodo.save()
@@ -59,7 +65,7 @@ async function update (ctx) {
   // try {
   //   const postData = { ...body, createdAt: new Date() }
   //   const post = await Post.findByIdAndUpdate(id, postData);
-  //   ctx.redirect(`/post/${post.id}`);
+  //   ctx.redirevt(`/post/${post.id}`);
   // } catch(e) {
   //   ctx.throw(e);
   // }
@@ -67,6 +73,7 @@ async function update (ctx) {
 
 module.exports = {
   findAll,
+  userTodos,
   create,
   destroy,
   update

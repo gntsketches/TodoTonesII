@@ -20,7 +20,6 @@ class TodoEditor extends Component {
 
   handleSaveClick = () => {
     const { editingTodo, setEditingTodo, user } = this.props
-    console.log('editingTodo in update', editingTodo)
 
     if(editingTodo.title || editingTodo.description) {
 
@@ -36,12 +35,13 @@ class TodoEditor extends Component {
       //    because if you abstract this so you can setEditingTodo on handlePlayClick you'll want to.
       if (newEditingTodo._id == null) {
         // this.props.addTodo(newEditingTodo)
-        services.userTodosAPI.createTodo(newEditingTodo, user)
+        services.userTodosAPI.createTodo(newEditingTodo, user._id)
         .then((res) => res.json())
         .then((data) => {
-          console.log('data', data)
+          // console.log('data', data)
+          this.props.fetchUserTodos()
         })
-        .catch((err) => console.log(err))
+        // .catch((err) => console.log(err))
       } else {
         this.props.updateTodo(newEditingTodo)
       }
@@ -53,7 +53,7 @@ class TodoEditor extends Component {
     const { editingTodo, setEditingTodo, setNowPlaying, playPause, nowPlaying } = this.props
 
     const todoModel = new TodoModel(editingTodo.description) // you are setting a new TodoModel twice - also in reducers...
-    console.log('handlePlayClick todoModel', todoModel)
+    // console.log('handlePlayClick todoModel', todoModel)
     const newTodo = {
       ...editingTodo,
       description: todoModel.text,
@@ -61,9 +61,9 @@ class TodoEditor extends Component {
     }
 
     setEditingTodo(newTodo)
-    console.log('nowPlaying Pre', nowPlaying)
+    // console.log('nowPlaying Pre', nowPlaying)
     setNowPlaying(newTodo)
-    console.log('newPlaying post', nowPlaying)
+    // console.log('newPlaying post', nowPlaying)
     // this is fishy. will it necessarily happen after setNowPlaying?
       // also, it toggles the nowPlaying (without stopping it).
         // so that's weird. a case for passing the boolean rather than a toggle
