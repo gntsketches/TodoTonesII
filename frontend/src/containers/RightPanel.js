@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {connect} from "react-redux"
 // import 'bulma/css/bulma.css'
 
+import services from '../services'
 import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying } from '../redux/actions/todos';
 
 const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick }) => (
@@ -59,7 +60,16 @@ class RightPanel extends Component {
               todo={todo}
               onDelete={(e) => {
                 e.stopPropagation()
-                deleteTodo(todo._id)
+                services.userTodosAPI.deleteTodo(todo._id)
+                .then((res) => res.json())
+                .then((todoDeleteResponse) => {
+                  console.log('todo save data', todoDeleteResponse)
+                  if (this.props.editingTodo._id === todo._id) {
+                    this.props.setEditingTodo({title: '', description: ''}) // if you're going to keep doing that it should be a constant!
+                  }
+                  this.props.fetchPublicUserTodos()
+                })
+                // .catch((err) => console.log(err))
               }}
               onLeftClick={() => setEditingTodo(todo)}
               onRightClick={(e) => {

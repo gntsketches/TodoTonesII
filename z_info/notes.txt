@@ -5,6 +5,7 @@ React Router Grider
 
 TODO Next
     https://www.reddit.com/r/learnjavascript/comments/gh9fmr/extract_info_from_url/
+        react-router-dom they also support url parameters such as http://mywebsite.com/users/:user.
     test for login to display secure User components/routes
         and build them out
     play User todos! (whether logged in or out)
@@ -17,9 +18,15 @@ TODO Hmm
         on navigate to a user page, compare with user_id in redux play and if it's the same load those settings
         so the 'player' is distinct from the radio & user pages, but interacts with both of them
             what is the 'management structure'?
-
-
-
+    MAYBE
+        there should be separate pages for loggedInUser and theOtherUsers
+        maybe more redundancy but it could make the CSS and other logic easier...
+    SEEMS LIKE
+        there should be some general centralized check for auth for secure routes?
+            and maybe a file division for public/secure routes
+        Note how userId isn't actually used in create/update/delete todo
+            so can people who are not logged in obtain todoId to hack it?
+    What if you delete the currently editing todo?
 
 
 TODOS ACCESS:

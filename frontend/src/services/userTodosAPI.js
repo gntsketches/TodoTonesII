@@ -24,8 +24,6 @@ export default class userTodosAPI {
 
 
   createTodo(todoData, userId) {
-    // const {} = data;
-
     const data = {
       ...todoData,
       user_id: userId,
@@ -39,43 +37,37 @@ export default class userTodosAPI {
       },
       body: JSON.stringify(data)
     })
-
   }
 
-  /*
-  function* saveTodo (action) {
-    // console.log('saveTodo saga', action)
-    try {
-      const options = {
-        method: 'POST',
-        body: JSON.stringify(action.todo),
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        })
-      }
-
-      const res = yield call(fetch, `${LOCALHOST_BASE_URL}/todos`, options)
-      const todo = yield res.json()
-      yield put(addTodoSuccess(todo))
-    } catch (e) {
-      yield put(todosFailure(e.message))
+  updateTodo(todoData, userId) {
+    const data = {
+      ...todoData,
+      user_id: userId,
     }
+    // console.log('apiUpdate data', data)
+    return fetch(`${LOCALHOST_BASE_URL}/todos/${todoData._id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
   }
-  */
 
+  deleteTodo(todoId, userId) {
+    console.log('delete todoId', todoId)
+    return fetch(`${LOCALHOST_BASE_URL}/todos/${todoId}`, {
+      method: 'DELETE',
+    })
+  }
 
   /*
-  archive(id) {
-    return this.services.baseAPIv2.patch(`/admin/activity-types/${id}`);
-  }
-
   get(id) {
     return this.services.baseAPIv2.get(
       `/admin/challenges/${id}`,
       false,
     );
   }
-
- */
+  */
 
 }

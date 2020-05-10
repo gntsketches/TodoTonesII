@@ -57,6 +57,7 @@ async function update (ctx) {
     const todo = await Todo.findByIdAndUpdate(id, updateData);
     ctx.body = todo
   } catch(e) {
+    console.log('>>> update error!!!')
     ctx.throw(e);
   }
 

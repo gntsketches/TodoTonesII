@@ -14,7 +14,7 @@ class TodoEditor extends Component {
 
   clearEditingTodo = () => {
     // compare for changes and warn of overwrite
-    const todo = { title: '', description: ''}
+    const todo = { title: '', description: ''}  // also using this in RightPanel, make it a constant...?
     this.props.setEditingTodo(todo)
   }
 
@@ -33,17 +33,26 @@ class TodoEditor extends Component {
 
       // OK below you're passing in the newEditingTodo. BUT how would it work if you referred to the editingTodo (ie from Redux) below instead? Ie: do you need to try to make this async? Handle in Sagas? Like with setState it is async and unreliable, you need to use the callback
       //    because if you abstract this so you can setEditingTodo on handlePlayClick you'll want to.
+      console.log('TodoEditor newEditingTodo', newEditingTodo)
       if (newEditingTodo._id == null) {
         // this.props.addTodo(newEditingTodo)
         services.userTodosAPI.createTodo(newEditingTodo, user._id)
         .then((res) => res.json())
-        .then((data) => {
-          // console.log('data', data)
+        .then((savedTodoData) => {
+          console.log('todo save data', savedTodoData)
+          this.props.setEditingTodo(savedTodoData)
           this.props.fetchPublicUserTodos()
         })
         // .catch((err) => console.log(err))
       } else {
-        this.props.updateTodo(newEditingTodo)
+        services.userTodosAPI.updateTodo(newEditingTodo, user._id)
+        .then((res) => res.json())
+        .then((updatedTodoData) => {
+          console.log('todo update data', updatedTodoData)
+          this.props.setEditingTodo(updatedTodoData)
+          this.props.fetchPublicUserTodos()
+        })
+        .catch((err) => console.log(err))
       }
     // else show a message that says they need title or description
     }

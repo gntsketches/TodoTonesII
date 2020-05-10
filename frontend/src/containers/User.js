@@ -50,13 +50,20 @@ class User extends Component {
   }
 
   render() {
+    const { userURLFrag } = this.state
+    const { user } = this.props
+
     return (
       <div className="columns">
-        <TodoEditor
-          fetchPublicUserTodos={this.fetchPublicUserTodos}
-        />
+        { user.username === userURLFrag ? (
+          <TodoEditor
+            fetchPublicUserTodos={this.fetchPublicUserTodos}
+          />
+          ) : null
+        }
         <RightPanel
           userTodos={this.state.todos}
+          fetchPublicUserTodos={this.fetchPublicUserTodos}
         />
       </div>
     )
