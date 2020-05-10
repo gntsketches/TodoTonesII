@@ -8,7 +8,8 @@ async function findAll (ctx) {
 }
 
 async function create (ctx) {
-  console.log("todosController create")
+  const { body } = ctx.request
+  console.log("todosController create", body)
   // Create New Todo from payload sent and save to database
   const newTodo = new Todo(ctx.request.body)
   const savedTodo = await newTodo.save()

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from "react-redux"
 import services from '../services'
 
-import { loginUser } from "../redux/actions/user"
+import { loginUser } from "../redux/actions/auth"
 
 
 class Register extends Component {

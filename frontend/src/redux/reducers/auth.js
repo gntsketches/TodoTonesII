@@ -2,7 +2,7 @@ export const USER_DEFAULT_STATE = {
   user: false,
 }
 
-export default function user (state = USER_DEFAULT_STATE, action) {
+export default function auth (state = USER_DEFAULT_STATE, action) {
   console.log('in user reducer')
   switch (action.type) {
     case 'LOGIN_USER':

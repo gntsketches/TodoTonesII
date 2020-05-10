@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 import { Link } from 'react-router-dom';
 
 import {addTodo, deleteTodo, fetchTodos, updateTodo, playPause} from "../redux/actions/todos"
-import {logoutUser} from "../redux/actions/user"
+import {logoutUser} from "../redux/actions/auth"
 
 class Header extends Component {
 
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => {
     nowPlaying: state.todos.nowPlaying,
     isPlaying: state.todos.isPlaying,
 
-    user: state.user.user,
+    user: state.auth.user,
   }
 }
 

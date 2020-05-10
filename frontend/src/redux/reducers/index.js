@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import user, { USER_DEFAULT_STATE } from './user'
+import auth, { USER_DEFAULT_STATE } from './auth'
 import todos, { TODOS_DEFAULT_STATE} from './todos'
 
 const todoApp = combineReducers({
-  user,
+  auth,
   todos
 })
 

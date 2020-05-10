@@ -61,7 +61,7 @@ const mapStateToProps = (state) => {
     isLoading: state.todos.loading,
     isSaving: state.todos.saving,
     error: state.todos.error,
-    user: state.user.user,
+    user: state.auth.user,
   }
 }
 
