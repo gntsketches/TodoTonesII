@@ -2,7 +2,7 @@ import Tone from 'tone'
 
 import { getRandomElement } from "../utils/helpers"
 import store from "../redux/store"
-import { advancePlayCounter } from "../actions/todos"
+import { advancePlayCounter } from "../redux/actions/todos"
 
 
 export default class AudioModule {

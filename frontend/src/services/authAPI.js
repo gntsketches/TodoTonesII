@@ -31,18 +31,24 @@ export default class authAPI {
 
   }
 
-/*
-  update(id, data) {
-    const {
-    } = data;
+  loginUser(data) {
+    // const {} = data;
 
-    return this.services.baseAPIv2.put(`/admin/challenges/${id}`, {
-    });
+    return fetch(`${LOCALHOST_BASE_URL}/auth/login`, {
+      method: 'POST',
+      // headers : new Headers(),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+
   }
 
-  // archive(id) {
-  //   return this.services.baseAPIv2.patch(`/admin/activity-types/${id}`);
-  // }
+  /*
+  archive(id) {
+    return this.services.baseAPIv2.patch(`/admin/activity-types/${id}`);
+  }
 
   get(id) {
     return this.services.baseAPIv2.get(

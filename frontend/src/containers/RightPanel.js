@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from "react-redux"
 // import 'bulma/css/bulma.css'
 
-import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying } from '../actions/todos';
+import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying } from '../redux/actions/todos';
 
 const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick }) => (
   <div

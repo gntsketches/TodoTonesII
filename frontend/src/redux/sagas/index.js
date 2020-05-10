@@ -1,7 +1,7 @@
 import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'
-import history from '../utils/history'
+import history from '../../utils/history'
 
-import { LOCALHOST_BASE_URL } from '../config/env'
+import { LOCALHOST_BASE_URL } from '../../config/env'
 import {
   ADD_TODO,
   DELETE_TODO,
@@ -20,8 +20,8 @@ import {
   registerUser,
   registerUserSuccess,
 } from '../actions/todos'
-import store from "../redux/store"
-import AudioModule from "../classes/AudioModule"
+import store from "../store"
+import AudioModule from "../../classes/AudioModule"
 
 const audioModule = new AudioModule()
 

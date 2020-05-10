@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
-import {BrowserRouter, Router, Route } from 'react-router-dom'
+import {Router, Route } from 'react-router-dom'
 import history from './utils/history'
 import {connect} from "react-redux"
 
 import './App.css'
 import Header from "./containers/Header"
 import Login from "./containers/Login"
+import Register from "./containers/Register"
 import User from "./containers/User"
 
-import {addTodo, deleteTodo, fetchTodos, updateTodo} from "./actions/todos"
+import {addTodo, deleteTodo, fetchTodos, updateTodo} from "./redux/actions/todos"
 
 
 class App extends Component {
 
   componentDidMount() {
-    console.log('loggedIn: ', this.props.loggedIn)
-    if (this.props.loggedIn) {
-      history.push('/user');
+    // console.log('loggedIn: ', this.props.loggedIn)
+    // if (this.props.loggedIn) {
+    //   history.push('/user');
       /* manage that in a saga...
       START the (login) api call from OUTSIDE the redux&saga system
           (BECAUSE lets say you want a loading indicator, error handling, etc..
@@ -27,25 +28,27 @@ class App extends Component {
          login call another function called fetchProfile (or whatever user info)
           because profile is, like, separate from login
       */
-    }
+    // }
   }
 
   componentDidUpdate() {
-    console.log('loggedIn: ', this.props.loggedIn)
-    if (this.props.loggedIn) {
-      history.push('/user');
-    }
+    // console.log('loggedIn: ', this.props.loggedIn)
+    // if (this.props.loggedIn) {
+    //   history.push('/user');
+    // }
   }
 
   render() {
     console.log('rendering App')
-    // <BrowserRouter> vs <Router>
+    const { user } = this.props;
+
     return (
       <div className="App">
         <Router history={history}>
           <Header />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/user" component={User} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path={`/users/${user.username}`} component={User} />
         </Router>
       </div>
     )
@@ -58,7 +61,7 @@ const mapStateToProps = (state) => {
     isLoading: state.todos.loading,
     isSaving: state.todos.saving,
     error: state.todos.error,
-    loggedIn: state.user.loggedIn,
+    user: state.user.user,
   }
 }
 

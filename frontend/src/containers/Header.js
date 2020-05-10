@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {connect} from "react-redux"
 import { Link } from 'react-router-dom';
 
-import {addTodo, deleteTodo, fetchTodos, updateTodo, playPause} from "../actions/todos"
+import {addTodo, deleteTodo, fetchTodos, updateTodo, playPause} from "../redux/actions/todos"
+import {logoutUser} from "../redux/actions/user"
 
 class Header extends Component {
 
@@ -16,7 +17,8 @@ class Header extends Component {
   }
 
   render() {
-    const { nowPlaying, todos, isPlaying } = this.props;
+    const { nowPlaying, todos, isPlaying, user } = this.props;
+    console.log('user in header', user)
     // console.log("now playing in header", nowPlaying)
     // console.log("todos in header", todos)
     const title = nowPlaying ? nowPlaying.title : null
@@ -31,7 +33,7 @@ class Header extends Component {
           "padding": "2px", "backgroundColor": "#00d1b2",
         }}
       >
-        <div className="column is-10">
+        <div className="column is-9">
           <div className="hero-body">
             <h1 className="title white level-item">Todo Tones II</h1>
           </div>
@@ -49,16 +51,22 @@ class Header extends Component {
           </div>
         </div>
 
-        <div className="column is-2">
-          {/*<div style={{"padding": "2px"}}>*/}
-            <Link
-              // to={this.props.auth ? '/login' : '/'}
-              to={'/login'}
-            >
-              Login/Register
-            </Link>
-          {/*</div>*/}
-        </div>
+        { user === false ? (
+          <div
+            className="column is-3"
+            style={{"display": "flex", "justifyContent": "space-around"}}
+          >
+            <Link to={'/login'}> Login </Link>
+            <Link to={'/register'}> Register </Link>
+          </div>
+        ) : (
+          <div
+            className="column is-3"
+            style={{"display": "flex", "justifyContent": "space-around"}}
+          >
+            <a onClick={this.props.logoutUser}>Logout</a>
+          </div>
+        )}
       </section>
     )
   }
@@ -72,6 +80,8 @@ const mapStateToProps = (state) => {
     // error: state.todos.error,
     nowPlaying: state.todos.nowPlaying,
     isPlaying: state.todos.isPlaying,
+
+    user: state.user.user,
   }
 }
 
@@ -81,6 +91,7 @@ const mapDispatchToProps = {
   // updateTodo,
   // deleteTodo,
   playPause,
+  logoutUser,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

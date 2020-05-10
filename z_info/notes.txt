@@ -1,54 +1,36 @@
 React Router Grider
     https://www.udemy.com/course/react-redux/learn/lecture/12700531#overview
-        history =,,, see vids 258ish
+        history, see vids 258ish
     https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 
-the situation:
-  async register(ctx) {
-    const { body } = ctx.request;
-    console.log("authController register body", body)
-    (ieverything else commented out)
-    ctx.redirect('http://localhost:3000/user');
-  },
-    Gets this Error:
-        Access to fetch at 'http://localhost:3000/' (redirected from 'http://localhost:4000/auth/register')
-        from origin 'http://localhost:3000' has been blocked by CORS policy:
-        Response to preflight request doesn't pass access control check:
-        The 'Access-Control-Allow-Origin' header has a value 'http://localhost:4000/'
-        that is not equal to the supplied origin. Have the server send the header with
-        a valid value, or, if an opaque response serves your needs,
-        set the request's mode to 'no-cors'to fetch the resource with CORS disabled.
-        discusses CORS
-    tried "proxy": "http://localhost:4000"
-    tried Moesif Origin and CORS changer! Let's get rid of that.
-    WHAT Exactly is a 'redirect' doing?
-    DEVTOOLS NETWORK: is this showing requests or responses? Or both? What/huh?
-
-
-What is the difference between request and response headers?
-    DOES A REQUEST CONTAIN RESPONSE HEADERS?
-        Or are response headers added by the server?
-
-TODO ING CURRENTLY
-    review Koa book from p91
-
-TODO CORS
-    https://flaviocopes.com/http-request/
-    https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
-    read up on fetch
-        https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-    https://javascript.info/fetch
-        https://javascript.info/fetch-crossorigin
-    https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-    https://hackernoon.com/overview-of-proxy-server-and-how-we-use-them-in-react-bf67c062b929
-    https://medium.com/@dtkatz/3-ways-to-fix-the-cors-error-and-how-access-control-allow-origin-works-d97d55946d9
-    https://auth0.com/blog/cors-tutorial-a-guide-to-cross-origin-resource-sharing/
-    https://www.digitalocean.com/community/questions/blocked-by-cors-policy-the-access-control-allow-origin-mean-stack
+TODO Next
+    services api for userTodos (outside redux)
+        createTodo (auth with session_key, attach userId)
+            update, delete,
+            call getUserTodos
+        getUserTodos (public, attach userId, accept filter)
+            call redux updateUserTodoList
+    oh man now you need persist because redux resets
 
 
 
 
-
+TODOS ACCESS:
+    secure:
+        User page: create, update, delete
+            ? Should there be some validation beyond the user _id?
+            options aren't presented if not logged-in...
+        Radio page: like
+    public:
+        User page: get all by user, filter all user's todos by tag
+        Radio page:
+            'default' streaming (...?)
+                (not needed: filter-by-user (can just go to page...)
+                filter-by-tag
+    ... for now, let's just say that todo-redux-ing is all 'user page'
+        (and some are secure, some aren't)
+        probably to later rename 'userTodos' in reduxing
+            (if you're sure that's good semantics)
 
 const res = yield call(fetch, 'localhost:4000/todos')
     proc.js:513 Fetch API cannot load localhost:4000/todos. URL scheme must be "http" or "https" for CORS request.
@@ -73,14 +55,6 @@ scope/boundaries of project
          the data (and some api calls?) may be the same,
             but you are using them in different ways (ie: different semantics)
 
-Steps to Login/UserPage
-    review Koa book app
-    review Routes in Grider/ToneGems & auth logic
-        ? is there something about Grider frontend routes that is incompatible with Koa book?
-        ? is it related to that Proxy thing?
-    Proxy:
-        https://create-react-app.dev/docs/proxying-api-requests-in-development/
-        "any unrecognized request without a text/html accept header will be redirected to the specified proxy"
 
 
 TODO study
@@ -90,7 +64,6 @@ TODO study
     https://hackernoon.com/moving-api-requests-to-redux-saga-21780f49cbc8
 
 TODO misc
-    move things into the redux folder
     "nowPlaying" - rename to be more clear, "currentPlayingTodo"
 
 
@@ -218,6 +191,25 @@ MISC DEV ?s
         ie: completed MVP
 
 
+REMOVED from https://medium.com/jtribe/node-js-in-2018-full-stack-tutorial-with-koa-react-redux-sagas-and-mongodb-14a7efaee4d4
+    koa-helmet
+    "proxy": "http://localhost:4000" (from frontend package.json)
+        In case you want to use that sometime:
+        https://hackernoon.com/overview-of-proxy-server-and-how-we-use-them-in-react-bf67c062b929
+        https://medium.com/@Pavan_/set-up-proxy-to-work-with-multiple-apis-in-create-react-app-be595a713eb2
+    server.js file - put the code into index.js for better error tracing
+    ? to remove router.allowedMethods ... (is this doing anything?)
+    ? app.use(require('koa-static')('./build'))
+        probably need this for deployment
+
+QUIPS
+    Todos you can use. To make weird noises.
+    Look busy. No, wait... sound busy.
+
+
+
+
+***************************************************************
 
 BULMA
     layout
@@ -235,17 +227,50 @@ BULMA
     https://www.youtube.com/watch?v=ouI1_tZ1yK4
     https://www.youtube.com/watch?v=H-2tcg_Qvhs
 
-REMOVED from https://medium.com/jtribe/node-js-in-2018-full-stack-tutorial-with-koa-react-redux-sagas-and-mongodb-14a7efaee4d4
-    koa-helmet
-    "proxy": "http://localhost:4000" (from frontend package.json)
-        In case you want to use that sometime:
-        https://hackernoon.com/overview-of-proxy-server-and-how-we-use-them-in-react-bf67c062b929
-        https://medium.com/@Pavan_/set-up-proxy-to-work-with-multiple-apis-in-create-react-app-be595a713eb2
-    server.js file - put the code into index.js for better error tracing
-    ? to remove router.allowedMethods ... (is this doing anything?)
-    ? app.use(require('koa-static')('./build'))
-        probably need this for deployment
 
-QUIPS
-    Todos you can use. To make weird noises.
-    Look busy. No, wait... sound busy.
+
+WEEKEND OF HTTP:
+  async register(ctx) {
+    const { body } = ctx.request;
+    console.log("authController register body", body)
+    (ieverything else commented out)
+    ctx.redirect('http://localhost:3000/user');
+  },
+    Gets this Error:
+        Access to fetch at 'http://localhost:3000/' (redirected from 'http://localhost:4000/auth/register')
+        from origin 'http://localhost:3000' has been blocked by CORS policy:
+        Response to preflight request doesn't pass access control check:
+        The 'Access-Control-Allow-Origin' header has a value 'http://localhost:4000/'
+        that is not equal to the supplied origin. Have the server send the header with
+        a valid value, or, if an opaque response serves your needs,
+        set the request's mode to 'no-cors'to fetch the resource with CORS disabled.
+        discusses CORS
+    tried "proxy": "http://localhost:4000"
+    tried Moesif Origin and CORS changer! Let's get rid of that.
+    WHAT Exactly is a 'redirect' doing?
+    DEVTOOLS NETWORK: is this showing requests or responses? Or both? What/huh?
+
+
+What is the difference between request and response headers?
+    DOES A REQUEST CONTAIN RESPONSE HEADERS?
+        Or are response headers added by the server?
+
+Proxy:
+    https://create-react-app.dev/docs/proxying-api-requests-in-development/
+    "any unrecognized request without a text/html accept header will be redirected to the specified proxy"
+
+CORS Info
+    https://flaviocopes.com/http-request/
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
+    read up on fetch
+        https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    https://javascript.info/fetch
+        https://javascript.info/fetch-crossorigin
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+    https://hackernoon.com/overview-of-proxy-server-and-how-we-use-them-in-react-bf67c062b929
+    https://medium.com/@dtkatz/3-ways-to-fix-the-cors-error-and-how-access-control-allow-origin-works-d97d55946d9
+    https://auth0.com/blog/cors-tutorial-a-guide-to-cross-origin-resource-sharing/
+    https://www.digitalocean.com/community/questions/blocked-by-cors-policy-the-access-control-allow-origin-mean-stack
+
+
+

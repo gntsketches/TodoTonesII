@@ -6,7 +6,7 @@ import TodoModel from "../classes/TodoModel"
 import {
   addTodo, updateTodo, deleteTodo, fetchTodos,
   setEditingTodo, setNowPlaying, playPause
-} from '../actions/todos';
+} from '../redux/actions/todos';
 
 
 class Todos extends Component {

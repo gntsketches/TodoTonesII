@@ -11,7 +11,7 @@ import {
   PLAY_PAUSE,
 } from '../actions/todos'
 
-import TodoModel from "../classes/TodoModel"
+import TodoModel from "../../classes/TodoModel"
 
 export const TODOS_DEFAULT_STATE = {
   loading: false,
