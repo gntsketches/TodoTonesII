@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Router, Route } from 'react-router-dom'
+import {Router, Route, Switch } from 'react-router-dom'
 import history from './utils/history'
 import {connect} from "react-redux"
 
@@ -7,6 +7,7 @@ import './App.css'
 import Header from "./containers/Header"
 import Login from "./containers/Login"
 import Register from "./containers/Register"
+import UserCompose from "./containers/UserCompose"
 import User from "./containers/User"
 
 import {addTodo, deleteTodo, fetchTodos, updateTodo} from "./redux/actions/todos"
@@ -41,6 +42,7 @@ class App extends Component {
   render() {
     // console.log('rendering App')
     const { user } = this.props;
+    console.log('App user', user)
 
     return (
       <div className="App">
@@ -48,8 +50,10 @@ class App extends Component {
           <Header />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          {/*<Route exact path={`/users/${user.username}`} component={User} />*/}
-          <Route path={`/users/`} component={User} />
+          <Switch>
+            <Route exact path={`/users/${user.username}`} component={UserCompose} />
+            <Route path={`/users/`} component={User} />
+          </Switch>
         </Router>
       </div>
     )

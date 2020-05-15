@@ -21,7 +21,7 @@ const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick }) => (
   </div>
 )
 
-class RightPanel extends Component {
+class TodoListing extends Component {
 
   componentDidMount() {
     // this.props.fetchTodos()
@@ -33,7 +33,7 @@ class RightPanel extends Component {
 
     return (
 
-        <section className="column is-3">
+        <section className="column is-4">
           <h1 className="title">Todos</h1>
 
           {/*<p className="">Now Editing</p>*/}
@@ -51,7 +51,6 @@ class RightPanel extends Component {
           {/*  /!*</div>*!/*/}
           {/*</div>*/}
 
-          <p className="">Repertoire</p>
 
           {userTodos.map(todo => (
             <Todo
@@ -65,7 +64,7 @@ class RightPanel extends Component {
                 .then((todoDeleteResponse) => {
                   console.log('todo save data', todoDeleteResponse)
                   if (this.props.editingTodo._id === todo._id) {
-                    this.props.setEditingTodo({title: '', description: ''}) // if you're going to keep doing that it should be a constant!
+                    this.props.setEditingTodo({title: '', description: '', tags: ''}) // if you're going to keep doing that it should be a constant!
                   }
                   this.props.fetchPublicUserTodos()
                 })
@@ -103,4 +102,4 @@ const mapDispatchToProps = {
   setNowPlaying,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RightPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(TodoListing)

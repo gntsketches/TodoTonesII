@@ -28,15 +28,16 @@ class Header extends Component {
         // className="hero is-primary"
         className="columns"
         style={{
-          // "minHeight": "2vh",
-          "marginBottom": "5vh",
-          "padding": "2px", "backgroundColor": "#00d1b2",
+         "display": "flex", "alignItems": "center",
+          "minHeight": "100px",
+          "paddingTop": "12px",
+          "backgroundColor": "#00d1b2",
         }}
       >
-        <div className="column is-9">
-          <div className="hero-body">
+          <div className="column is-3">
             <h1 className="title white level-item">Todo Tones II</h1>
           </div>
+        <div className="column is-6">
           <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
             <button
               className="button"

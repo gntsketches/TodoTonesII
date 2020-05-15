@@ -14,7 +14,7 @@ class TodoEditor extends Component {
 
   clearEditingTodo = () => {
     // compare for changes and warn of overwrite
-    const todo = { title: '', description: ''}  // also using this in RightPanel, make it a constant...?
+    const todo = { title: '', description: '', tags: ''}  // also using this in TodoListing, make it a constant...?
     this.props.setEditingTodo(todo)
   }
 
@@ -101,11 +101,21 @@ class TodoEditor extends Component {
     // console.log('editingTodo', editingTodo)
 
     return (
-      <section className="column  is-6">
+      <section className="column  is-4">
 
         <div className="error">{error}</div>
 
-        <div className="level field has-addons" style={{ justifyContent: 'center' }}>
+        <div className="level field has-addons" style={{ justifyContent: 'space-around' }}>
+          <div className="control">
+            <button
+              className={`button is-success ${(isLoading || isSaving) && "is-loading"}`}
+              disabled={isLoading || isSaving}
+              onClick={this.handleSaveClick}
+              // text should be 'add' for no _id
+            >
+              Save
+            </button>
+          </div>
           <div className="control">
             <button
               className="control button"
@@ -118,22 +128,30 @@ class TodoEditor extends Component {
             </button>
           </div>
           <div className="control">
-            <input className="input"
-                   value={editingTodo.title}
-                   placeholder="title..."
-                   onChange={(e) => this.handleFieldUpdate( 'title', e.target.value )}/>
-          </div>
-          <div className="control">
             <button
               className={`button is-success ${(isLoading || isSaving) && "is-loading"}`}
               disabled={isLoading || isSaving}
-              onClick={this.handleSaveClick}
-              // text should be 'add' for no _id
+              onClick={this.clearEditingTodo}
             >
-              Save
+              New
             </button>
           </div>
         </div>
+
+
+        <div className="level" style={{ justifyContent: 'center' }}>
+          <div className="control"
+               style={{flex: '1'}}
+          >
+            <input
+              className="input"
+              value={editingTodo.title}
+              placeholder="title..."
+              onChange={(e) => this.handleFieldUpdate( 'title', e.target.value )}
+            />
+          </div>
+        </div>
+
 
         <div className="level field has-addons" style={{ justifyContent: 'center' }}>
           <div className="control">
@@ -149,16 +167,16 @@ class TodoEditor extends Component {
           </div>
         </div>
 
-          <div className="level" style={{ justifyContent: 'center' }}>
-          <div className="control">
-            <button
-              className={`button is-success ${(isLoading || isSaving) && "is-loading"}`}
-              disabled={isLoading || isSaving}
-              onClick={this.clearEditingTodo}
-            >
-              New
-            </button>
-          </div>
+
+
+        <div className="level field has-addons" style={{ justifyContent: 'center' }}>
+          <p>Tags&nbsp;</p>
+          <input
+            className="input"
+            value={editingTodo.tags}
+            placeholder="a comma-separated list"
+            onChange={(e) => this.handleFieldUpdate( 'tags', e.target.value )}
+          />
         </div>
 
       </section>

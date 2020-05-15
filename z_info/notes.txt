@@ -4,6 +4,9 @@ React Router Grider
     https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 
 TODO Next
+    Saving a todo sets the title back
+
+
     https://www.reddit.com/r/learnjavascript/comments/gh9fmr/extract_info_from_url/
         react-router-dom they also support url parameters such as http://mywebsite.com/users/:user.
     test for login to display secure User components/routes
@@ -14,6 +17,8 @@ TODO Hmm
     goal is to be able to play a selection in the background while browsing other pages
         so a user page loads up todos, filters, choose playstyle, play
         on play, redux gets a copy of whatever the selection was.
+            what if, on the user page, the filter is changed while it's playing?
+            then redux gets a new list (but doesn't remove nowPLaying, that's managed separately)
         user can go away, other pages load etc.
         on navigate to a user page, compare with user_id in redux play and if it's the same load those settings
         so the 'player' is distinct from the radio & user pages, but interacts with both of them

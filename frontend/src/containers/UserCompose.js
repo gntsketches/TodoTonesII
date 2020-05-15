@@ -54,16 +54,17 @@ class User extends Component {
     const { user } = this.props
 
     return (
-      <div className="columns">
-        <div className="column is-4">
-          <h1>
-            Profile
-          </h1>
-        </div>
+      <div className="columns is-gapless">
+        <div className="column is-1"></div>
+        <TodoEditor
+          fetchPublicUserTodos={this.fetchPublicUserTodos}
+        />
+        <div className="column is-2"></div>
         <TodoListing
           userTodos={this.state.todos}
           fetchPublicUserTodos={this.fetchPublicUserTodos}
         />
+        <div className="column is-1"></div>
       </div>
     )
   }
