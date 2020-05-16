@@ -4,9 +4,11 @@ React Router Grider
     https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 
 TODO Next
-    split tags sending, join receiving
-    https://stackoverflow.com/questions/650022/how-do-i-split-a-string-with-multiple-separators-in-javascript
-
+    play from editor:
+        'play' button should say pause when it's playing
+        BUT what if it's been updated, and you want to play the update?
+            vs pause it. How to UI?
+        also, update should update the nowPlaying, it it's that one playing!
 
 
     https://www.reddit.com/r/learnjavascript/comments/gh9fmr/extract_info_from_url/

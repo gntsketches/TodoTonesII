@@ -3,13 +3,22 @@ import {connect} from "react-redux"
 // import 'bulma/css/bulma.css'
 
 import services from '../services'
-import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying } from '../redux/actions/todos';
+import {
+  addTodo,
+  updateTodo,
+  deleteTodo,
+  fetchTodos,
+  setEditingTodo,
+  setNowPlaying,
+  playPause
+} from '../redux/actions/todos'
 
-const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted }) => {
+const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted, playing }) => {
   const todoStyles = {
     padding: '5px',
     marginBottom: '10px',
-    border: highlighted ? '2px solid purple' : '2px solid transparent'
+    border: highlighted ? '2px solid purple' : '2px solid transparent',
+    cursor: 'pointer',
   }
 
   return (
@@ -20,6 +29,7 @@ const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted }) =>
       onContextMenu={onRightClick}
     >
       <div className="level-left">
+        {playing ? <span>&#9834;&nbsp;</span> : <span>&nbsp;&nbsp;</span>}
         <span>{todo.title ? todo.title : 'untitled'}</span>
         {/*<span>{todo._id}</span>*/}
       </div>
@@ -121,7 +131,10 @@ class TodoListing extends Component {
 
 
   render() {
-    const { userTodos, isLoading, isSaving, error, deleteTodo, editingTodo, setEditingTodo, setNowPlaying } = this.props
+    const {
+      userTodos, isLoading, isSaving, error, editingTodo, nowPlaying,
+      deleteTodo, setEditingTodo, setNowPlaying, playPause
+    } = this.props
     // console.log('RightPanel todos', userTodos)
 
     return (
@@ -158,6 +171,7 @@ class TodoListing extends Component {
           >
           {this.tagSelections.map(todo => (
             <Todo
+              playing={nowPlaying._id === todo._id && nowPlaying.description === todo.description}
               highlighted={todo._id === editingTodo._id}
               key={todo._id}
               id={todo._id}
@@ -167,6 +181,7 @@ class TodoListing extends Component {
               onRightClick={(e) => {
                 e.preventDefault()
                 setNowPlaying(todo)
+                playPause()  // should pause if the same, play if different
               }}
             />
            ))}
@@ -184,6 +199,7 @@ const mapStateToProps = (state) => {
     isSaving: state.todos.saving,
     error: state.todos.error,
     editingTodo: state.todos.editingTodo,
+    nowPlaying: state.todos.nowPlaying,
   }
 }
 
@@ -194,6 +210,7 @@ const mapDispatchToProps = {
   fetchTodos,
   setEditingTodo,
   setNowPlaying,
+  playPause,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoListing)
