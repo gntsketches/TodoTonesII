@@ -10,7 +10,8 @@ import {
   fetchTodos,
   setEditingTodo,
   setNowPlaying,
-  playPause
+  playPause,
+  setPlaylist,
 } from '../redux/actions/todos'
 
 const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted, playing }) => {
@@ -111,7 +112,7 @@ class TodoListing extends Component {
     // .catch((err) => console.log(err))
   }
 
-  get tagSelections() {
+  get tagSelections() {  // todosByTag?
     const { tagFilters } = this.state
     const { userTodos } = this.props
 
@@ -130,18 +131,46 @@ class TodoListing extends Component {
     return tagSelections
   }
 
+  handlePlaySelection = () => {
+    this.props.setPlaylist(this.tagSelections)
+  }
+
 
   render() {
     const {
-      userTodos, isLoading, isSaving, error, editingTodo, nowPlaying,
-      deleteTodo, setEditingTodo, setNowPlaying, playPause
+      userTodos, isLoading, isSaving, error, editingTodo, nowPlaying, isPlaying,
+      deleteTodo, setEditingTodo, setNowPlaying, playPause,
     } = this.props
     // console.log('RightPanel todos', userTodos)
 
     return (
 
         <section className="column is-4">
-          <h1 className="title">Tags</h1>
+
+
+          <div className="level field has-addons" style={{ justifyContent: 'space-around' }}>
+
+            <h1 className="title" style={{marginBottom: '0'}}>Tags</h1>
+
+            <div className="control">
+              <button
+                className="control button"
+                disabled={this.tagSelections.length === 0}
+                onClick={this.handlePlaySelection}
+              >
+                Play Selected
+              </button>
+            </div>
+            <div className="control">
+              <button
+                className="control button"
+                disabled={!isPlaying}
+                onClick={() => playPause('pause')}
+              >
+                Pause
+              </button>
+            </div>
+          </div>
 
           <div
             style={{
@@ -199,6 +228,7 @@ const mapStateToProps = (state) => {
     // todos: state.todos.items,
     isLoading: state.todos.loading,
     isSaving: state.todos.saving,
+    isPlaying: state.todos.isPlaying,
     error: state.todos.error,
     editingTodo: state.todos.editingTodo,
     nowPlaying: state.todos.nowPlaying,
@@ -213,6 +243,7 @@ const mapDispatchToProps = {
   setEditingTodo,
   setNowPlaying,
   playPause,
+  setPlaylist,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoListing)

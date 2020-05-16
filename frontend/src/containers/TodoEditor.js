@@ -58,7 +58,8 @@ class TodoEditor extends Component {
   handlePlayClick = () => {
     const { editingTodo, setEditingTodo, setNowPlaying, playPause, nowPlaying } = this.props
 
-    const todoModel = new TodoModel(editingTodo.description) // you are setting a new TodoModel twice - also in reducers...
+    const todoModel = new TodoModel(editingTodo.description)
+    // you are setting a new TodoModel twice - also in reducers...
     // console.log('handlePlayClick todoModel', todoModel)
     const newTodo = {
       ...editingTodo,
@@ -104,6 +105,9 @@ class TodoEditor extends Component {
         <div className="error">{error}</div>
 
         <div className="level field has-addons" style={{ justifyContent: 'space-around' }}>
+
+          <h1 className="title" style={{marginBottom: '0'}}>Edit</h1>
+
           <div className="control">
             <button
               className={`button is-success ${(isLoading || isSaving) && "is-loading"}`}

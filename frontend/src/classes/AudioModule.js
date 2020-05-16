@@ -87,6 +87,7 @@ export default class AudioModule {
         console.log('updateAudioStatus')
         const state = store.getState()
         const { nowPlaying, isPlaying } = state.todos
+        console.log('nowPlaying', nowPlaying)
         this.activeTodo = nowPlaying.model
         if (isPlaying === false) {
             this.stop()

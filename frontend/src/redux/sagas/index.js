@@ -19,6 +19,8 @@ import {
   setEditingTodo,
   registerUser,
   registerUserSuccess,
+  setNowPlaying,
+  playPause,
 } from '../actions/todos'
 import store from "../store"
 import AudioModule from "../../classes/AudioModule"
@@ -100,8 +102,8 @@ function* deleteTodo (action) {
   }
 }
 
-function* playPause(action) {
-  // console.log('play action in sagas', action)
+function* playPauseSaga(action) {
+  console.log('play in sagas', action)
   audioModule.updateAudioStatus()
 
   // not necessary as audioModule reads state...
@@ -122,6 +124,12 @@ function* playPause(action) {
   // }
 }
 
+function* setPlaylist(action) {
+  // SET_PLAY_COUNTER
+  yield put(setNowPlaying(action.playlist[0]))
+  yield put(playPause('play'))
+}
+
 function* loginUser(action) {
   history.push(`/users/${action.userData.username}`);
 }
@@ -133,7 +141,8 @@ function* rootSaga() {
   yield takeLatest(ADD_TODO, saveTodo)
   yield takeLatest(DELETE_TODO, deleteTodo)
   yield takeEvery(UPDATE_TODO, updateTodo)
-  yield takeEvery(PLAY_PAUSE, playPause)
+  yield takeEvery(PLAY_PAUSE, playPauseSaga)
+  yield takeEvery('SET_PLAYLIST', setPlaylist)
   yield takeEvery('LOGIN_USER', loginUser)
 
 

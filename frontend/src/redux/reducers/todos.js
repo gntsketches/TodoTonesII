@@ -21,7 +21,7 @@ export const TODOS_DEFAULT_STATE = {
   editingTodo: { title: '', description: ''},
   nowPlaying: null,
   isPlaying: false,
-  playList: [],
+  playlist: [],
   playCounter: 0,
   playThroughList: true,
   loopPlay: false,
@@ -100,6 +100,16 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
           ...action.todo,
           model: new TodoModel(action.todo.description),
         },
+      }
+
+    case 'SET_PLAYLIST':
+      const { playlist } = action
+      console.log('reducer.playlist', playlist)
+      // if (state.playCounter > playlist.length) ...?
+      return {
+        ...state,
+        playlist: action.playlist,
+        playCounter: 0,
       }
 
     case PLAY_PAUSE:

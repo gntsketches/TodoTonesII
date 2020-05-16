@@ -62,6 +62,11 @@ export function playPause(playPause) {
   return { type: PLAY_PAUSE, playPause}
 }
 
+export function setPlaylist(playlist) {
+  console.log('setPlaylist action', playlist)
+  return { type: 'SET_PLAYLIST', playlist}
+}
+
 export function advancePlayCounter() {
   // console.log('action advancePlayCounter')
   return { type: 'ADVANCE_PLAY_COUNTER' }
