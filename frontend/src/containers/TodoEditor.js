@@ -29,7 +29,6 @@ class TodoEditor extends Component {
         ...editingTodo,
         description: todoModel.text,
       }
-      setEditingTodo(newEditingTodo)
 
       // OK below you're passing in the newEditingTodo. BUT how would it work if you referred to the editingTodo (ie from Redux) below instead? Ie: do you need to try to make this async? Handle in Sagas? Like with setState it is async and unreliable, you need to use the callback
       //    because if you abstract this so you can setEditingTodo on handlePlayClick you'll want to.
@@ -39,18 +38,16 @@ class TodoEditor extends Component {
         services.userTodosAPI.createTodo(newEditingTodo, user._id)
         .then((res) => res.json())
         .then((savedTodoData) => {
-          console.log('todo save data', savedTodoData)
-          this.props.setEditingTodo(savedTodoData)
           this.props.fetchPublicUserTodos()
+          setEditingTodo(savedTodoData)
         })
         // .catch((err) => console.log(err))
       } else {
         services.userTodosAPI.updateTodo(newEditingTodo, user._id)
         .then((res) => res.json())
-        .then((updatedTodoData) => {
-          console.log('todo update data', updatedTodoData)
-          this.props.setEditingTodo(updatedTodoData)
+        .then((newTodoData) => {
           this.props.fetchPublicUserTodos()
+          setEditingTodo(newTodoData)
         })
         .catch((err) => console.log(err))
       }
@@ -98,7 +95,7 @@ class TodoEditor extends Component {
       isLoading, isSaving, error, setNowPlaying
     } = this.props
     // console.log('todos', todos)
-    // console.log('editingTodo', editingTodo)
+    console.log('editingTodo', editingTodo)
 
     return (
       <section className="column  is-4">
@@ -113,7 +110,7 @@ class TodoEditor extends Component {
               onClick={this.handleSaveClick}
               // text should be 'add' for no _id
             >
-              Save
+              {editingTodo._id ? 'Update' : 'Save'}
             </button>
           </div>
           <div className="control">
@@ -155,14 +152,14 @@ class TodoEditor extends Component {
 
         <div className="level field has-addons" style={{ justifyContent: 'center' }}>
           <div className="control">
-          <textarea
+            <textarea
             style={{ padding: '0 2px', border: '2px solid #ddd', borderRadius: '8px', }}
             className="level-item"
             placeholder="c d e ..."
             value={editingTodo.description}
             onChange={(e) => this.handleFieldUpdate('description', e.target.value)}
             rows="10"
-            cols="75"
+            cols="65"
           />
           </div>
         </div>
@@ -174,7 +171,7 @@ class TodoEditor extends Component {
           <input
             className="input"
             value={editingTodo.tags}
-            placeholder="a comma-separated list"
+            placeholder="descriptor words for this Todo"
             onChange={(e) => this.handleFieldUpdate( 'tags', e.target.value )}
           />
         </div>

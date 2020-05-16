@@ -53,8 +53,8 @@ async function update (ctx) {
   console.log('>>>body ', body)
 
   try {
-    const updateData = { ...body, createdAt: new Date() }
-    const todo = await Todo.findByIdAndUpdate(id, updateData);
+    const updateData = { ...body} //, createdAt: new Date() }
+    const todo = await Todo.findByIdAndUpdate(id, updateData, {new: true});
     ctx.body = todo
   } catch(e) {
     console.log('>>> update error!!!')
