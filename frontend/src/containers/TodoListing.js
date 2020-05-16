@@ -30,6 +30,7 @@ const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted, play
     >
       <div className="level-left">
         {playing ? <span>&#9834;&nbsp;</span> : <span>&nbsp;&nbsp;</span>}
+          {/*&#9834 should glow/move when playing!*/}
         <span>{todo.title ? todo.title : 'untitled'}</span>
         {/*<span>{todo._id}</span>*/}
       </div>
@@ -181,7 +182,8 @@ class TodoListing extends Component {
               onRightClick={(e) => {
                 e.preventDefault()
                 setNowPlaying(todo)
-                playPause()  // should pause if the same, play if different
+                if (nowPlaying._id === todo._id) playPause()
+                else playPause('play')
               }}
             />
            ))}

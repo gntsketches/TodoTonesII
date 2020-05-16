@@ -5,10 +5,8 @@ React Router Grider
 
 TODO Next
     play from editor:
-        'play' button should say pause when it's playing
-        BUT what if it's been updated, and you want to play the update?
-            vs pause it. How to UI?
-        also, update should update the nowPlaying, it it's that one playing!
+        also, update should update the nowPlaying,
+            (if it's that one playing!)
 
 
     https://www.reddit.com/r/learnjavascript/comments/gh9fmr/extract_info_from_url/

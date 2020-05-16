@@ -104,10 +104,13 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
 
     case PLAY_PAUSE:
       // action accepts play vs pause, but this doesn't use it...
-      // console.log('play reducer')
+      console.log('playPause', action.playPause)
+      let playing
+      if (action.playPause == null) playing = !state.isPlaying
+      else playing = action.playPause === 'play'
       return {
         ...state,
-        isPlaying: !state.isPlaying,
+        isPlaying: playing,
       }
 
     case 'TOGGLE_PLAY_THROUGH_LIST':

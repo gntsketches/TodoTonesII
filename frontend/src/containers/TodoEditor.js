@@ -73,7 +73,7 @@ class TodoEditor extends Component {
     // this is fishy. will it necessarily happen after setNowPlaying?
       // also, it toggles the nowPlaying (without stopping it).
         // so that's weird. a case for passing the boolean rather than a toggle
-    playPause()
+    playPause('play')
   }
 
   handleFieldUpdate(field, value) {
@@ -91,11 +91,12 @@ class TodoEditor extends Component {
   render() {
     const {
       todos,
-      editingTodo,
-      isLoading, isSaving, error, setNowPlaying
+      editingTodo, isPlaying, nowPlaying,
+      isLoading, isSaving, error, setNowPlaying,
+      playPause
     } = this.props
     // console.log('todos', todos)
-    console.log('editingTodo', editingTodo)
+    // console.log('editingTodo', editingTodo)
 
     return (
       <section className="column  is-4">
@@ -122,6 +123,16 @@ class TodoEditor extends Component {
               onClick={this.handlePlayClick}
             >
               Play
+            </button>
+          </div>
+          <div className="control">
+            <button
+              className="control button"
+              disabled={!isPlaying}
+                // disable if it's not this todo playing? complicated code and uncertain UI benefit
+              onClick={() => playPause('pause')}
+            >
+              Pause
             </button>
           </div>
           <div className="control">
@@ -188,6 +199,7 @@ const mapStateToProps = (state) => {
     isSaving: state.todos.saving,
     error: state.todos.error,
     editingTodo: state.todos.editingTodo,
+    isPlaying: state.todos.isPlaying,
     user: state.auth.user,
   }
 }
