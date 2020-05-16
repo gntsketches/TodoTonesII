@@ -6,13 +6,16 @@ import services from '../services'
 import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying } from '../redux/actions/todos';
 
 const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted }) => {
-  const highlightStyles = highlighted ?
-    { border: '1px solid green' } : { border: '1px solid transparent' }
+  const todoStyles = {
+    padding: '5px',
+    marginBottom: '10px',
+    border: highlighted ? '2px solid purple' : '2px solid transparent'
+  }
 
   return (
     <div
       className="box todo-item level is-mobile"
-      style={highlightStyles}
+      style={todoStyles}
       onClick={onLeftClick}
       onContextMenu={onRightClick}
     >
@@ -33,6 +36,25 @@ class TodoListing extends Component {
     // this.props.fetchTodos()
   }
 
+
+  renderTags() {
+    const { userTodos } = this.props
+    console.log('userTodos in renderTags', userTodos)
+
+    const tagList = []
+    userTodos.forEach(todo => {  // do with reduce!
+      todo.tags.forEach(tag => {
+        console.log('tag:', tag)
+        if (!tagList.includes(tag)) tagList.push(
+          <div>{tag}</div>
+        )
+      })
+    })
+    console.log('tagList', tagList)
+    return tagList
+  }
+
+
   render() {
     const { userTodos, isLoading, isSaving, error, deleteTodo, editingTodo, setEditingTodo, setNowPlaying } = this.props
     // console.log('RightPanel todos', userTodos)
@@ -40,7 +62,9 @@ class TodoListing extends Component {
     return (
 
         <section className="column is-4">
-          <h1 className="title">Todos</h1>
+          <h1 className="title">Tags</h1>
+
+          {this.renderTags()}
 
           {/*<p className="">Now Editing</p>*/}
 
@@ -59,7 +83,7 @@ class TodoListing extends Component {
 
 
           <div
-            style={{maxHeight: '70vh', overflowY: 'scroll'}}
+            style={{maxHeight: '70vh', overflowY: 'auto'}}
           >
           {userTodos.map(todo => (
             <Todo

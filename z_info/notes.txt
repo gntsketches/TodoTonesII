@@ -4,7 +4,9 @@ React Router Grider
     https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 
 TODO Next
-    persistence of play/pause state...
+    split tags sending, join receiving
+    https://stackoverflow.com/questions/650022/how-do-i-split-a-string-with-multiple-separators-in-javascript
+
 
 
     https://www.reddit.com/r/learnjavascript/comments/gh9fmr/extract_info_from_url/
@@ -21,11 +23,10 @@ TODO Hmm
             then redux gets a new list (but doesn't remove nowPLaying, that's managed separately)
         user can go away, other pages load etc.
         on navigate to a user page, compare with user_id in redux play and if it's the same load those settings
+            that seems like a more advanced feature. for now, store list settings in the component
+            later you can save the info in Redux for the activeUser/currentUser/whatever you call them
         so the 'player' is distinct from the radio & user pages, but interacts with both of them
             what is the 'management structure'?
-    MAYBE
-        there should be separate pages for loggedInUser and theOtherUsers
-        maybe more redundancy but it could make the CSS and other logic easier...
     SEEMS LIKE
         there should be some general centralized check for auth for secure routes?
             and maybe a file division for public/secure routes
@@ -83,8 +84,14 @@ TODO study
     https://hackernoon.com/moving-api-requests-to-redux-saga-21780f49cbc8
 
 TODO misc
+    persistence of play/pause state...
     "nowPlaying" - rename to be more clear, "currentPlayingTodo"
 
+
+TODO YAY!
+    display Todos by alphabetical, created, updated,
+    Playlists, hey why not? like for composing
+        draggable Todo list!
 
 
 FIRST GOAL: play all the Todo's in your database without repeat

@@ -21,6 +21,7 @@ export const TODOS_DEFAULT_STATE = {
   editingTodo: { title: '', description: ''},
   nowPlaying: null,
   isPlaying: false,
+  playList: [],
   playCounter: 0,
   playThroughList: true,
   loopPlay: false,
