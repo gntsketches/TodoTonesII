@@ -5,21 +5,27 @@ import {connect} from "react-redux"
 import services from '../services'
 import { addTodo, updateTodo, deleteTodo, fetchTodos, setEditingTodo, setNowPlaying } from '../redux/actions/todos';
 
-const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick }) => (
-  <div
-    className="box todo-item level is-mobile"
-    onClick={onLeftClick}
-    onContextMenu={onRightClick}
-  >
-    <div className="level-left">
-      <span>{todo.title ? todo.title : 'untitled'}</span>
-      {/*<span>{todo._id}</span>*/}
+const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted }) => {
+  const highlightStyles = highlighted ?
+    { border: '1px solid green' } : { border: '1px solid transparent' }
+
+  return (
+    <div
+      className="box todo-item level is-mobile"
+      style={highlightStyles}
+      onClick={onLeftClick}
+      onContextMenu={onRightClick}
+    >
+      <div className="level-left">
+        <span>{todo.title ? todo.title : 'untitled'}</span>
+        {/*<span>{todo._id}</span>*/}
+      </div>
+      <div className="level-right">
+        <a className="delete level-item" onClick={onDelete}>Delete</a>
+      </div>
     </div>
-    <div className="level-right">
-      <a className="delete level-item" onClick={onDelete}>Delete</a>
-    </div>
-  </div>
-)
+  )
+}
 
 class TodoListing extends Component {
 
@@ -52,8 +58,12 @@ class TodoListing extends Component {
           {/*</div>*/}
 
 
+          <div
+            style={{maxHeight: '70vh', overflowY: 'scroll'}}
+          >
           {userTodos.map(todo => (
             <Todo
+              highlighted={todo._id === editingTodo._id}
               key={todo._id}
               id={todo._id}
               todo={todo}
@@ -77,6 +87,7 @@ class TodoListing extends Component {
               }}
             />
            ))}
+          </div>
 
         </section>
     )

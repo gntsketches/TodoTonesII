@@ -4,7 +4,7 @@ React Router Grider
     https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 
 TODO Next
-    Saving a todo sets the title back
+    persistence of play/pause state...
 
 
     https://www.reddit.com/r/learnjavascript/comments/gh9fmr/extract_info_from_url/
