@@ -94,8 +94,7 @@ TODO YAY!
         draggable Todo list!
 
 
-FIRST GOAL: play all the Todo's in your database without repeat
-    remember: you're going to have to do it wrong...
+REMEMBER: You're going to have to do it wrong...
 
 TODO: Audio: how to switch Todos
     timing-override feature

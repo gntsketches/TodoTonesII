@@ -122,7 +122,7 @@ module.exports = {
    */
 
   get body() {
-    console.log('>>>> get body')
+    // console.log('>>>> get body')
     return this._body;
   },
 
@@ -134,7 +134,7 @@ module.exports = {
    */
 
   set body(val) {
-    console.log('>>>> set body: ', val)
+    // console.log('>>>> set body: ', val)
     const original = this._body;
     this._body = val;
 

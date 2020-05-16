@@ -31,27 +31,92 @@ const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted }) =>
 }
 
 class TodoListing extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      tagFilters: [],
+    }
+  }
 
   componentDidMount() {
     // this.props.fetchTodos()
   }
 
+  updateTagFilters(tag) {
+    const { tagFilters } = this.state
+
+    if (tagFilters.includes(tag)) {
+      this.setState({tagFilters: tagFilters.filter(e => e !== tag)})
+    } else {
+      this.setState({tagFilters: [...tagFilters, tag]})
+    }
+  }
 
   renderTags() {
+    const { tagFilters } = this.state
     const { userTodos } = this.props
-    console.log('userTodos in renderTags', userTodos)
+    console.log('tagFilters', tagFilters)
 
     const tagList = []
     userTodos.forEach(todo => {  // do with reduce!
       todo.tags.forEach(tag => {
-        console.log('tag:', tag)
-        if (!tagList.includes(tag)) tagList.push(
-          <div>{tag}</div>
-        )
+        if (!tagList.includes(tag)) tagList.push(tag)
       })
     })
-    console.log('tagList', tagList)
-    return tagList
+
+    const tagListJSX = tagList.map(tag => {
+      const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
+      const color = tagFilters.length === 0 || tagFilters.includes(tag) ? '#888' : 'white'
+
+      return (
+      <div
+       style={{
+         background: background, color: color,
+         padding: '0 2px', margin: '0 0 5px 5px',
+         borderRadius: '3px',
+         userSelect: 'none', cursor: 'pointer',
+       }}
+       onClick={() => this.updateTagFilters(tag)}
+      >
+        {tag}
+      </div>
+    )})
+    return tagListJSX
+  }
+
+
+  handleDelete = (e, todo) => {
+    e.stopPropagation()
+    services.userTodosAPI.deleteTodo(todo._id)
+    .then((res) => res.json())
+    .then((todoDeleteResponse) => {
+      console.log('todo save data', todoDeleteResponse)
+      if (this.props.editingTodo._id === todo._id) {
+        this.props.setEditingTodo({title: '', description: '', tags: ''}) // if you're going to keep doing that it should be a constant!
+      }
+      this.props.fetchPublicUserTodos()
+    })
+    // .catch((err) => console.log(err))
+  }
+
+  get tagSelections() {
+    const { tagFilters } = this.state
+    const { userTodos } = this.props
+
+    if (tagFilters.length === 0) return userTodos
+
+    const tagSelections = []
+    tagFilters.forEach(tag => {
+      userTodos.forEach(todo => {
+        console.log('todo.tags & tag', todo.tags, tag)
+        if (todo.tags.includes(tag) && !tagSelections.includes(todo)) {
+          tagSelections.push(todo)
+        }
+      })
+    })
+
+    return tagSelections
   }
 
 
@@ -64,7 +129,13 @@ class TodoListing extends Component {
         <section className="column is-4">
           <h1 className="title">Tags</h1>
 
-          {this.renderTags()}
+          <div
+            style={{
+              display: 'flex', padding: '5px',
+            }}
+          >
+            {this.renderTags()}
+          </div>
 
           {/*<p className="">Now Editing</p>*/}
 
@@ -85,25 +156,13 @@ class TodoListing extends Component {
           <div
             style={{maxHeight: '70vh', overflowY: 'auto'}}
           >
-          {userTodos.map(todo => (
+          {this.tagSelections.map(todo => (
             <Todo
               highlighted={todo._id === editingTodo._id}
               key={todo._id}
               id={todo._id}
               todo={todo}
-              onDelete={(e) => {
-                e.stopPropagation()
-                services.userTodosAPI.deleteTodo(todo._id)
-                .then((res) => res.json())
-                .then((todoDeleteResponse) => {
-                  console.log('todo save data', todoDeleteResponse)
-                  if (this.props.editingTodo._id === todo._id) {
-                    this.props.setEditingTodo({title: '', description: '', tags: ''}) // if you're going to keep doing that it should be a constant!
-                  }
-                  this.props.fetchPublicUserTodos()
-                })
-                // .catch((err) => console.log(err))
-              }}
+              onDelete={e => this.handleDelete(e, todo)}
               onLeftClick={() => setEditingTodo(todo)}
               onRightClick={(e) => {
                 e.preventDefault()

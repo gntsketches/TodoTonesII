@@ -7,15 +7,15 @@ const BCRYPT_SALT_ROUNDS = 12;
 
 module.exports = {
   async index(ctx) {
-    console.log("authController index")
+    // console.log("authController index")
     ctx.state = { title: 'Login or Register' };
-    console.log("doin' nothin'")
+    // console.log("doin' nothin'")
     // await ctx.render('auth');
   },
 
   async register(ctx) {
     const { body } = ctx.request;
-    console.log("authController register body", body)
+    // console.log("authController register body", body)
     // if (!body.)
     const session_key = randomstring.generate({
       length: 36,
@@ -28,14 +28,14 @@ module.exports = {
       password: await bcrypt.hash(body.password, BCRYPT_SALT_ROUNDS),
       session_key
     };
-    console.log('session_key', session_key)
+    // console.log('session_key', session_key)
     const user = await new User(userData).save();
     ctx.body = user
   },
 
   async login(ctx) {
     const { body } = ctx.request;
-    console.log("authController login body", body)
+    // console.log("authController login body", body)
     const user = await User.findOne({ username: body.username });
     if (!user) ctx.throw(404, 'user not found');
     const isValid = await bcrypt.compare(body.password, user.password);
@@ -76,7 +76,7 @@ module.exports = {
 
 
   async logout(ctx) {
-    console.log("authController logout")
+    // console.log("authController logout")
     delete ctx.session.user;
     ctx.redirect('/auth');
   }

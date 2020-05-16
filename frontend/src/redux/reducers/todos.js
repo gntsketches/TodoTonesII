@@ -75,10 +75,21 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case SET_EDITING_TODO:
-      // console.log('action.todo', action.todo)
+      // maybe should just be doing this transform in the TodoEditor?
+      //  ... why is the editingTodo state managed in Redux at all?
+      //  maybe it's so you can click to set it?
+      //  could be better to receive & transform values on mount/update...
+      // console.log('action', action)
+      const { todo } = action
+      // console.log('todoPre', todo)
+      let tags = todo.tags
+      if (Array.isArray(tags)) {
+        tags = tags.join(', ')
+      }
+      // console.log('todoPost', todo)
       return {
         ...state,
-        editingTodo: action.todo,
+        editingTodo: { ...todo, tags }
       }
 
     case SET_NOW_PLAYING:
