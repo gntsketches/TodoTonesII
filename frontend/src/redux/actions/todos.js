@@ -68,7 +68,7 @@ export function setPlaylist(playlist) {
 }
 
 export function advancePlayCounter() {
-  // console.log('action advancePlayCounter')
+  console.log('action advancePlayCounter')
   return { type: 'ADVANCE_PLAY_COUNTER' }
 }
 

@@ -10,7 +10,7 @@ import Register from "./containers/Register"
 import UserCompose from "./containers/UserCompose"
 import User from "./containers/User"
 
-import {addTodo, deleteTodo, fetchTodos, updateTodo} from "./redux/actions/todos"
+import { addTodo, deleteTodo, fetchTodos, updateTodo, playPause } from "./redux/actions/todos"
 
 
 class App extends Component {
@@ -30,6 +30,8 @@ class App extends Component {
           because profile is, like, separate from login
       */
     // }
+
+    window.addEventListener('keydown', this.handleKeydown)
   }
 
   componentDidUpdate() {
@@ -37,6 +39,10 @@ class App extends Component {
     // if (this.props.loggedIn) {
     //   history.push('/user');
     // }
+  }
+
+  handleKeydown = e => {
+    if (e.key === ' ') this.props.playPause()
   }
 
   render() {
@@ -65,6 +71,7 @@ const mapStateToProps = (state) => {
     todos: state.todos.items,
     isLoading: state.todos.loading,
     isSaving: state.todos.saving,
+    isPlaying: state.todos.isPlaying,
     error: state.todos.error,
     user: state.auth.user,
   }
@@ -75,6 +82,7 @@ const mapDispatchToProps = {
   addTodo,
   updateTodo,
   deleteTodo,
+  playPause,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

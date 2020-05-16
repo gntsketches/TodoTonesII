@@ -175,6 +175,7 @@ NEXT GOAL: SORT BY TAG AND PLAY
 
 
     REFACTORING
+        can/should Todos api calls be moved out of redux? (maybe some of them?)
         omg the naming
             Todo vs instance of TodoModel
         which Todos have ids and which don't? where are they stored?
