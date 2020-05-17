@@ -47,7 +47,7 @@ export default class AudioModule {
 
         this.loop = new Tone.Loop(time => {
 
-            console.log(time)
+            // console.log(time)
             const note = getRandomElement(this.activeTodo.pitchSet)
             if (!this.activeTodo.waiting && Math.random()*100 < this.activeTodo.percent ) {
                 const synthWave = getRandomElement(this.activeTodo.synthWaves)
@@ -67,13 +67,12 @@ export default class AudioModule {
             const timeCheck = this.timeTag + waitOrPlay
             // console.log('seconds', Tone.Transport.seconds)
             if (Tone.Transport.seconds >= timeCheck) {
-                store.dispatch(advancePlayCounter())
-                    // that's not "hooked in" to anything
-                    // you want changeNowPlaying
+                if (store.getState().todos.listPlay) {
+                    store.dispatch(advancePlayCounter())
+                }
                 this.updateAudioStatus()
                 this.timeTag = Tone.Transport.seconds
             }
-
 
         }, "8n").start(0)
 

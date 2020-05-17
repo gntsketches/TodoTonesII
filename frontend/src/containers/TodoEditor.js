@@ -6,7 +6,8 @@ import services from '../services'
 import TodoModel from "../classes/TodoModel"
 import {
   addTodo, updateTodo, deleteTodo, fetchTodos,
-  setEditingTodo, setNowPlaying, playPause
+  setEditingTodo, setNowPlaying, playPause,
+  toggleListPlay,
 } from '../redux/actions/todos';
 import images from '../assets/images/index.js'
 
@@ -75,6 +76,7 @@ class TodoEditor extends Component {
     // this is fishy. will it necessarily happen after setNowPlaying?
       // also, it toggles the nowPlaying (without stopping it).
         // so that's weird. a case for passing the boolean rather than a toggle
+    this.props.toggleListPlay(false)
     playPause('play')
   }
 
@@ -154,11 +156,13 @@ class TodoEditor extends Component {
 
 
         <p>Title</p>
-        <div className="level" style={{ justifyContent: 'center' }}>
-          <div className="control"
-               style={{flex: '1'}}
-          >
+        <div className="level"
+             style={{
+               justifyContent: 'center',
+             }}>
+          <div className="control" style={{flex: '1'}} >
             <input
+              style={{ border: '1px solid #000', }}
               className="input"
               value={editingTodo.title}
               placeholder="title..."
@@ -172,8 +176,8 @@ class TodoEditor extends Component {
           <div className="control" style={{width: '100%'}}>
             <textarea
             style={{
-              padding: '0 2px', margin: '0', border: '2px solid #ddd',
-              borderRadius: '8px', width: '100%', minHeight: '100px',
+              padding: '0 2px', margin: '0', border: '1px solid #000',
+              borderRadius: '3px', width: '100%', minHeight: '100px',
             }}
             className="level-item"
             placeholder="c d e ..."
@@ -187,6 +191,7 @@ class TodoEditor extends Component {
         <p>Tags</p>
         <div className="level field has-addons" style={{ justifyContent: 'center' }}>
           <input
+            style={{ border: '1px solid #000', }}
             className="input"
             value={editingTodo.tags}
             placeholder="descriptor words for this Todo"
@@ -219,6 +224,7 @@ const mapDispatchToProps = {
   setEditingTodo,
   setNowPlaying,
   playPause,
+  toggleListPlay,
 
 }
 

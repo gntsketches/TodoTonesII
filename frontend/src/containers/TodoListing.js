@@ -12,7 +12,8 @@ import {
   setNowPlaying,
   playPause,
   setPlaylist,
-  changePlayMode,
+  changeListPlayMode,
+  toggleListPlay,
 } from '../redux/actions/todos'
 import images from '../assets/images/index.js'
 
@@ -21,7 +22,7 @@ const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted, play
   const todoStyles = {
     padding: '5px',
     marginBottom: '10px',
-    border: highlighted ? '2px solid purple' : '2px solid transparent',
+    border: highlighted ? '1px solid #000' : '1px solid transparent',
     cursor: 'pointer',
   }
 
@@ -102,6 +103,7 @@ class TodoListing extends Component {
   }
 
   handlePlaySelection = () => {
+    this.props.toggleListPlay(true)
     this.props.setPlaylist(this.tagSelections)
   }
 
@@ -142,10 +144,12 @@ class TodoListing extends Component {
   render() {
     const {
       userTodos, isLoading, isSaving, error, editingTodo, nowPlaying, isPlaying,
-      deleteTodo, setEditingTodo, setNowPlaying, playPause, playMode, changePlayMode,
+      deleteTodo, setEditingTodo, setNowPlaying, playPause,
+      listPlay, listPlayMode, changeListPlayMode,
     } = this.props
     // console.log('this props', this.props)
-    // console.log('playMode', playMode)
+    // console.log('listplayMode', listPlayMode)
+
 
     return (
 
@@ -177,9 +181,10 @@ class TodoListing extends Component {
             <div className="control">
               <button
                 className="control button"
-                onClick={changePlayMode}
+                disabled={!listPlay}
+                onClick={changeListPlayMode}
               >
-                {playMode}
+                {listPlayMode}
               </button>
             </div>
           </div>
@@ -244,7 +249,8 @@ const mapStateToProps = (state) => {
     error: state.todos.error,
     editingTodo: state.todos.editingTodo,
     nowPlaying: state.todos.nowPlaying,
-    playMode: state.todos.playMode,
+    listPlay: state.todos.listPlay,
+    listPlayMode: state.todos.listPlayMode,
   }
 }
 
@@ -257,7 +263,8 @@ const mapDispatchToProps = {
   setNowPlaying,
   playPause,
   setPlaylist,
-  changePlayMode,
+  changeListPlayMode,
+  toggleListPlay,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoListing)

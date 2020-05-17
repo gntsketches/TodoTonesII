@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import {connect} from "react-redux"
 import { Link } from 'react-router-dom';
 
-import {addTodo, deleteTodo, fetchTodos, updateTodo, playPause} from "../redux/actions/todos"
+import {
+  addTodo, deleteTodo, fetchTodos, updateTodo, playPause, toggleListPlay,
+  advancePlayCounter,
+} from "../redux/actions/todos"
 import {logoutUser} from "../redux/actions/auth"
 import images from '../assets/images/index.js'
 
@@ -19,7 +22,7 @@ class Header extends Component {
   }
 
   render() {
-    const { nowPlaying, todos, isPlaying, user } = this.props;
+    const { nowPlaying, todos, isPlaying, user, toggleListPlay, listPlay } = this.props;
     // console.log('user in header', user)
     // console.log("now playing in header", nowPlaying)
     // console.log("todos in header", todos)
@@ -47,16 +50,40 @@ class Header extends Component {
             <button
               className="button"
               disabled={nowPlaying == null}
-              onClick={this.handlePlayPauseClick}
-              style={{"margin": "2px"}}
+              onClick={() => this.props.advancePlayCounter(true)}
+              style={{ margin: "2px", display: listPlay ? 'inline' : 'none' }}
             >
-              {/*{isPlaying ? 'Stop' : 'Play'}*/}
+              {listPlay ? <img src={images.back} width="20px" height="20px" /> : null }
+            </button>
+            <button
+              className="button"
+              disabled={nowPlaying == null}
+              onClick={this.handlePlayPauseClick}
+              style={{margin: "2px"}}
+            >
               {isPlaying ?
                 <img src={images.stop} width="20px" height="20px" />
                 : <img src={images.play} width="20px" height="20px" />
               }
             </button>
-
+            <button
+              className="button"
+              disabled={nowPlaying == null}
+              onClick={this.props.advancePlayCounter}
+              style={{ margin: "2px", display: listPlay ? 'inline' : 'none' }}
+            >
+              <img src={images.next} width="20px" height="20px" />
+            </button>
+          </div>
+          <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
+            <button
+              className="button"
+              disabled={nowPlaying == null}
+              onClick={() => toggleListPlay()}
+              style={{margin: "2px", height: "18px", fontSize: "10px", padding: "1px 5px"}}
+            >
+              {listPlay ? 'Playing Todo-List' : 'Playing Todo-Item'}
+            </button>
           </div>
         </div>
 
@@ -89,6 +116,7 @@ const mapStateToProps = (state) => {
     // error: state.todos.error,
     nowPlaying: state.todos.nowPlaying,
     isPlaying: state.todos.isPlaying,
+    listPlay: state.todos.listPlay,
 
     user: state.auth.user,
   }
@@ -100,7 +128,9 @@ const mapDispatchToProps = {
   // updateTodo,
   // deleteTodo,
   playPause,
+  toggleListPlay,
   logoutUser,
+  advancePlayCounter,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

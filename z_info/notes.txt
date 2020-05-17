@@ -14,21 +14,26 @@ TODO Next Up
         app distinction between playing a playlist and a single todo ('Stay' mode)
             seems like, clicking play from the editor should set the play mode to 'Stay'
             let's have the choice be in the NowPlaying section
-        test play mode bug/features -
+        test list play mode bug/features -
             delete Todo should remove it from the Playlist
             click to play a different todo, this should set playCounter to that
             what if you change the list filter while playing
                 let's have that AUTO update the playlist... too confusing otherwise
+            if you save a todo while the list is playing, it gets lost and doesn't update
+            "Once" not working (with or without next/back)
         ui
             need some animation to make it more clear what's happening
             border isn't really working to show that that's the editing Todo
         note it's not doing the wait time
             seems like that's extra confusion. remove from Todo and make global?
+        re: editor Play - play without saving... confusing in UI...
+            seem like you need a conditional, when the todo is altered add a button to the UI
+                like an a play button with an 'update' symbol or something
+            OR return to the save/update button, and that updates the nowPlaying as well
 
         filter by title
         display by alphabetical, created, updated,
         likes
-        "update" list separate from 'play'
         fold/unfold tags
     Build out NowPlaying display
         Author, Playlist, Title

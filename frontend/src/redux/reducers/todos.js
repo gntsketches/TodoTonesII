@@ -23,7 +23,8 @@ export const TODOS_DEFAULT_STATE = {
   isPlaying: false,
   playlist: [],
   playCounter: 0,
-  playMode: 'Once',
+  listPlay: false,
+  listPlayMode: 'Once',
   playThroughList: true,
 }
 
@@ -135,7 +136,12 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       if (state.playMode === 'Rand') {
         count = Math.floor(Math.random() * state.playlist.length)
       } else {
-        count = state.playCounter >= state.playlist.length-1 ? 0 : state.playCounter+1
+        if (action.back) {
+          // this probs a problem in 'Once' mode
+          count = state.playCounter === 0 ? state.playlist.length-1 : state.playCounter-1
+        } else {
+          count = state.playCounter >= state.playlist.length-1 ? 0 : state.playCounter+1
+        }
       }
 
       return {
@@ -143,18 +149,29 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
         playCounter: count,
       }
 
-    case 'CHANGE_PLAY_MODE':
+    case 'CHANGE_LIST_PLAY_MODE':
       // console.log('reducer state', state)
-      const { playMode } = state
+      const { listPlayMode } = state
 
       let newPlayMode
-      if (playMode === 'Loop') newPlayMode = 'Rand'
-      else if (playMode === 'Rand') newPlayMode = 'Once'
-      else if (playMode === 'Once') newPlayMode = 'Loop'
+      if (listPlayMode === 'Loop') newPlayMode = 'Rand'
+      else if (listPlayMode === 'Rand') newPlayMode = 'Once'
+      else if (listPlayMode === 'Once') newPlayMode = 'Loop'
 
       return {
         ...state,
-        playMode: newPlayMode,
+        listPlayMode: newPlayMode,
+      }
+
+    case 'TOGGLE_LIST_PLAY':
+      console.log('reducer action.bool', action.bool)
+      console.log('reducer action.bool == null', action.bool == null)
+      let newListPlay
+      if (action.bool == null) newListPlay = !state.listPlay
+      else newListPlay = action.bool
+      return {
+        ...state,
+        listPlay: newListPlay,
       }
 
     default:
