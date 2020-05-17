@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 import {addTodo, deleteTodo, fetchTodos, updateTodo, playPause} from "../redux/actions/todos"
 import {logoutUser} from "../redux/actions/auth"
+import images from '../assets/images/index.js'
+
 
 class Header extends Component {
 
@@ -21,7 +23,7 @@ class Header extends Component {
     // console.log('user in header', user)
     // console.log("now playing in header", nowPlaying)
     // console.log("todos in header", todos)
-    const title = nowPlaying ? nowPlaying.title : null
+    const title = nowPlaying ? nowPlaying.title : 'Untitled'
 
     return (
       <section
@@ -29,7 +31,7 @@ class Header extends Component {
         className="columns"
         style={{
          "display": "flex", "alignItems": "center",
-          "minHeight": "100px",
+          "minHeight": "125px",
           "paddingTop": "12px",
           "backgroundColor": "#00d1b2",
         }}
@@ -38,6 +40,9 @@ class Header extends Component {
             <h1 className="title white level-item">Todo Tones II</h1>
           </div>
         <div className="column is-6">
+          <div>
+            <span className="title is-5">{title}</span> by {user.username}
+          </div>
           <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
             <button
               className="button"
@@ -45,10 +50,13 @@ class Header extends Component {
               onClick={this.handlePlayPauseClick}
               style={{"margin": "2px"}}
             >
-              {isPlaying ? 'Pause' : 'Play'}
+              {/*{isPlaying ? 'Stop' : 'Play'}*/}
+              {isPlaying ?
+                <img src={images.stop} width="20px" height="20px" />
+                : <img src={images.play} width="20px" height="20px" />
+              }
             </button>
-            <div>Now Playing: </div>
-            <div>{title == null ? '' : title || 'untitled'}</div>
+
           </div>
         </div>
 

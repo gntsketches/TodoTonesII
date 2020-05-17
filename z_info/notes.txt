@@ -3,16 +3,28 @@ React Router Grider
         history, see vids 258ish
     https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 
+https://icons8.com/
+https://stackoverflow.com/questions/10737166/chrome-not-rendering-svg-referenced-via-img-tag
+
+
 TODO Next Up
     Listing:
+        AND/OR like Bandcamp, let's have a progress bar -
+            AudioModule can send %
         app distinction between playing a playlist and a single todo ('Stay' mode)
             seems like, clicking play from the editor should set the play mode to 'Stay'
+            let's have the choice be in the NowPlaying section
         test play mode bug/features -
+            delete Todo should remove it from the Playlist
             click to play a different todo, this should set playCounter to that
-            delete a todo while it is playing
-            delete a todo while list is playing
-            change list filter while playing
-                maybe want 'update playlist'
+            what if you change the list filter while playing
+                let's have that AUTO update the playlist... too confusing otherwise
+        ui
+            need some animation to make it more clear what's happening
+            border isn't really working to show that that's the editing Todo
+        note it's not doing the wait time
+            seems like that's extra confusion. remove from Todo and make global?
+
         filter by title
         display by alphabetical, created, updated,
         likes

@@ -14,6 +14,8 @@ import {
   setPlaylist,
   changePlayMode,
 } from '../redux/actions/todos'
+import images from '../assets/images/index.js'
+
 
 const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted, playing }) => {
   const todoStyles = {
@@ -66,39 +68,6 @@ class TodoListing extends Component {
     }
   }
 
-  renderTags() {
-    const { tagFilters } = this.state
-    const { userTodos } = this.props
-    // console.log('tagFilters', tagFilters)
-
-    const tagList = []
-    userTodos.forEach(todo => {  // do with reduce!
-      todo.tags.forEach(tag => {
-        if (!tagList.includes(tag)) tagList.push(tag)
-      })
-    })
-
-    const tagListJSX = tagList.map(tag => {
-      const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
-      const color = tagFilters.length === 0 || tagFilters.includes(tag) ? '#888' : 'white'
-
-      return (
-      <div
-       style={{
-         background: background, color: color,
-         padding: '0 2px', margin: '0 0 5px 5px',
-         borderRadius: '3px',
-         userSelect: 'none', cursor: 'pointer',
-       }}
-       onClick={() => this.updateTagFilters(tag)}
-      >
-        {tag}
-      </div>
-    )})
-    return tagListJSX
-  }
-
-
   handleDelete = (e, todo) => {
     e.stopPropagation()
     services.userTodosAPI.deleteTodo(todo._id)
@@ -137,6 +106,39 @@ class TodoListing extends Component {
   }
 
 
+  renderTags() {
+    const { tagFilters } = this.state
+    const { userTodos } = this.props
+    // console.log('tagFilters', tagFilters)
+
+    const tagList = []
+    userTodos.forEach(todo => {  // do with reduce!
+      todo.tags.forEach(tag => {
+        if (!tagList.includes(tag)) tagList.push(tag)
+      })
+    })
+
+    const tagListJSX = tagList.map(tag => {
+      const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
+      const color = tagFilters.length === 0 || tagFilters.includes(tag) ? '#888' : 'white'
+
+      return (
+      <div
+       style={{
+         background: background, color: color,
+         padding: '0 2px', margin: '0 0 5px 5px',
+         borderRadius: '3px', minWidth: '40px',
+         userSelect: 'none', cursor: 'pointer',
+       }}
+       onClick={() => this.updateTagFilters(tag)}
+      >
+        {tag}
+      </div>
+    )})
+    return tagListJSX
+  }
+
+
   render() {
     const {
       userTodos, isLoading, isSaving, error, editingTodo, nowPlaying, isPlaying,
@@ -160,7 +162,7 @@ class TodoListing extends Component {
                 disabled={this.tagSelections.length === 0}
                 onClick={this.handlePlaySelection}
               >
-                Play List
+                <img src={images.play} width="20px" height="20px" />
               </button>
             </div>
             <div className="control">
@@ -169,7 +171,7 @@ class TodoListing extends Component {
                 disabled={!isPlaying}
                 onClick={() => playPause('pause')}
               >
-                Pause
+                <img src={images.stop} width="20px" height="20px" />
               </button>
             </div>
             <div className="control">

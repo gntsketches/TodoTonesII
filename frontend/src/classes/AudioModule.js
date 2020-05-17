@@ -47,7 +47,7 @@ export default class AudioModule {
 
         this.loop = new Tone.Loop(time => {
 
-            // console.log(time)
+            console.log(time)
             const note = getRandomElement(this.activeTodo.pitchSet)
             if (!this.activeTodo.waiting && Math.random()*100 < this.activeTodo.percent ) {
                 const synthWave = getRandomElement(this.activeTodo.synthWaves)

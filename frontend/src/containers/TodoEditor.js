@@ -8,6 +8,7 @@ import {
   addTodo, updateTodo, deleteTodo, fetchTodos,
   setEditingTodo, setNowPlaying, playPause
 } from '../redux/actions/todos';
+import images from '../assets/images/index.js'
 
 
 class TodoEditor extends Component {
@@ -115,7 +116,8 @@ class TodoEditor extends Component {
               onClick={this.handleSaveClick}
               // text should be 'add' for no _id
             >
-              {editingTodo._id ? 'Update' : 'Save'}
+              {/*{editingTodo._id ? 'Update' : 'Save'}*/}
+              Save
             </button>
           </div>
           <div className="control">
@@ -126,7 +128,7 @@ class TodoEditor extends Component {
               // or since you're passing in the whole todo, maybe it's fine, just check for untitled...
               onClick={this.handlePlayClick}
             >
-              Play
+              <img src={images.play} width="20px" height="20px" />
             </button>
           </div>
           <div className="control">
@@ -136,7 +138,7 @@ class TodoEditor extends Component {
                 // disable if it's not this todo playing? complicated code and uncertain UI benefit
               onClick={() => playPause('pause')}
             >
-              Pause
+              <img src={images.stop} width="20px" height="20px" />
             </button>
           </div>
           <div className="control">
@@ -151,6 +153,7 @@ class TodoEditor extends Component {
         </div>
 
 
+        <p>Title</p>
         <div className="level" style={{ justifyContent: 'center' }}>
           <div className="control"
                style={{flex: '1'}}
@@ -164,25 +167,25 @@ class TodoEditor extends Component {
           </div>
         </div>
 
-
+        <p>Tone Settings</p>
         <div className="level field has-addons" style={{ justifyContent: 'center' }}>
-          <div className="control">
+          <div className="control" style={{width: '100%'}}>
             <textarea
-            style={{ padding: '0 2px', border: '2px solid #ddd', borderRadius: '8px', }}
+            style={{
+              padding: '0 2px', margin: '0', border: '2px solid #ddd',
+              borderRadius: '8px', width: '100%', minHeight: '100px',
+            }}
             className="level-item"
             placeholder="c d e ..."
             value={editingTodo.description}
             onChange={(e) => this.handleFieldUpdate('description', e.target.value)}
-            rows="10"
-            cols="65"
+            // rows="10"
           />
           </div>
         </div>
 
-
-
+        <p>Tags</p>
         <div className="level field has-addons" style={{ justifyContent: 'center' }}>
-          <p>Tags&nbsp;</p>
           <input
             className="input"
             value={editingTodo.tags}

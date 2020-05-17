@@ -11,9 +11,9 @@ export default class TodoModel {
         this.pitchSet = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3']
         this.lo = 'C3'
         this.hi = 'B3'
-        this.tempo = 120
+        this.tempo = 60
         this.percent = 85
-        this.duration = 0.01 //16n
+        this.duration = 0.1 //16n
         this.synthWaves = ['tri']
         this.synthType = 'mono'
         this.portamento = 0 // "glide"
