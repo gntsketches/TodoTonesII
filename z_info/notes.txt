@@ -3,17 +3,37 @@ React Router Grider
         history, see vids 258ish
     https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 
-TODO Next
+TODO Next Up
+    Listing:
+        app distinction between playing a playlist and a single todo ('Stay' mode)
+            seems like, clicking play from the editor should set the play mode to 'Stay'
+        test play mode bug/features -
+            click to play a different todo, this should set playCounter to that
+            delete a todo while it is playing
+            delete a todo while list is playing
+            change list filter while playing
+                maybe want 'update playlist'
+        filter by title
+        display by alphabetical, created, updated,
+        likes
+        "update" list separate from 'play'
+        fold/unfold tags
+    Build out NowPlaying display
+        Author, Playlist, Title
+        copy to editor option
+    Todo-info: authorship, likes
+        likes: [array of user_ids of who's liked it]
     play from editor:
         also, update should update the nowPlaying,
             (if it's that one playing!)
+    timing overrides: UI in NowPlaying or TodoList?
 
 
     https://www.reddit.com/r/learnjavascript/comments/gh9fmr/extract_info_from_url/
         react-router-dom they also support url parameters such as http://mywebsite.com/users/:user.
     test for login to display secure User components/routes
         and build them out
-    play User todos! (whether logged in or out)
+
 
 TODO Hmm
     goal is to be able to play a selection in the background while browsing other pages
@@ -88,8 +108,7 @@ TODO misc
     "nowPlaying" - rename to be more clear, "currentPlayingTodo"
 
 
-TODO YAY!
-    display Todos by alphabetical, created, updated,
+TODO LATER
     Playlists, hey why not? like for composing
         draggable Todo list!
 

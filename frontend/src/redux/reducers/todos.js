@@ -23,10 +23,11 @@ export const TODOS_DEFAULT_STATE = {
   isPlaying: false,
   playlist: [],
   playCounter: 0,
+  playMode: 'Once',
   playThroughList: true,
-  loopPlay: false,
 }
 
+console.log('default state in reducer', TODOS_DEFAULT_STATE)
 
 
 export default function todos (state = TODOS_DEFAULT_STATE, action) {
@@ -104,7 +105,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
 
     case 'SET_PLAYLIST':
       const { playlist } = action
-      console.log('reducer.playlist', playlist)
+      // console.log('reducer.playlist', playlist)
       // if (state.playCounter > playlist.length) ...?
       return {
         ...state,
@@ -129,17 +130,31 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
         playThroughList: !state.playThroughList,
       }
 
-    case 'TOGGLE_LOOP_PLAY':
-      return {
-        state,
-        loopPlay: !state.loopPlay,
+    case 'ADVANCE_PLAY_COUNTER':
+      let count
+      if (state.playMode === 'Rand') {
+        count = Math.floor(Math.random() * state.playlist.length)
+      } else {
+        count = state.playCounter >= state.playlist.length-1 ? 0 : state.playCounter+1
       }
 
-    case 'ADVANCE_PLAY_COUNTER':
-      const count = state.playCounter >= state.items.length-1 ? 0 : state.playCounter+1
       return {
         ...state,
         playCounter: count,
+      }
+
+    case 'CHANGE_PLAY_MODE':
+      // console.log('reducer state', state)
+      const { playMode } = state
+
+      let newPlayMode
+      if (playMode === 'Loop') newPlayMode = 'Rand'
+      else if (playMode === 'Rand') newPlayMode = 'Once'
+      else if (playMode === 'Once') newPlayMode = 'Loop'
+
+      return {
+        ...state,
+        playMode: newPlayMode,
       }
 
     default:

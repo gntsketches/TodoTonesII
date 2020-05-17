@@ -48,7 +48,7 @@ class App extends Component {
   render() {
     // console.log('rendering App')
     const { user } = this.props;
-    console.log('App user', user)
+    // console.log('App user', user)
 
     return (
       <div className="App">

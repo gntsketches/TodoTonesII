@@ -12,6 +12,7 @@ import {
   setNowPlaying,
   playPause,
   setPlaylist,
+  changePlayMode,
 } from '../redux/actions/todos'
 
 const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted, playing }) => {
@@ -68,7 +69,7 @@ class TodoListing extends Component {
   renderTags() {
     const { tagFilters } = this.state
     const { userTodos } = this.props
-    console.log('tagFilters', tagFilters)
+    // console.log('tagFilters', tagFilters)
 
     const tagList = []
     userTodos.forEach(todo => {  // do with reduce!
@@ -103,7 +104,7 @@ class TodoListing extends Component {
     services.userTodosAPI.deleteTodo(todo._id)
     .then((res) => res.json())
     .then((todoDeleteResponse) => {
-      console.log('todo save data', todoDeleteResponse)
+      // console.log('todo save data', todoDeleteResponse)
       if (this.props.editingTodo._id === todo._id) {
         this.props.setEditingTodo({title: '', description: '', tags: ''}) // if you're going to keep doing that it should be a constant!
       }
@@ -121,7 +122,7 @@ class TodoListing extends Component {
     const tagSelections = []
     tagFilters.forEach(tag => {
       userTodos.forEach(todo => {
-        console.log('todo.tags & tag', todo.tags, tag)
+        // console.log('todo.tags & tag', todo.tags, tag)
         if (todo.tags.includes(tag) && !tagSelections.includes(todo)) {
           tagSelections.push(todo)
         }
@@ -139,9 +140,10 @@ class TodoListing extends Component {
   render() {
     const {
       userTodos, isLoading, isSaving, error, editingTodo, nowPlaying, isPlaying,
-      deleteTodo, setEditingTodo, setNowPlaying, playPause,
+      deleteTodo, setEditingTodo, setNowPlaying, playPause, playMode, changePlayMode,
     } = this.props
-    // console.log('RightPanel todos', userTodos)
+    // console.log('this props', this.props)
+    // console.log('playMode', playMode)
 
     return (
 
@@ -150,7 +152,7 @@ class TodoListing extends Component {
 
           <div className="level field has-addons" style={{ justifyContent: 'space-around' }}>
 
-            <h1 className="title" style={{marginBottom: '0'}}>Tags</h1>
+            <h1 className="title" style={{marginBottom: '0'}}>List</h1>
 
             <div className="control">
               <button
@@ -158,7 +160,7 @@ class TodoListing extends Component {
                 disabled={this.tagSelections.length === 0}
                 onClick={this.handlePlaySelection}
               >
-                Play Selected
+                Play List
               </button>
             </div>
             <div className="control">
@@ -168,6 +170,14 @@ class TodoListing extends Component {
                 onClick={() => playPause('pause')}
               >
                 Pause
+              </button>
+            </div>
+            <div className="control">
+              <button
+                className="control button"
+                onClick={changePlayMode}
+              >
+                {playMode}
               </button>
             </div>
           </div>
@@ -232,6 +242,7 @@ const mapStateToProps = (state) => {
     error: state.todos.error,
     editingTodo: state.todos.editingTodo,
     nowPlaying: state.todos.nowPlaying,
+    playMode: state.todos.playMode,
   }
 }
 
@@ -244,6 +255,7 @@ const mapDispatchToProps = {
   setNowPlaying,
   playPause,
   setPlaylist,
+  changePlayMode,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoListing)

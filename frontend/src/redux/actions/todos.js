@@ -63,16 +63,16 @@ export function playPause(playPause) {
 }
 
 export function setPlaylist(playlist) {
-  console.log('setPlaylist action', playlist)
+  // console.log('setPlaylist action', playlist)
   return { type: 'SET_PLAYLIST', playlist}
 }
 
 export function advancePlayCounter() {
-  console.log('action advancePlayCounter')
+  console.log('> action advancePlayCounter')
   return { type: 'ADVANCE_PLAY_COUNTER' }
 }
 
-// toggle_play_through_list
-// TOGGLE_LOOP_PLAY
-
-
+export function changePlayMode() {
+  // console.log('action changePlayMode')
+  return { type: 'CHANGE_PLAY_MODE' }
+}

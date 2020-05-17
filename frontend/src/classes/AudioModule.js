@@ -84,10 +84,10 @@ export default class AudioModule {
 
     // UPDATE PLAY STATUS AND INSTRUMENT PARAMS
     updateAudioStatus = () => {  // changeAudioPlayStatus
-        console.log('updateAudioStatus')
         const state = store.getState()
         const { nowPlaying, isPlaying } = state.todos
-        console.log('nowPlaying', nowPlaying)
+        // console.log('nowPlaying', nowPlaying)
+        console.log('updateAudioStatus playCounter', state.todos.playCounter)
         this.activeTodo = nowPlaying.model
         if (isPlaying === false) {
             this.stop()

@@ -12,4 +12,6 @@ export const DEFAULT_STATE = {
   todos: TODOS_DEFAULT_STATE
 }
 
+console.log('DEFAULT_STATE in index', DEFAULT_STATE)
+
 export default todoApp
