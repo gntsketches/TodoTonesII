@@ -17,9 +17,16 @@ async function userTodos (ctx) {
   // console.log('user', user)
   const id = user._id
   // console.log('id', id)
-  const todos = await Todo.find({user_id: ObjectID(id)})
-  // const todos = await Todo.find({user_id: id})
-  ctx.body = todos
+  let todos = await Todo.find({user_id: ObjectID(id)})
+  console.log('>>>>> todos: ', todos)
+  const mappedTodos = todos.map(todo => {
+    return {
+      ...todo._doc,
+      username: username
+    }
+  })
+  console.log('>>>>> mappedTodos: ', mappedTodos)
+  ctx.body = mappedTodos
 }
 
 async function create (ctx) {
@@ -104,3 +111,24 @@ module.exports = {
   destroy,
   update
 }
+
+
+
+/*
+// Build query Atlas example
+const q = this.Challenge
+.find({ name: re })
+.sort({ updated_at: -1 })
+.populate('currency_id')
+.populate('partner_ids');
+
+const data = (await q).map(e => challengeAdminPayload({ challenge: e }));
+
+return ctx.ok({
+  data,
+  meta: {
+    total: data.length,
+  },
+});
+
+ */

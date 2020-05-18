@@ -100,7 +100,7 @@ function* deleteTodo (action) {
 }
 
 function* playPauseSaga(action) {
-  console.log('play in sagas', action)
+  // console.log('play in sagas', action)
   audioModule.updateAudioStatus()
 
   // not necessary as audioModule reads state...
@@ -129,7 +129,7 @@ function* setPlaylist(action) {
 
 function* advancePlaylist() {
   const state = store.getState()
-  console.log('>>>playCounter in sagas', state.todos.playCounter)
+  // console.log('>>>playCounter in sagas', state.todos.playCounter)
   if (state.todos.playMode === 'Once' && state.todos.playCounter === 0) {
     yield put(playPause('pause'))
   }

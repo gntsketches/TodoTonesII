@@ -8,42 +8,40 @@ https://stackoverflow.com/questions/10737166/chrome-not-rendering-svg-referenced
 
 
 TODO Next Up
-    Listing:
-        AND/OR like Bandcamp, let's have a progress bar -
-            AudioModule can send %
-        app distinction between playing a playlist and a single todo ('Stay' mode)
-            seems like, clicking play from the editor should set the play mode to 'Stay'
-            let's have the choice be in the NowPlaying section
-        test list play mode bug/features -
-            delete Todo should remove it from the Playlist
-            click to play a different todo, this should set playCounter to that
-            what if you change the list filter while playing
-                let's have that AUTO update the playlist... too confusing otherwise
-            if you save a todo while the list is playing, it gets lost and doesn't update
-            "Once" not working (with or without next/back)
-        ui
-            need some animation to make it more clear what's happening
-            border isn't really working to show that that's the editing Todo
-        note it's not doing the wait time
-            seems like that's extra confusion. remove from Todo and make global?
-        re: editor Play - play without saving... confusing in UI...
-            seem like you need a conditional, when the todo is altered add a button to the UI
-                like an a play button with an 'update' symbol or something
-            OR return to the save/update button, and that updates the nowPlaying as well
+    it's not doing the wait time
 
+    test list play mode bug/features -
+        delete Todo should remove it from the Playlist
+        click to play a different todo, this should set playCounter to that
+        what if you change the list filter while playing
+            let's have that AUTO update the playlist... too confusing otherwise
+        if you save a todo while the list is playing, it gets lost and doesn't update
+        "Once" not working (with or without next/back)
+
+    LOGIN vs PERSISTENCE
+        you can set the editingTodo from a non-logged-in user page
+        Also, Playlist carries over from a non-logged-in user page
+            Playlist and editing todo should be wiped on... when?
+            Playlist should auto-refresh with tag selections
+
+    re: editor Play - play without saving... confusing in UI...
+        seem like you need a conditional, when the todo is altered add a button to the UI
+            like an a play button with an 'update' symbol or something
+        OR return to the save/update button, and that updates the nowPlaying as well
+        also, update should update the nowPlaying, (if it's that one playing!)
+
+    TODO MVP
+        likes: [array of user_ids of who's liked it]
+        copy to editor option
+
+    TODO Would-be-nice
+        need some animation to make it more clear what's happening
+        Global wait time override?
+        progress bar - AudioModule can send %
         filter by title
         display by alphabetical, created, updated,
-        likes
         fold/unfold tags
-    Build out NowPlaying display
-        Author, Playlist, Title
-        copy to editor option
-    Todo-info: authorship, likes
-        likes: [array of user_ids of who's liked it]
-    play from editor:
-        also, update should update the nowPlaying,
-            (if it's that one playing!)
-    timing overrides: UI in NowPlaying or TodoList?
+        Todo-info: authorship
 
 
     https://www.reddit.com/r/learnjavascript/comments/gh9fmr/extract_info_from_url/

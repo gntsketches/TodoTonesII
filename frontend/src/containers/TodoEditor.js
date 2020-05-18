@@ -118,8 +118,8 @@ class TodoEditor extends Component {
               onClick={this.handleSaveClick}
               // text should be 'add' for no _id
             >
-              {/*{editingTodo._id ? 'Update' : 'Save'}*/}
-              Save
+              {editingTodo._id ? 'Update' : 'Save'}
+              {/*Save*/}
             </button>
           </div>
           <div className="control">

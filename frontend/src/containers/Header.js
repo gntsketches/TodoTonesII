@@ -24,8 +24,9 @@ class Header extends Component {
   render() {
     const { nowPlaying, todos, isPlaying, user, toggleListPlay, listPlay } = this.props;
     // console.log('user in header', user)
-    // console.log("now playing in header", nowPlaying)
+    console.log("now playing in header", nowPlaying)
     // console.log("todos in header", todos)
+
     const title = nowPlaying ? nowPlaying.title : 'Untitled'
 
     return (
@@ -44,7 +45,9 @@ class Header extends Component {
           </div>
         <div className="column is-6">
           <div>
-            <span className="title is-5">{title}</span> by {user.username}
+            <span className="title is-5">{title}</span>
+            {nowPlaying.username && nowPlaying.username !== user.username ?
+              <span> by {nowPlaying.username}</span> : null }
           </div>
           <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
             <button
