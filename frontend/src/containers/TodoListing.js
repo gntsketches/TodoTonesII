@@ -85,7 +85,7 @@ class TodoListing extends Component {
 
   get tagSelections() {  // todosByTag?
     const { tagFilters } = this.state
-    const { userTodos } = this.props
+    const { userTodos, setPlaylist } = this.props
 
     if (tagFilters.length === 0) return userTodos
 
@@ -99,6 +99,9 @@ class TodoListing extends Component {
       })
     })
 
+    // setPlaylist(tagSelections)
+    // *except* what if you want to filter without changing the list?
+      // because you're listening to another playlist and just visiting someone's page
     return tagSelections
   }
 

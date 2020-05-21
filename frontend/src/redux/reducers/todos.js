@@ -25,7 +25,6 @@ export const TODOS_DEFAULT_STATE = {
   playCounter: 0,
   listPlay: false,
   listPlayMode: 'Once',
-  playThroughList: true,
 }
 
 console.log('default state in reducer', TODOS_DEFAULT_STATE)
@@ -123,12 +122,6 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       return {
         ...state,
         isPlaying: playing,
-      }
-
-    case 'TOGGLE_PLAY_THROUGH_LIST':
-      return {
-        state,
-        playThroughList: !state.playThroughList,
       }
 
     case 'ADVANCE_PLAY_COUNTER':

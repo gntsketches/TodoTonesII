@@ -8,7 +8,8 @@ https://stackoverflow.com/questions/10737166/chrome-not-rendering-svg-referenced
 
 
 TODO Next Up
-    it's not doing the wait time
+    it's not doing the wait time.
+        let's just remove wait time! u can add it later if u want...
 
     test list play mode bug/features -
         delete Todo should remove it from the Playlist
