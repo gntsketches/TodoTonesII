@@ -113,17 +113,6 @@ class TodoEditor extends Component {
 
           <div className="control">
             <button
-              className={`button is-success ${(isLoading || isSaving) && "is-loading"}`}
-              disabled={isLoading || isSaving}
-              onClick={this.handleSaveClick}
-              // text should be 'add' for no _id
-            >
-              {editingTodo._id ? 'Update' : 'Save'}
-              {/*Save*/}
-            </button>
-          </div>
-          <div className="control">
-            <button
               className="control button"
               disabled={!editingTodo.description}
               // disabling for now if no _id, later should check content and save?
@@ -141,6 +130,16 @@ class TodoEditor extends Component {
               onClick={() => playPause('pause')}
             >
               <img src={images.stop} width="20px" height="20px" />
+            </button>
+          </div>
+          <div className="control">
+            <button
+              className={`button is-success ${(isLoading || isSaving) && "is-loading"}`}
+              disabled={isLoading || isSaving}
+              onClick={this.handleSaveClick}
+              // text should be 'add' for no _id
+            >
+              Save
             </button>
           </div>
           <div className="control">

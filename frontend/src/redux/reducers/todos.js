@@ -18,7 +18,7 @@ export const TODOS_DEFAULT_STATE = {
   saving: false,
   error: '',
   items: [],
-  editingTodo: { title: '', description: ''},
+  editingTodo: { title: '', description: '', tags: ''},  // should reference constants!
   nowPlaying: null,
   isPlaying: false,
   playlist: [],

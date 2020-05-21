@@ -22,7 +22,10 @@ class Header extends Component {
   }
 
   render() {
-    const { nowPlaying, todos, isPlaying, user, toggleListPlay, listPlay } = this.props;
+    const {
+      nowPlaying, todos, isPlaying, user, toggleListPlay, listPlay,
+      playlist,
+    } = this.props;
     // console.log('user in header', user)
     console.log("now playing in header", nowPlaying)
     // console.log("todos in header", todos)
@@ -40,16 +43,21 @@ class Header extends Component {
           "backgroundColor": "#00d1b2",
         }}
       >
-          <div className="column is-3">
-            <h1 className="title white level-item">Todo Tones II</h1>
-          </div>
-        <div className="column is-6">
+
+        <div className="column is-5">
+          <h1 className="title white level-item">Todo Tones II</h1>
+        </div>
+
+        <div className="column is-2">
           <div>
             <span className="title is-5">{title}</span>
+            {/*should check page difference rather than user difference?*/}
             {nowPlaying.username && nowPlaying.username !== user.username ?
               <span> by {nowPlaying.username}</span> : null }
           </div>
-          <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
+          <div style={{
+            display: "flex", justifyContent: "center", alignItems: "center"
+          }}>
             <button
               className="button"
               disabled={nowPlaying == null}
@@ -90,22 +98,35 @@ class Header extends Component {
           </div>
         </div>
 
+        <div className="column is-4">
+          <span>Playlist ({playlist[0].username})</span>
+          <div style={{
+            display: 'flex', height: '65px', padding: '5px', background: '#aaa', borderRadius: '3px',
+          }}>
+            {playlist.map(todo => <div>{todo.title},&nbsp;</div>)}
+          </div>
+        </div>
+
         { user === false ? (
           <div
-            className="column is-3"
-            style={{"display": "flex", "justifyContent": "space-around"}}
+            className="column is-1"
+            style={{display: "flex", justifyContent: "space-around", alignItems: 'flex-start'}}
           >
             <Link to={'/login'}> Login </Link>
             <Link to={'/register'}> Register </Link>
           </div>
         ) : (
           <div
-            className="column is-3"
-            style={{"display": "flex", "justifyContent": "space-around"}}
+            className="column is-1"
+            style={{display: "flex", padding: '0',
+              justifyContent: "space-around", alignItems: 'flex-start'}}
           >
-            <a onClick={this.props.logoutUser}>Logout</a>
+            <div>
+              <a onClick={this.props.logoutUser}>Logout</a>
+            </div>
           </div>
         )}
+
       </section>
     )
   }
@@ -120,6 +141,7 @@ const mapStateToProps = (state) => {
     nowPlaying: state.todos.nowPlaying,
     isPlaying: state.todos.isPlaying,
     listPlay: state.todos.listPlay,
+    playlist: state.todos.playlist,
 
     user: state.auth.user,
   }

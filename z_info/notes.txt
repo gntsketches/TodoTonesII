@@ -8,11 +8,36 @@ https://stackoverflow.com/questions/10737166/chrome-not-rendering-svg-referenced
 
 
 TODO Next Up
-    it's not doing the wait time.
-        let's just remove wait time! u can add it later if u want...
+    OK. There's a general UI question about auto-update vs 'chosen' updates
+        for both Editor and List. pros and cons on both sides.
+        here's a thought:
+            you probably can't auto-update the editing todo because of the formatting
+            BUT maybe it can still affect the now playing?
+                which would be good to hear instant feedback (which is what you'll want in ToneGems)
+            so that's a case for auto-update (but not auto save) (title that says "save applies formatting")
+            ALSO it's not clear if/how that can actually work.
+            So for now u can do the update-button thing, which still gets the extra square out of the UI.
+        'Playing Todo-List', 'Playing Todo-Item', 'Playing Todo-Editor'
+            'listPlay' bool doesn't cover that
+            OR maybe it's better UI to put 'Stay' back in the List options,
+                that keeps a cleaner separation between editor and list (which is already a little confusing)
+                Also, just because you're on stay, you still might want to use the next/back arrows
+            So this keeps editor separate from list
+                but you still update everything in the list & now playing on save
+                also note that if you filter or delete a todo from the playlist you'll need to switch out nowPlaying
 
-    test list play mode bug/features -
+    EDITOR PLAY
+        seem like you need a conditional, when the todo is altered
+            disable until alteration, then show a 'update' above the play button,
+            & disable save unless altered
+            use same compare function for both
+            also, save should update the nowPlaying, (if it's that one playing!)
+
+    LIST PLAY
+        like editor, disable play until list is altered, then show 'update'
+            check playlist for comparison, return false at first deviation
         delete Todo should remove it from the Playlist
+            remove it from nowPlaying?
         click to play a different todo, this should set playCounter to that
         what if you change the list filter while playing
             let's have that AUTO update the playlist... too confusing otherwise
@@ -25,11 +50,8 @@ TODO Next Up
             Playlist and editing todo should be wiped on... when?
             Playlist should auto-refresh with tag selections
 
-    re: editor Play - play without saving... confusing in UI...
-        seem like you need a conditional, when the todo is altered add a button to the UI
-            like an a play button with an 'update' symbol or something
-        OR return to the save/update button, and that updates the nowPlaying as well
-        also, update should update the nowPlaying, (if it's that one playing!)
+    it's not doing the wait time.
+        let's just remove wait time! u can add it later if u want...
 
     TODO MVP
         likes: [array of user_ids of who's liked it]
