@@ -231,7 +231,7 @@ class TodoListing extends Component {
               onRightClick={(e) => {
                 e.preventDefault()
                 setNowPlaying(todo)
-                if (nowPlaying._id === todo._id) playPause()
+                if (nowPlaying && nowPlaying._id === todo._id) playPause()
                 else playPause('play')
               }}
             />

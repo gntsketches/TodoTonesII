@@ -26,15 +26,8 @@ TODO Next Up
                 but you still update everything in the list & now playing on save
                 also note that if you filter or delete a todo from the playlist you'll need to switch out nowPlaying
                 (also what if you're playing someone else's list or the Radio?)
-                aaaand... wait you can't *play* the editingTodo,
-                    so how do you manage this?
-                    If you press *play* in Playing-Todo-Editor mode,
-                        you *play* the editingTodo by putting it in nowPlaying
-                        just like in the TodoEditor
-                        See how that works?
-                        Also auto-stop when changing modes plz.
-                        Also display play button when there's no editing Todo
-                            just like you do over there on the left.
+                TODO: clear nowPlaying if you click 'New' in editingTodo while !listPlay
+
 
     EDITOR PLAY
         seem like you need a conditional, when the todo is altered
@@ -325,7 +318,7 @@ WEEKEND OF HTTP:
   async register(ctx) {
     const { body } = ctx.request;
     console.log("authController register body", body)
-    (ieverything else commented out)
+    (everything else commented out)
     ctx.redirect('http://localhost:3000/user');
   },
     Gets this Error:

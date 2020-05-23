@@ -18,6 +18,7 @@ class TodoEditor extends Component {
     // compare for changes and warn of overwrite
     const todo = { title: '', description: '', tags: ''}  // also using this in TodoListing, make it a constant...?
     this.props.setEditingTodo(todo)
+    if (!this.props.listPlay && !this.props.isPlaying) this.props.setNowPlaying(null)
   }
 
   handleSaveClick = () => {
@@ -60,8 +61,7 @@ class TodoEditor extends Component {
   handlePlayClick = () => {
     const { editingTodo, setEditingTodo, setNowPlaying, playPause, nowPlaying } = this.props
 
-    const todoModel = new TodoModel(editingTodo.description)
-    // you are setting a new TodoModel twice - also in reducers...
+    const todoModel = new TodoModel(editingTodo.description)  // you are setting a new TodoModel twice - also in reducers...
     // console.log('handlePlayClick todoModel', todoModel)
     const newTodo = {
       ...editingTodo,
@@ -73,10 +73,7 @@ class TodoEditor extends Component {
     // console.log('nowPlaying Pre', nowPlaying)
     setNowPlaying(newTodo)
     // console.log('newPlaying post', nowPlaying)
-    // this is fishy. will it necessarily happen after setNowPlaying?
-      // also, it toggles the nowPlaying (without stopping it).
-        // so that's weird. a case for passing the boolean rather than a toggle
-    this.props.toggleListPlay(false)
+    this.props.toggleListPlay(false)  // this is fishy. will these necessarily happen after setNowPlaying?
     playPause('play')
   }
 
@@ -103,7 +100,7 @@ class TodoEditor extends Component {
     // console.log('editingTodo', editingTodo)
 
     return (
-      <section className="column  is-4">
+      <section className="column is-4">
 
         <div className="error">{error}</div>
 

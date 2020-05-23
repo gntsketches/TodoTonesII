@@ -4,33 +4,57 @@ import { Link } from 'react-router-dom';
 
 import {
   addTodo, deleteTodo, fetchTodos, updateTodo, playPause, toggleListPlay,
-  advancePlayCounter,
+  advancePlayCounter, setEditingTodo, setNowPlaying,
 } from "../redux/actions/todos"
 import {logoutUser} from "../redux/actions/auth"
 import images from '../assets/images/index.js'
+import TodoModel from "../classes/TodoModel"
 
 
 class Header extends Component {
 
   handlePlayPauseClick = () => {
-    const { playPause, isPlaying } = this.props
+    const {
+      playPause, isPlaying, listPlay, editingTodo, setEditingTodo, setNowPlaying,
+    } = this.props
     if (isPlaying) {
       playPause('pause')
     } else {
+      if (!listPlay) {  // NOTE how this duplicates the code in the TodoEditor
+        const todoModel = new TodoModel(editingTodo.description)  // you are setting a new TodoModel twice - also in reducers...
+        // console.log('handlePlayClick todoModel', todoModel)
+        const newTodo = {
+          ...editingTodo,
+          description: todoModel.text,
+          playableTodo: todoModel,
+        }
+
+        setEditingTodo(newTodo)
+        // console.log('nowPlaying Pre', nowPlaying)
+        setNowPlaying(newTodo)
+      }
       playPause('play')
     }
+  }
+
+  handlePlayModeClick = () => {
+    const { listPlay, editingTodo, playPause, toggleListPlay } = this.props
+    if (listPlay && !editingTodo.description) {
+      playPause('pause')
+    }
+    toggleListPlay()
   }
 
   render() {
     const {
       nowPlaying, todos, isPlaying, user, toggleListPlay, listPlay,
-      playlist,
+      playlist, editingTodo,
     } = this.props;
     // console.log('user in header', user)
-    console.log("now playing in header", nowPlaying)
-    // console.log("todos in header", todos)
+    // console.log("now playing in header", nowPlaying)
 
-    const title = nowPlaying ? nowPlaying.title : 'Untitled'
+    let title
+    if (nowPlaying != null) title = nowPlaying.title ? nowPlaying.title : 'Untitled'
 
     return (
       <section
@@ -51,9 +75,11 @@ class Header extends Component {
         <div className="column is-2">
           <div>
             <span className="title is-5">{title}</span>
-            {/*should check page difference rather than user difference?*/}
-            {nowPlaying && nowPlaying.username && nowPlaying.username !== user.username ?
-              <span> by {nowPlaying.username}</span> : null }
+            {/*{nowPlaying && nowPlaying.username && nowPlaying.username !== user.username ?*/}
+            {/*should check page difference rather than user difference...*/}
+            {nowPlaying && nowPlaying.username && nowPlaying.username !== window.location.href.split('/')[4] ?
+              <span> by {nowPlaying.username}</span> : null
+            }
           </div>
           <div style={{
             display: "flex", justifyContent: "center", alignItems: "center"
@@ -68,7 +94,8 @@ class Header extends Component {
             </button>
             <button
               className="button"
-              disabled={nowPlaying == null}
+              // working on this line:
+              disabled={(!listPlay && !editingTodo.description) || nowPlaying == null}
               onClick={this.handlePlayPauseClick}
               style={{margin: "2px"}}
             >
@@ -89,11 +116,11 @@ class Header extends Component {
           <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
             <button
               className="button"
-              disabled={nowPlaying == null}
-              onClick={() => toggleListPlay()}
+              // disabled={nowPlaying == null}
+              onClick={() => this.handlePlayModeClick()}
               style={{margin: "2px", height: "18px", fontSize: "10px", padding: "1px 5px"}}
             >
-              {listPlay ? 'Playing Todo-List' : 'Playing Todo-Item'}
+              {listPlay ? 'Playing Todo-List' : 'Playing Todo-Editor'}
             </button>
           </div>
         </div>
@@ -142,6 +169,7 @@ const mapStateToProps = (state) => {
     isPlaying: state.todos.isPlaying,
     listPlay: state.todos.listPlay,
     playlist: state.todos.playlist,
+    editingTodo: state.todos.editingTodo,
 
     user: state.auth.user,
   }
@@ -156,6 +184,8 @@ const mapDispatchToProps = {
   toggleListPlay,
   logoutUser,
   advancePlayCounter,
+  setEditingTodo,
+  setNowPlaying,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

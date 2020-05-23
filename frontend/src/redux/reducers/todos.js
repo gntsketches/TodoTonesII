@@ -94,13 +94,14 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case SET_NOW_PLAYING:
-      // console.log('action.todo', action.todo)
+      console.log('redux setNowPlaying', action.todo)
+      const newNowPlaying = action.todo == null ?
+        null : { ...action.todo, model: new TodoModel(action.todo.description),
+      }
+
       return {
         ...state,
-        nowPlaying: {
-          ...action.todo,
-          model: new TodoModel(action.todo.description),
-        },
+        nowPlaying: newNowPlaying,
       }
 
     case 'SET_PLAYLIST':
