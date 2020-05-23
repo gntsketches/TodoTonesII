@@ -37,9 +37,6 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
         ...state,
         items: action.todos,
         loading: false,
-        // playQueue: action.todos,
-        // it's going to be more complicated than that
-        // randomize, click repertoire, click unsaved,
       }
 
     case FETCH_TODOS: {
@@ -94,7 +91,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case SET_NOW_PLAYING:
-      console.log('redux setNowPlaying', action.todo)
+      console.log('reducer setNowPlaying', action.todo)
       const newNowPlaying = action.todo == null ?
         null : { ...action.todo, model: new TodoModel(action.todo.description),
       }
@@ -106,8 +103,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
 
     case 'SET_PLAYLIST':
       const { playlist } = action
-      // console.log('reducer.playlist', playlist)
-      // if (state.playCounter > playlist.length) ...?
+      console.log('reducer setPlaylist', playlist)
       return {
         ...state,
         playlist: action.playlist,
@@ -116,7 +112,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
 
     case PLAY_PAUSE:
       // action accepts play vs pause, but this doesn't use it...
-      console.log('playPause', action.playPause)
+      console.log('reducer playPause', action.playPause)
       let playing
       if (action.playPause == null) playing = !state.isPlaying
       else playing = action.playPause === 'play'
@@ -159,8 +155,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case 'TOGGLE_LIST_PLAY':
-      console.log('reducer action.bool', action.bool)
-      console.log('reducer action.bool == null', action.bool == null)
+      console.log('reducer togglePlayList', action.bool)
       let newListPlay
       if (action.bool == null) newListPlay = !state.listPlay
       else newListPlay = action.bool

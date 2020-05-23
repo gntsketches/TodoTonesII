@@ -3,6 +3,7 @@ import {connect} from "react-redux"
 import services from '../services'
 
 import { loginUser } from "../redux/actions/auth"
+import history from "../utils/history"
 
 
 class Register extends Component {
@@ -29,9 +30,10 @@ class Register extends Component {
 
     services.authAPI.loginUser(data)
     .then((res) => res.json())
-    .then((data) => {
-      console.log('data', data)
-      this.props.loginUser(data)
+    .then((userData) => {
+      console.log('userData', userData)
+      this.props.loginUser(userData)
+      history.push(`/users/${userData.username}`);
     })
     .catch((err) => console.log(err))
   }
@@ -43,7 +45,7 @@ class Register extends Component {
     return (
       <div className="columns">
         <div className="column is-6">
-          <h1 className="title">Register</h1>
+          <h1 className="title">Login</h1>
 
           {/*<form action="http://localhost:4000/auth/register" method="POST">*/}
           <form onSubmit={this.onLoginSubmit}>

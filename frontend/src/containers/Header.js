@@ -95,7 +95,7 @@ class Header extends Component {
             <button
               className="button"
               // working on this line:
-              disabled={(!listPlay && !editingTodo.description) || nowPlaying == null}
+              disabled={(!listPlay && !editingTodo.description)}
               onClick={this.handlePlayPauseClick}
               style={{margin: "2px"}}
             >
@@ -130,7 +130,7 @@ class Header extends Component {
           <div style={{
             display: 'flex', height: '65px', padding: '5px', background: '#aaa', borderRadius: '3px',
           }}>
-            {playlist.map(todo => <div>{todo.title},&nbsp;</div>)}
+            {playlist.map(todo => <div key={'Header-TagList'+todo._id}>{todo.title},&nbsp;</div>)}
           </div>
         </div>
 

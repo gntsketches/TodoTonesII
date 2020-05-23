@@ -136,9 +136,6 @@ function* advancePlaylist() {
   yield put(setNowPlaying(state.todos.playlist[state.todos.playCounter]))
 }
 
-function* loginUser(action) {
-  history.push(`/users/${action.userData.username}`);
-}
 
 // RootSaga seems to take the place of the 'watcher' sagas
 function* rootSaga() {
@@ -148,7 +145,6 @@ function* rootSaga() {
   yield takeEvery(UPDATE_TODO, updateTodo)
   yield takeEvery(PLAY_PAUSE, playPauseSaga)
   yield takeEvery('SET_PLAYLIST', setPlaylist)
-  yield takeEvery('LOGIN_USER', loginUser)
   yield takeEvery('ADVANCE_PLAY_COUNTER', advancePlaylist)
 
 }

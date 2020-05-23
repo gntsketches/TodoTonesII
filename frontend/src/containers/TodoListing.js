@@ -16,6 +16,7 @@ import {
   toggleListPlay,
 } from '../redux/actions/todos'
 import images from '../assets/images/index.js'
+import {put} from "redux-saga/effects"
 
 
 const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted, playing }) => {
@@ -56,7 +57,10 @@ class TodoListing extends Component {
   }
 
   componentDidMount() {
-    // this.props.fetchTodos()
+    const { playList, setPlaylist } = this.props;
+    if (playList && playList.length === 0) {
+      setPlaylist(this.tagSelections)
+    }
   }
 
   updateTagFilters(tag) {
@@ -106,8 +110,12 @@ class TodoListing extends Component {
   }
 
   handlePlaySelection = () => {
+    // console.log('TodoListing handlePlaySelection props', this.props)
     this.props.toggleListPlay(true)
     this.props.setPlaylist(this.tagSelections)
+    // console.log('handlePlaySelection playList', this.props.playlist)
+    // this.props.setNowPlaying(this.props.playlist[0])  // testing redux synchronous. vs doing this in Sagas. this references previous state! clear localstorage and try it...
+    // this.props.playPause('play')
   }
 
 
@@ -123,12 +131,13 @@ class TodoListing extends Component {
       })
     })
 
-    const tagListJSX = tagList.map(tag => {
+    const tagListJSX = tagList.map((tag, i) => {
       const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
       const color = tagFilters.length === 0 || tagFilters.includes(tag) ? '#888' : 'white'
 
       return (
       <div
+        key={'TodoListing'+i+tag}
        style={{
          background: background, color: color,
          padding: '0 2px', margin: '0 0 5px 5px',
@@ -150,7 +159,7 @@ class TodoListing extends Component {
       deleteTodo, setEditingTodo, setNowPlaying, playPause,
       listPlay, listPlayMode, changeListPlayMode,
     } = this.props
-    // console.log('this props', this.props)
+    console.log('TodoListing render props', this.props)
     // console.log('listplayMode', listPlayMode)
 
 
@@ -245,6 +254,7 @@ class TodoListing extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    state,
     // todos: state.todos.items,
     isLoading: state.todos.loading,
     isSaving: state.todos.saving,
@@ -254,6 +264,7 @@ const mapStateToProps = (state) => {
     nowPlaying: state.todos.nowPlaying,
     listPlay: state.todos.listPlay,
     listPlayMode: state.todos.listPlayMode,
+    playlist: state.todos.playlist,
   }
 }
 

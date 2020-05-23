@@ -27,6 +27,12 @@ TODO Next Up
                 also note that if you filter or delete a todo from the playlist you'll need to switch out nowPlaying
                 (also what if you're playing someone else's list or the Radio?)
                 TODO: clear nowPlaying if you click 'New' in editingTodo while !listPlay
+        Hey what if you click play in the header with listPlay?
+            it should play it. but what if there's no playList setUp?
+            so you should set a playList up on mount
+            also maybe that saga is weird?
+            anyway once you install auto-update this will change
+
 
 
     EDITOR PLAY

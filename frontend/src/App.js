@@ -32,6 +32,7 @@ class App extends Component {
     // }
 
     window.addEventListener('keydown', this.handleKeydown)
+    this.props.playPause('pause')
   }
 
   componentDidUpdate() {

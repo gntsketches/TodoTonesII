@@ -27,9 +27,9 @@ class User extends Component {
   }
 
   componentDidMount() {
-    const userURLFrag = window.location.href.split('/')[4]
-    console.log('url', userURLFrag)
-    console.log(this.state)
+    // const userURLFrag = window.location.href.split('/')[4]
+    // console.log('url', userURLFrag)
+    // console.log(this.state)
     this.fetchPublicUserTodos()
   }
 
