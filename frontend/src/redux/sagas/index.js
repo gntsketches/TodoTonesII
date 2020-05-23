@@ -100,7 +100,7 @@ function* deleteTodo (action) {
 }
 
 function* playPauseSaga(action) {
-  // console.log('play in sagas', action)
+  console.log('sagas playPause', action)
   audioModule.updateAudioStatus()
 
   // not necessary as audioModule reads state...
@@ -124,7 +124,9 @@ function* playPauseSaga(action) {
 function* setPlaylist(action) {
   // SET_PLAY_COUNTER
   yield put(setNowPlaying(action.playlist[0]))
-  yield put(playPause('play'))
+  if (action.play) {
+    yield put(playPause('play'))
+  }
 }
 
 function* advancePlaylist() {

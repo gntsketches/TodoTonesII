@@ -56,10 +56,11 @@ class TodoListing extends Component {
     }
   }
 
-  componentDidMount() {
-    const { playList, setPlaylist } = this.props;
-    if (playList && playList.length === 0) {
-      setPlaylist(this.tagSelections)
+  componentDidUpdate() {
+    const { playlist, setPlaylist } = this.props;
+    if (playlist.length === 0 && this.tagSelections.length !== 0) {
+      console.log('length 0')
+      setPlaylist(this.tagSelections, false)
     }
   }
 
@@ -112,7 +113,7 @@ class TodoListing extends Component {
   handlePlaySelection = () => {
     // console.log('TodoListing handlePlaySelection props', this.props)
     this.props.toggleListPlay(true)
-    this.props.setPlaylist(this.tagSelections)
+    this.props.setPlaylist(this.tagSelections, true)
     // console.log('handlePlaySelection playList', this.props.playlist)
     // this.props.setNowPlaying(this.props.playlist[0])  // testing redux synchronous. vs doing this in Sagas. this references previous state! clear localstorage and try it...
     // this.props.playPause('play')

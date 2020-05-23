@@ -12,7 +12,7 @@ export default class userTodosAPI {
   // }
 
 
-  fetchPublicUserTodos(username, tag='') {
+  fetchPublicUserTodos(username, tag='') {  // note how this is used for both user and publicUser
     // console.log('api userId', userId)
     return fetch(`${LOCALHOST_BASE_URL}/todos/${username}`, {
       method: 'GET',

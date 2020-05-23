@@ -21,7 +21,7 @@ class User extends Component {
     super();
 
     this.state = {
-      todos: [],
+      userTodos: [],
       userURLFrag: window.location.href.split('/')[4],
     }
   }
@@ -44,7 +44,7 @@ class User extends Component {
     .then((res) => res.json())
     .then((data) => {
       // console.log('data', data)
-      this.setState({todos: data})
+      this.setState({userTodos: data})
     })
     // .catch((err) => console.log(err))
   }
@@ -61,7 +61,7 @@ class User extends Component {
         />
         <div className="column is-2"></div>
         <TodoListing
-          userTodos={this.state.todos}
+          userTodos={this.state.userTodos}
           fetchPublicUserTodos={this.fetchPublicUserTodos}
         />
         <div className="column is-1"></div>
@@ -73,7 +73,7 @@ class User extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos.items,
+    // todos: state.todos.items,  // hmm
     isLoading: state.todos.loading,
     isSaving: state.todos.saving,
     error: state.todos.error,

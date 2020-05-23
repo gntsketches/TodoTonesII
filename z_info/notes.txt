@@ -31,7 +31,9 @@ TODO Next Up
             it should play it. but what if there's no playList setUp?
             so you should set a playList up on mount
             also maybe that saga is weird?
-            anyway once you install auto-update this will change
+            anyway once you install auto-update this will change. maybe.
+        Other-User page Todo-play mode??? still shows Todo-Editing...
+        How/Where are User's Todos set on Redux?
 
 
 

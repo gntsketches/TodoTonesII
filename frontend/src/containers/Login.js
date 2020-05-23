@@ -31,7 +31,7 @@ class Register extends Component {
     services.authAPI.loginUser(data)
     .then((res) => res.json())
     .then((userData) => {
-      console.log('userData', userData)
+      // console.log('userData', userData)
       this.props.loginUser(userData)
       history.push(`/users/${userData.username}`);
     })

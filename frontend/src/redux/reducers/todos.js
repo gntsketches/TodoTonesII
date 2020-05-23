@@ -140,7 +140,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case 'CHANGE_LIST_PLAY_MODE':
-      // console.log('reducer state', state)
+      console.log('reducer changeListPlayMode', state)
       const { listPlayMode } = state
 
       let newPlayMode
