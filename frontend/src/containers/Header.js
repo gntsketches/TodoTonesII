@@ -52,7 +52,7 @@ class Header extends Component {
           <div>
             <span className="title is-5">{title}</span>
             {/*should check page difference rather than user difference?*/}
-            {nowPlaying.username && nowPlaying.username !== user.username ?
+            {nowPlaying && nowPlaying.username && nowPlaying.username !== user.username ?
               <span> by {nowPlaying.username}</span> : null }
           </div>
           <div style={{
@@ -99,7 +99,7 @@ class Header extends Component {
         </div>
 
         <div className="column is-4">
-          <span>Playlist ({playlist[0].username})</span>
+          <span>Playlist ({playlist[0] && playlist[0].username})</span>
           <div style={{
             display: 'flex', height: '65px', padding: '5px', background: '#aaa', borderRadius: '3px',
           }}>

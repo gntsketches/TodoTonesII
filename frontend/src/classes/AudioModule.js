@@ -67,7 +67,7 @@ export default class AudioModule {
             const timeCheck = this.timeTag + waitOrPlay
             // console.log('seconds', Tone.Transport.seconds)
             if (Tone.Transport.seconds >= timeCheck) {
-                if (store.getState().todos.listPlay) {
+                if (store.getState().todos.listPlayMode !== 'Stay') {
                     store.dispatch(advancePlayCounter())
                 }
                 this.updateAudioStatus()
@@ -86,7 +86,7 @@ export default class AudioModule {
         const state = store.getState()
         const { nowPlaying, isPlaying } = state.todos
         // console.log('nowPlaying', nowPlaying)
-        // console.log('updateAudioStatus playCounter', state.todos.playCounter)
+        console.log('updateAudioStatus playCounter', state.todos.playCounter)
         this.activeTodo = nowPlaying.model
         if (isPlaying === false) {
             this.stop()

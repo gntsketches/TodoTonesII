@@ -149,7 +149,8 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       let newPlayMode
       if (listPlayMode === 'Loop') newPlayMode = 'Rand'
       else if (listPlayMode === 'Rand') newPlayMode = 'Once'
-      else if (listPlayMode === 'Once') newPlayMode = 'Loop'
+      else if (listPlayMode === 'Once') newPlayMode = 'Stay'
+      else if (listPlayMode === 'Stay') newPlayMode = 'Loop'
 
       return {
         ...state,

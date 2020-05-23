@@ -219,9 +219,9 @@ class TodoListing extends Component {
           <div
             style={{maxHeight: '70vh', overflowY: 'auto'}}
           >
-          {this.tagSelections.map(todo => (
+          {this.tagSelections.map((todo, index)=> (
             <Todo
-              playing={nowPlaying._id === todo._id && nowPlaying.description === todo.description}
+              playing={nowPlaying && nowPlaying._id === todo._id && nowPlaying.description === todo.description}
               highlighted={todo._id === editingTodo._id}
               key={todo._id}
               id={todo._id}

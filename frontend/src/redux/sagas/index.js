@@ -130,7 +130,7 @@ function* setPlaylist(action) {
 function* advancePlaylist() {
   const state = store.getState()
   // console.log('>>>playCounter in sagas', state.todos.playCounter)
-  if (state.todos.playMode === 'Once' && state.todos.playCounter === 0) {
+  if (state.todos.listPlayMode === 'Once' && state.todos.playCounter === 0) {
     yield put(playPause('pause'))
   }
   yield put(setNowPlaying(state.todos.playlist[state.todos.playCounter]))
