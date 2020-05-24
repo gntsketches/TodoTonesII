@@ -23,7 +23,7 @@ export const TODOS_DEFAULT_STATE = {
   isPlaying: false,
   playlist: [],
   playCounter: 0,
-  listPlay: false,
+  listPlay: true,
   listPlayMode: 'Once',
 }
 

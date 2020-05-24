@@ -16,7 +16,6 @@ import {
   toggleListPlay,
 } from '../redux/actions/todos'
 import images from '../assets/images/index.js'
-import {put} from "redux-saga/effects"
 
 
 const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted, playing }) => {
@@ -58,20 +57,19 @@ class TodoListing extends Component {
 
   componentDidUpdate() {
     const { playlist, setPlaylist } = this.props;
-    if (playlist.length === 0 && this.tagSelections.length !== 0) {
+    if (playlist.length === 0 && this.todosByTagSelection.length !== 0) {
       console.log('length 0')
-      setPlaylist(this.tagSelections, false)
+      setPlaylist(this.todosByTagSelection, false)
     }
   }
 
-  updateTagFilters(tag) {
-    const { tagFilters } = this.state
-
-    if (tagFilters.includes(tag)) {
-      this.setState({tagFilters: tagFilters.filter(e => e !== tag)})
-    } else {
-      this.setState({tagFilters: [...tagFilters, tag]})
-    }
+  handlePlaySelection = () => {
+    // console.log('TodoListing handlePlaySelection props', this.props)
+    this.props.toggleListPlay(true)
+    this.props.setPlaylist(this.todosByTagSelection, true)
+    // console.log('handlePlaySelection playList', this.props.playlist)
+    // this.props.setNowPlaying(this.props.playlist[0])  // testing redux synchronous. vs doing this in Sagas. this references previous state! clear localstorage and try it...
+    // this.props.playPause('play')
   }
 
   handleDelete = (e, todo) => {
@@ -88,35 +86,59 @@ class TodoListing extends Component {
     // .catch((err) => console.log(err))
   }
 
-  get tagSelections() {  // todosByTag?
+  updatePlaylist = () => {
+    const { userTodos, playlist , setPlaylist} = this.props
+
+    if (playlist[0] && userTodos[0] && playlist[0]._id === userTodos[0]._id) {
+      setPlaylist(this.todosByTagSelection)
+      // not working to update playlist when it's back to none selected...
+    }
+
+  }
+
+  updateTagFilters(tag) {
     const { tagFilters } = this.state
-    const { userTodos, setPlaylist } = this.props
+
+    if (tagFilters.includes(tag)) {
+      this.setState({tagFilters: tagFilters.filter(e => e !== tag)}, this.updatePlaylist)
+    } else if (tagFilters.length > this.tagList) {
+      this.setState({tagFilters: []}, this.updatePlaylist)
+    } else {
+      this.setState({tagFilters: [...tagFilters, tag]}, this.updatePlaylist)
+    }
+  }
+
+  get todosByTagSelection() {
+    const { tagFilters } = this.state
+    const { userTodos, playlist, setPlaylist } = this.props
 
     if (tagFilters.length === 0) return userTodos
 
-    const tagSelections = []
+    const todosByTagSelection = []
     tagFilters.forEach(tag => {
       userTodos.forEach(todo => {
         // console.log('todo.tags & tag', todo.tags, tag)
-        if (todo.tags.includes(tag) && !tagSelections.includes(todo)) {
-          tagSelections.push(todo)
+        if (todo.tags.includes(tag) && !todosByTagSelection.includes(todo)) {
+          todosByTagSelection.push(todo)
         }
       })
     })
 
-    // setPlaylist(tagSelections)
-    // *except* what if you want to filter without changing the list?
-      // because you're listening to another playlist and just visiting someone's page
-    return tagSelections
+    return todosByTagSelection
+    // IF you click on one, then another, and fill them all up, then you have to unclick them all to get back to this desired behavior
   }
 
-  handlePlaySelection = () => {
-    // console.log('TodoListing handlePlaySelection props', this.props)
-    this.props.toggleListPlay(true)
-    this.props.setPlaylist(this.tagSelections, true)
-    // console.log('handlePlaySelection playList', this.props.playlist)
-    // this.props.setNowPlaying(this.props.playlist[0])  // testing redux synchronous. vs doing this in Sagas. this references previous state! clear localstorage and try it...
-    // this.props.playPause('play')
+  get tagList() {
+    const { userTodos } = this.props
+
+    const tagList = []
+    userTodos.forEach(todo => {  // do with reduce!
+      todo.tags.forEach(tag => {
+        if (!tagList.includes(tag)) tagList.push(tag)
+      })
+    })
+
+    return tagList
   }
 
 
@@ -125,12 +147,13 @@ class TodoListing extends Component {
     const { userTodos } = this.props
     // console.log('tagFilters', tagFilters)
 
-    const tagList = []
-    userTodos.forEach(todo => {  // do with reduce!
-      todo.tags.forEach(tag => {
-        if (!tagList.includes(tag)) tagList.push(tag)
-      })
-    })
+    // const tagList = []
+    // userTodos.forEach(todo => {  // do with reduce!
+    //   todo.tags.forEach(tag => {
+    //     if (!tagList.includes(tag)) tagList.push(tag)
+    //   })
+    // })
+    const tagList = this.tagList
 
     const tagListJSX = tagList.map((tag, i) => {
       const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
@@ -176,7 +199,7 @@ class TodoListing extends Component {
             <div className="control">
               <button
                 className="control button"
-                disabled={this.tagSelections.length === 0}
+                disabled={this.todosByTagSelection.length === 0}
                 onClick={this.handlePlaySelection}
               >
                 <img src={images.play} width="20px" height="20px" />
@@ -229,7 +252,7 @@ class TodoListing extends Component {
           <div
             style={{maxHeight: '70vh', overflowY: 'auto'}}
           >
-          {this.tagSelections.map((todo, index)=> (
+          {this.todosByTagSelection.map((todo, index)=> (
             <Todo
               playing={nowPlaying && nowPlaying._id === todo._id && nowPlaying.description === todo.description}
               highlighted={todo._id === editingTodo._id}

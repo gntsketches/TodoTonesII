@@ -116,7 +116,7 @@ class Header extends Component {
           <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
             <button
               className="button"
-              // disabled={nowPlaying == null}
+              disabled={!this.props.user}
               onClick={() => this.handlePlayModeClick()}
               style={{margin: "2px", height: "18px", fontSize: "10px", padding: "1px 5px"}}
             >
@@ -149,7 +149,10 @@ class Header extends Component {
               justifyContent: "space-around", alignItems: 'flex-start'}}
           >
             <div>
-              <a onClick={this.props.logoutUser}>Logout</a>
+              <a onClick={() => {
+                this.props.logoutUser()
+                this.props.toggleListPlay(true)
+              }}>Logout</a>
             </div>
           </div>
         )}
