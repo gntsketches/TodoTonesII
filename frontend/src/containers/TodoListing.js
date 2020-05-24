@@ -101,19 +101,28 @@ class TodoListing extends Component {
     }
   }
 
-  updateTagFilters(tag) {
+  updateTagFilters(tag, setAsOnly) {
     const { tagFilters } = this.state
     console.log('tag, tagFilters', tag, tagFilters)
 
-    if (tagFilters.includes(tag)) {
-      const newTagFilters = tagFilters.filter(e => e !== tag)
-      console.log('newTagFilters', newTagFilters)
-      this.setState({tagFilters: newTagFilters}, ()=> {
-        this.updatePlaylist()
-      })
+    if (setAsOnly) {
+      console.log('setAsOnly')
+      if (tagFilters.length === 1 && tagFilters[0] === tag) {
+        this.setState({tagFilters: this.tagList}, this.updatePlaylist)
+      } else {
+        this.setState({tagFilters: [tag]}, this.updatePlaylist)
+      }
     } else {
-      this.setState({tagFilters: [...tagFilters, tag]}, this.updatePlaylist)
+      if (tagFilters.includes(tag)) {
+        const newTagFilters = tagFilters.filter(e => e !== tag)
+        this.setState({tagFilters: newTagFilters}, ()=> {
+          this.updatePlaylist()
+        })
+      } else {
+        this.setState({tagFilters: [...tagFilters, tag]}, this.updatePlaylist)
+      }
     }
+
     // Prev:
     // if (tagFilters.includes(tag)) {
     //   this.setState({tagFilters: tagFilters.filter(e => e !== tag)}, ()=> {
@@ -171,13 +180,21 @@ class TodoListing extends Component {
       return (
       <div
         key={'TodoListing'+i+tag}
-       style={{
-         background: background, color: color,
-         padding: '0 2px', margin: '0 0 5px 5px',
-         borderRadius: '3px', minWidth: '40px',
-         userSelect: 'none', cursor: 'pointer',
-       }}
-       onClick={() => this.updateTagFilters(tag)}
+        style={{
+          background: background, color: color,
+          padding: '0 2px', margin: '0 0 5px 5px',
+          borderRadius: '3px', minWidth: '40px',
+          userSelect: 'none', cursor: 'pointer',
+        }}
+        onClick={() => {
+          console.log('onClick')
+          this.updateTagFilters(tag)
+        }}
+        onContextMenu={(e) => {
+          console.log('onContextMenu')
+          e.preventDefault()
+          this.updateTagFilters(tag, true)
+        }}
       >
         {tag}
       </div>

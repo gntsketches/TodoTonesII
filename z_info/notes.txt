@@ -3,19 +3,6 @@
 TODO Next Up
     (Switch to single-button play/pause in both editor and list)
     LIST PLAY
-        ACTUALLY tags should just click on/off - no [] === all (feature: right-click on tag sets it to just that one Todo)
-            That means, tagFilters need to be set to all
-            but on didMount, tagFilters is empty because the todos haven't finished fetching yet so tagList returns []
-            fetchPublicUserTodos is on parent containers...
-                so you can pass a callback to be completed in parent (after setstate...)
-                Or manage fetch call in TodoList
-                    are there any problems with doing that?
-                    well its not in redux anyway. nor does editor receive userTodos
-                        ok, let's move it down in and try that
-                        Oops. Editor does call fetchPublicUserTodos, after it saves
-        So, the thing about keeping this off redux is: if you want to manager higher-level state you have to put up with callbacks
-            also you're having to duplicate the fetch logic in PublicUser and UserCompose...
-
 
 
         delete Todo should remove it from the Playlist
@@ -255,6 +242,15 @@ NEXT GOAL: SORT BY TAG AND PLAY
     create fetch next todd
     set up audio
         will need a 'editing' and 'now playing' fields in redux,
+
+
+
+
+
+*** LEARNED ***********************************************************************************
+    re: you are managing fetchUserTodos (fetchPublicUserTodos) by passing it into TodoListing
+    So, the thing about keeping this off redux is: if you want to manager higher-level state you have to put up with callbacks
+    also you're having to duplicate the fetch logic in PublicUser and UserCompose...
 
 
 
