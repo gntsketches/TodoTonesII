@@ -103,23 +103,34 @@ class TodoListing extends Component {
 
   updateTagFilters(tag) {
     const { tagFilters } = this.state
+    console.log('tag, tagFilters', tag, tagFilters)
 
     if (tagFilters.includes(tag)) {
-      this.setState({tagFilters: tagFilters.filter(e => e !== tag)}, ()=> {
+      const newTagFilters = tagFilters.filter(e => e !== tag)
+      console.log('newTagFilters', newTagFilters)
+      this.setState({tagFilters: newTagFilters}, ()=> {
         this.updatePlaylist()
       })
-    } else if (tagFilters.length === this.tagList.length-1) {
-      this.setState({tagFilters: []}, this.updatePlaylist)
     } else {
       this.setState({tagFilters: [...tagFilters, tag]}, this.updatePlaylist)
     }
+    // Prev:
+    // if (tagFilters.includes(tag)) {
+    //   this.setState({tagFilters: tagFilters.filter(e => e !== tag)}, ()=> {
+    //     this.updatePlaylist()
+    //   })
+    // } else if (tagFilters.length === this.tagList.length-1) {
+    //   this.setState({tagFilters: []}, this.updatePlaylist)
+    // } else {
+    //   this.setState({tagFilters: [...tagFilters, tag]}, this.updatePlaylist)
+    // }
   }
 
   get todosByTagSelection() {
     const { tagFilters } = this.state
     const { userTodos, playlist, setPlaylist } = this.props
 
-    if (tagFilters.length === 0) return userTodos
+    // if (tagFilters.length === 0) return userTodos
 
     const todosByTagSelection = []
     tagFilters.forEach(tag => {
@@ -150,12 +161,12 @@ class TodoListing extends Component {
 
   renderTags() {
     const { tagFilters } = this.state
-    const { userTodos } = this.props
-    // console.log('tagFilters', tagFilters)
+    console.log('renderTags tagFilters', tagFilters)
 
     const tagListJSX = this.tagList.map((tag, i) => {
-      const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
-      const color = tagFilters.length === 0 || tagFilters.includes(tag) ? '#888' : 'white'
+      // const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
+      const background = tagFilters.includes(tag) ? 'white' : '#888'
+      const color = tagFilters.includes(tag) ? '#888' : 'white'
 
       return (
       <div
