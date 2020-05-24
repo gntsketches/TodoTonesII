@@ -89,7 +89,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case SET_NOW_PLAYING:
-      // console.log('reducer setNowPlaying', action.todo)
+      console.log('reducer setNowPlaying', action.todo)
       const newNowPlaying = action.todo == null ?
         null : { ...action.todo, model: new TodoModel(action.todo.description),
       }
@@ -130,6 +130,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       } else if (typeof action.payload === 'number') {
         count = action.payload
       } else {
+        // needs >= comparison as filtering may shrink playlist
         count = state.playCounter >= state.playlist.length-1 ? 0 : state.playCounter+1
       }
 

@@ -8,7 +8,6 @@ import {
   fetchTodos,
   playPause,
   setEditingTodo,
-  setNowPlaying,
   updateTodo
 } from "../redux/actions/todos"
 import {connect} from "react-redux"
@@ -79,7 +78,6 @@ const mapDispatchToProps = {
   deleteTodo,
   fetchTodos,
   setEditingTodo,
-  setNowPlaying,
   playPause,
 
 }

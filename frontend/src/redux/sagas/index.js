@@ -100,7 +100,7 @@ function* deleteTodo (action) {
 }
 
 function* playPauseSaga(action) {
-  console.log('sagas playPause', action)
+  // console.log('sagas playPause', action)
   audioModule.updateAudioStatus()
 
   // not necessary as audioModule reads state...

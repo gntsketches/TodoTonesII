@@ -58,14 +58,14 @@ class TodoListing extends Component {
 
   componentDidMount() {
     this.props.fetchPublicUserTodos(()=> {
-      this.setState({tagFilters: this.tagList}, ()=> console.log('tagFilters set', this.state))
+      this.setState({tagFilters: this.tagList})
     })
   }
 
   componentDidUpdate() {
     const { playlist, setPlaylist } = this.props;
     if (playlist.length === 0 && this.todosByTagSelection.length !== 0) {
-      console.log('length 0')
+      // console.log('length 0')
       setPlaylist(this.todosByTagSelection, false)
     }
   }
@@ -103,10 +103,10 @@ class TodoListing extends Component {
 
   updateTagFilters(tag, setAsOnly) {
     const { tagFilters } = this.state
-    console.log('tag, tagFilters', tag, tagFilters)
+    // console.log('tag, tagFilters', tag, tagFilters)
 
     if (setAsOnly) {
-      console.log('setAsOnly')
+      // console.log('setAsOnly')
       if (tagFilters.length === 1 && tagFilters[0] === tag) {
         this.setState({tagFilters: this.tagList}, this.updatePlaylist)
       } else {
@@ -142,8 +142,9 @@ class TodoListing extends Component {
     // if (tagFilters.length === 0) return userTodos
 
     const todosByTagSelection = []
-    tagFilters.forEach(tag => {
-      userTodos.forEach(todo => {
+    // note now this puts todos in the order of the tagFilters array... switching them around...
+    userTodos.forEach(todo => {
+      tagFilters.forEach(tag => {
         // console.log('todo.tags & tag', todo.tags, tag)
         if (todo.tags.includes(tag) && !todosByTagSelection.includes(todo)) {
           todosByTagSelection.push(todo)
@@ -170,7 +171,7 @@ class TodoListing extends Component {
 
   renderTags() {
     const { tagFilters } = this.state
-    console.log('renderTags tagFilters', tagFilters)
+    // console.log('renderTags tagFilters', tagFilters)
 
     const tagListJSX = this.tagList.map((tag, i) => {
       // const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
@@ -187,11 +188,11 @@ class TodoListing extends Component {
           userSelect: 'none', cursor: 'pointer',
         }}
         onClick={() => {
-          console.log('onClick')
+          // console.log('onClick')
           this.updateTagFilters(tag)
         }}
         onContextMenu={(e) => {
-          console.log('onContextMenu')
+          // console.log('onContextMenu')
           e.preventDefault()
           this.updateTagFilters(tag, true)
         }}

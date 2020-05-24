@@ -2,19 +2,38 @@
 
 TODO Next Up
     (Switch to single-button play/pause in both editor and list)
+    check code to determine 'playing' eigthNote &#9834;
+    how does nowPlaying get its title?
     LIST PLAY
-
-
         delete Todo should remove it from the Playlist
             remove it from nowPlaying?
                 yes
             filter todo to switch out nowPlaying?
                 no
+                well.. it might be ideal not to, but tracking conditions of playCounter get crazy
+                of course, switching it out might also be complicated
+                beginning to think:
+                    better to manage playlist 'count' by playlist.find(id of nowPlaying) and then adjust from there...
+anyway fyi when you filter a todo, that does call setNowPlaying
+    TodoListing: updateTagFilters
+        TodoListing setState & callback TodoListing: updatePlaylist
+            redux setPlaylist
+            saga setPlaylist (sets nowPlaying... via playCounter!)
+                do you always want to setNowPlaying when you set the playlist? maybe a conditional?
+                    why is it doing it now? ...
+
+
+
         what if you change the list filter while playing a todo not in the new list?
             it looses its title in nowPlaying...
             what if the playCounter is higher than playlist.length?
                 it goes back to 0 (I think)
-                not exactly. the playCounter
+                not exactly. the playCounter stays the same... nothing is updating it
+                    I think.
+
+
+
+
         if you save a todo from the editor while the list is playing, it gets lost and doesn't update
         Why is the list highlighting a Todo even when you're logged out?
 
@@ -57,6 +76,7 @@ TODO Next Up
             let's just remove wait time! u can add it later if u want...
         progress bar - AudioModule can send %
         expand list todo to show properties
+        note should only be there WHILE it's playing, & animate... need the visual
 
     TODO Would-be-nice
         need some animation to make it more clear what's happening
