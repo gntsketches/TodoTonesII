@@ -12,6 +12,7 @@ TODO Next Up
         what if you change the list filter while playing?
             let's have that AUTO update the playlist... too confusing otherwise
         if you save a todo from the editor while the list is playing, it gets lost and doesn't update
+        Why is the list highlighting a Todo even when you're logged out?
     EDITOR
         update everything in the list & now playing on save
         (also what if you're playing someone else's list or the Radio?)

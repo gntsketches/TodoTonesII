@@ -27,7 +27,7 @@ export const TODOS_DEFAULT_STATE = {
   listPlayMode: 'Once',
 }
 
-console.log('default state in reducer', TODOS_DEFAULT_STATE)
+// console.log('default state in reducer', TODOS_DEFAULT_STATE)
 
 
 export default function todos (state = TODOS_DEFAULT_STATE, action) {
@@ -73,11 +73,9 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case SET_EDITING_TODO:
+      // editingTodo is managed in Redux for persist
       // maybe should just be doing this transform in the TodoEditor?
-      //  ... why is the editingTodo state managed in Redux at all?
-      //  maybe it's so you can click to set it?
-      //  could be better to receive & transform values on mount/update...
-      // console.log('action', action)
+      // console.log('reducers setEditingTodo', action)
       const { todo } = action
       // console.log('todoPre', todo)
       let tags = todo.tags
@@ -91,7 +89,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case SET_NOW_PLAYING:
-      console.log('reducer setNowPlaying', action.todo)
+      // console.log('reducer setNowPlaying', action.todo)
       const newNowPlaying = action.todo == null ?
         null : { ...action.todo, model: new TodoModel(action.todo.description),
       }
@@ -103,7 +101,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
 
     case 'SET_PLAYLIST':
       const { playlist } = action
-      console.log('reducer setPlaylist', playlist)
+      // console.log('reducer setPlaylist', playlist)
       return {
         ...state,
         playlist: action.playlist,
@@ -112,7 +110,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
 
     case PLAY_PAUSE:
       // action accepts play vs pause, but this doesn't use it...
-      console.log('reducer playPause', action.playPause)
+      // console.log('reducer playPause', action.playPause)
       let playing
       if (action.playPause == null) playing = !state.isPlaying
       else playing = action.playPause === 'play'
@@ -140,7 +138,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case 'CHANGE_LIST_PLAY_MODE':
-      console.log('reducer changeListPlayMode', state)
+      // console.log('reducer changeListPlayMode', state)
       const { listPlayMode } = state
 
       let newPlayMode
@@ -155,7 +153,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       }
 
     case 'TOGGLE_LIST_PLAY':
-      console.log('reducer togglePlayList', action.bool)
+      // console.log('reducer togglePlayList', action.bool)
       let newListPlay
       if (action.bool == null) newListPlay = !state.listPlay
       else newListPlay = action.bool

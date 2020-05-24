@@ -89,19 +89,19 @@ class TodoListing extends Component {
   updatePlaylist = () => {
     const { userTodos, playlist , setPlaylist} = this.props
 
-    if (playlist[0] && userTodos[0] && playlist[0]._id === userTodos[0]._id) {
+    if (playlist[0] && userTodos[0] && playlist[0].username === userTodos[0].username) {
       setPlaylist(this.todosByTagSelection)
-      // not working to update playlist when it's back to none selected...
     }
-
   }
 
   updateTagFilters(tag) {
     const { tagFilters } = this.state
 
     if (tagFilters.includes(tag)) {
-      this.setState({tagFilters: tagFilters.filter(e => e !== tag)}, this.updatePlaylist)
-    } else if (tagFilters.length > this.tagList) {
+      this.setState({tagFilters: tagFilters.filter(e => e !== tag)}, ()=> {
+        this.updatePlaylist()
+      })
+    } else if (tagFilters.length === this.tagList.length-1) {
       this.setState({tagFilters: []}, this.updatePlaylist)
     } else {
       this.setState({tagFilters: [...tagFilters, tag]}, this.updatePlaylist)
@@ -125,7 +125,6 @@ class TodoListing extends Component {
     })
 
     return todosByTagSelection
-    // IF you click on one, then another, and fill them all up, then you have to unclick them all to get back to this desired behavior
   }
 
   get tagList() {
@@ -147,15 +146,7 @@ class TodoListing extends Component {
     const { userTodos } = this.props
     // console.log('tagFilters', tagFilters)
 
-    // const tagList = []
-    // userTodos.forEach(todo => {  // do with reduce!
-    //   todo.tags.forEach(tag => {
-    //     if (!tagList.includes(tag)) tagList.push(tag)
-    //   })
-    // })
-    const tagList = this.tagList
-
-    const tagListJSX = tagList.map((tag, i) => {
+    const tagListJSX = this.tagList.map((tag, i) => {
       const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
       const color = tagFilters.length === 0 || tagFilters.includes(tag) ? '#888' : 'white'
 
@@ -183,8 +174,7 @@ class TodoListing extends Component {
       deleteTodo, setEditingTodo, setNowPlaying, playPause,
       listPlay, listPlayMode, changeListPlayMode,
     } = this.props
-    console.log('TodoListing render props', this.props)
-    // console.log('listplayMode', listPlayMode)
+    // console.log('TodoListing render props', this.props)
 
 
     return (
