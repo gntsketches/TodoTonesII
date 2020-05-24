@@ -67,9 +67,9 @@ export function setPlaylist(playlist, play) {
   return { type: 'SET_PLAYLIST', playlist, play}
 }
 
-export function advancePlayCounter(back) {
+export function advancePlayCounter(payload) {
   // console.log('> action advancePlayCounter')
-  return { type: 'ADVANCE_PLAY_COUNTER', back }
+  return { type: 'ADVANCE_PLAY_COUNTER', payload }
 }
 
 export function changeListPlayMode() {

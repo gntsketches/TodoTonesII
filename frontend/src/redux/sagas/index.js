@@ -8,15 +8,15 @@ import {
   FETCH_TODOS,
   PLAY_PAUSE,
   loadedTodos,
-  addTodo,
+  // addTodo,
   addTodoSuccess,
-  updateTodoSuccess,
+  // updateTodoSuccess,
   todosFailure,
   fetchTodos,
-  setEditingTodo,
+  // setEditingTodo,
   setNowPlaying,
   playPause,
-  advancePlayCounter,
+  // advancePlayCounter,
 } from '../actions/todos'
 
 import history from '../../utils/history'
@@ -123,7 +123,7 @@ function* playPauseSaga(action) {
 
 function* setPlaylist(action) {
   // SET_PLAY_COUNTER
-  yield put(setNowPlaying(action.playlist[0]))
+  yield put(setNowPlaying(action.playlist[store.getState().todos.playCounter]))
   if (action.play) {
     yield put(playPause('play'))
   }
@@ -135,7 +135,9 @@ function* advancePlaylist() {
   if (state.todos.listPlayMode === 'Once' && state.todos.playCounter === 0) {
     yield put(playPause('pause'))
   }
+  console.log('saga state.todos.playCounter', state.todos.playCounter)
   yield put(setNowPlaying(state.todos.playlist[state.todos.playCounter]))
+  audioModule.updateAudioStatus()
 }
 
 

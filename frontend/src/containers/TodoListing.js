@@ -14,6 +14,7 @@ import {
   setPlaylist,
   changeListPlayMode,
   toggleListPlay,
+  advancePlayCounter,
 } from '../redux/actions/todos'
 import images from '../assets/images/index.js'
 
@@ -171,7 +172,7 @@ class TodoListing extends Component {
   render() {
     const {
       userTodos, isLoading, isSaving, error, editingTodo, nowPlaying, isPlaying,
-      deleteTodo, setEditingTodo, setNowPlaying, playPause,
+      deleteTodo, setEditingTodo, setNowPlaying, playPause, advancePlayCounter,
       listPlay, listPlayMode, changeListPlayMode,
     } = this.props
     // console.log('TodoListing render props', this.props)
@@ -250,12 +251,16 @@ class TodoListing extends Component {
               id={todo._id}
               todo={todo}
               onDelete={e => this.handleDelete(e, todo)}
-              onLeftClick={() => setEditingTodo(todo)}
-              onRightClick={(e) => {
+              onLeftClick={(e) => {
                 e.preventDefault()
                 setNowPlaying(todo)
+                advancePlayCounter(index)
                 if (nowPlaying && nowPlaying._id === todo._id) playPause()
                 else playPause('play')
+              }}
+              onRightClick={(e) => {
+                e.preventDefault()
+                setEditingTodo(todo)
               }}
             />
            ))}
@@ -293,6 +298,7 @@ const mapDispatchToProps = {
   setPlaylist,
   changeListPlayMode,
   toggleListPlay,
+  advancePlayCounter,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoListing)

@@ -105,31 +105,32 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       return {
         ...state,
         playlist: action.playlist,
-        playCounter: 0,
+        // playCounter: 0,
       }
 
     case PLAY_PAUSE:
-      // action accepts play vs pause, but this doesn't use it...
       // console.log('reducer playPause', action.playPause)
       let playing
       if (action.playPause == null) playing = !state.isPlaying
       else playing = action.playPause === 'play'
+
       return {
         ...state,
         isPlaying: playing,
       }
 
     case 'ADVANCE_PLAY_COUNTER':
+      // console.log('reducers advancePlayCounter', action.payload)
       let count
-      if (state.playMode === 'Rand') {
+      if (state.listPlayMode === 'Rand') {
         count = Math.floor(Math.random() * state.playlist.length)
+      } else if (action.payload === 'back') {
+        // this probs a problem in 'Once' mode
+        count = state.playCounter === 0 ? state.playlist.length-1 : state.playCounter-1
+      } else if (typeof action.payload === 'number') {
+        count = action.payload
       } else {
-        if (action.back) {
-          // this probs a problem in 'Once' mode
-          count = state.playCounter === 0 ? state.playlist.length-1 : state.playCounter-1
-        } else {
-          count = state.playCounter >= state.playlist.length-1 ? 0 : state.playCounter+1
-        }
+        count = state.playCounter >= state.playlist.length-1 ? 0 : state.playCounter+1
       }
 
       return {

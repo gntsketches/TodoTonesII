@@ -37,7 +37,7 @@ class Header extends Component {
     }
   }
 
-  handlePlayModeClick = () => {
+  handleListPlayModeClick = () => {
     const { listPlay, editingTodo, playPause, toggleListPlay } = this.props
     if (listPlay && !editingTodo.description) {
       playPause('pause')
@@ -87,7 +87,7 @@ class Header extends Component {
             <button
               className="button"
               disabled={nowPlaying == null}
-              onClick={() => this.props.advancePlayCounter(true)}
+              onClick={() => this.props.advancePlayCounter('back')}
               style={{ margin: "2px", display: listPlay ? 'inline' : 'none' }}
             >
               {listPlay ? <img src={images.back} width="20px" height="20px" /> : null }
@@ -117,7 +117,7 @@ class Header extends Component {
             <button
               className="button"
               disabled={!this.props.user}
-              onClick={() => this.handlePlayModeClick()}
+              onClick={() => this.handleListPlayModeClick()}
               style={{margin: "2px", height: "18px", fontSize: "10px", padding: "1px 5px"}}
             >
               {listPlay ? 'Playing Todo-List' : 'Playing Todo-Editor'}
