@@ -21,30 +21,29 @@ class User extends Component {
     super();
 
     this.state = {
-      userTodos: [],
+      todos: [],
       userURLFrag: window.location.href.split('/')[4],
     }
   }
 
   componentDidMount() {
-    // const userURLFrag = window.location.href.split('/')[4]
-    // console.log('url', userURLFrag)
-    // console.log(this.state)
+    const userURLFrag = window.location.href.split('/')[4]
+    console.log('url', userURLFrag)
+    console.log(this.state)
     this.fetchPublicUserTodos()
   }
 
   componentDidUpdate() {
-    // this.fetchUserTodos()
   }
 
-  fetchPublicUserTodos = () => {
+  fetchPublicUserTodos = (callback) => {
     const { user } = this.props
     // console.log('user in User', user)
     services.userTodosAPI.fetchPublicUserTodos(this.state.userURLFrag)
     .then((res) => res.json())
     .then((data) => {
       // console.log('data', data)
-      this.setState({userTodos: data})
+      this.setState({todos: data}, callback)
     })
     // .catch((err) => console.log(err))
   }
@@ -61,7 +60,7 @@ class User extends Component {
         />
         <div className="column is-2"></div>
         <TodoListing
-          userTodos={this.state.userTodos}
+          userTodos={this.state.todos}
           fetchPublicUserTodos={this.fetchPublicUserTodos}
         />
         <div className="column is-1"></div>
@@ -73,7 +72,7 @@ class User extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    // todos: state.todos.items,  // hmm
+    todos: state.todos.items,
     isLoading: state.todos.loading,
     isSaving: state.todos.saving,
     error: state.todos.error,

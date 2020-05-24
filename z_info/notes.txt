@@ -3,15 +3,34 @@
 TODO Next Up
     (Switch to single-button play/pause in both editor and list)
     LIST PLAY
-        filtering: what if the playCounter is higher than playlist.length?
+        ACTUALLY tags should just click on/off - no [] === all (feature: right-click on tag sets it to just that one Todo)
+            That means, tagFilters need to be set to all
+            but on didMount, tagFilters is empty because the todos haven't finished fetching yet so tagList returns []
+            fetchPublicUserTodos is on parent containers...
+                so you can pass a callback to be completed in parent (after setstate...)
+                Or manage fetch call in TodoList
+                    are there any problems with doing that?
+                    well its not in redux anyway. nor does editor receive userTodos
+                        ok, let's move it down in and try that
+                        Oops. Editor does call fetchPublicUserTodos, after it saves
+        So, the thing about keeping this off redux is: if you want to manager higher-level state you have to put up with callbacks
+            also you're having to duplicate the fetch logic in PublicUser and UserCompose...
+
+
+
         delete Todo should remove it from the Playlist
             remove it from nowPlaying?
-            if you filter or delete a todo from the playlist you'll need to switch out nowPlaying?
-        what if you change the list filter while playing?
-            and the nowPlaying isn't on the list...keep nowPlaying or change it?
-            what it the playCounter is higher than playlist.length?
+                yes
+            filter todo to switch out nowPlaying?
+                no
+        what if you change the list filter while playing a todo not in the new list?
+            it looses its title in nowPlaying...
+            what if the playCounter is higher than playlist.length?
+                it goes back to 0 (I think)
+                not exactly. the playCounter
         if you save a todo from the editor while the list is playing, it gets lost and doesn't update
         Why is the list highlighting a Todo even when you're logged out?
+
     EDITOR
         update everything in the list & now playing on save
         (also what if you're playing someone else's list or the Radio?)
@@ -50,6 +69,7 @@ TODO Next Up
         it's not doing the wait time.
             let's just remove wait time! u can add it later if u want...
         progress bar - AudioModule can send %
+        expand list todo to show properties
 
     TODO Would-be-nice
         need some animation to make it more clear what's happening

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 
 import services from '../services'
-import LeftPanel from "./LeftPanel"
-import TodoEditor from "./TodoEditor"
 import TodoListing from "./TodoListing"
 import {
   addTodo,
@@ -16,7 +14,7 @@ import {
 import {connect} from "react-redux"
 
 
-class User extends Component {
+class PublicUser extends Component {
   constructor() {
     super();
 
@@ -28,31 +26,24 @@ class User extends Component {
   }
 
   componentDidMount() {
-    // const publicUserURLFrag = window.location.href.split('/')[4]
-    // console.log('url', publicUserURLFrag)
-    // console.log(this.state)
-    this.fetchPublicUserTodos()
   }
 
   componentDidUpdate() {
-    // this.fetchUserTodos()
   }
 
-  fetchPublicUserTodos = () => {
+  fetchPublicUserTodos = (callback) => {
     const { user } = this.props
     // console.log('user in User', user)
     services.userTodosAPI.fetchPublicUserTodos(this.state.publicUserURLFrag)
     .then((res) => res.json())
     .then((data) => {
       // console.log('data', data)
-      this.setState({publicUserTodos: data})
+      this.setState({publicUserTodos: data}, callback)
     })
     // .catch((err) => console.log(err))
   }
 
   render() {
-    const { userURLFrag } = this.state
-    const { user } = this.props
 
     return (
       <div className="columns">
@@ -93,4 +84,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(User)
+export default connect(mapStateToProps, mapDispatchToProps)(PublicUser)

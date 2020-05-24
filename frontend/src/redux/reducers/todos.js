@@ -24,7 +24,7 @@ export const TODOS_DEFAULT_STATE = {
   playlist: [],
   playCounter: 0,
   listPlay: true,
-  listPlayMode: 'Once',
+  listPlayMode: 'Stay',
 }
 
 // console.log('default state in reducer', TODOS_DEFAULT_STATE)
@@ -143,10 +143,10 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       const { listPlayMode } = state
 
       let newPlayMode
-      if (listPlayMode === 'Loop') newPlayMode = 'Rand'
-      else if (listPlayMode === 'Rand') newPlayMode = 'Once'
-      else if (listPlayMode === 'Once') newPlayMode = 'Stay'
-      else if (listPlayMode === 'Stay') newPlayMode = 'Loop'
+      if (listPlayMode === 'Stay') newPlayMode = 'Loop'
+      else if (listPlayMode === 'Loop') newPlayMode = 'Once'
+      else if (listPlayMode === 'Once') newPlayMode = 'Rand'
+      else if (listPlayMode === 'Rand') newPlayMode = 'Stay'
 
       return {
         ...state,

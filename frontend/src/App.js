@@ -8,7 +8,7 @@ import Header from "./containers/Header"
 import Login from "./containers/Login"
 import Register from "./containers/Register"
 import UserCompose from "./containers/UserCompose"
-import User from "./containers/User"
+import PublicUser from "./containers/PublicUser"
 
 import { addTodo, deleteTodo, fetchTodos, updateTodo, playPause } from "./redux/actions/todos"
 
@@ -59,7 +59,7 @@ class App extends Component {
           <Route exact path="/register" component={Register} />
           <Switch>
             <Route exact path={`/users/${user.username}`} component={UserCompose} />
-            <Route path={`/users/`} component={User} />
+            <Route path={`/users/`} component={PublicUser} />
           </Switch>
         </Router>
       </div>

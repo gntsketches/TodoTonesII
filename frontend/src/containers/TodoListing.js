@@ -56,6 +56,12 @@ class TodoListing extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.fetchPublicUserTodos(()=> {
+      this.setState({tagFilters: this.tagList}, ()=> console.log('tagFilters set', this.state))
+    })
+  }
+
   componentDidUpdate() {
     const { playlist, setPlaylist } = this.props;
     if (playlist.length === 0 && this.todosByTagSelection.length !== 0) {
