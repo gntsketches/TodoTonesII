@@ -102,9 +102,9 @@ class TodoListing extends Component {
         const deletedIndex = playlist.findIndex(t => t._id === todo._id)
         // console.log('deletedIndex', deletedIndex)
         if (deletedIndex > playCounter) {
-          this.updatePlaylist()
+          this.refreshTagFilters(this.updatePlaylist)
         } else if (deletedIndex === playCounter) {
-          this.updatePlaylist()  // can call setNowPlaying in saga, which might happen after playCounter is set below...?
+          this.refreshTagFilters(this.updatePlaylist)  // can call setNowPlaying in saga, which might happen after playCounter is set below...?
           // console.log('playCounter post', playCounter)
           // console.log('playlist post', playlist)
           const newPlayCounter = deletedIndex >= playlist.length ? 0 : deletedIndex
@@ -117,12 +117,25 @@ class TodoListing extends Component {
           // console.log('newNowPlaying', newNowPlaying)
           setNowPlaying(newNowPlaying)
         } else {
-          this.updatePlaylist()
+          this.refreshTagFilters(this.updatePlaylist)
           advancePlayCounter(playCounter - 1)
         }
       })
     })
     // .catch((err) => console.log(err))
+  }
+
+  refreshTagFilters(callback) {
+    let { tagFilters } = this.state
+
+    tagFilters.forEach(tag => {
+      if (!this.tagList().includes(tag)) {
+        tagFilters = tagFilters.filter(t => t !== tag)
+        this.setState({tagFilters})
+      }
+    })
+    console.log('todosByTagSelection tagFilters post:', tagFilters)
+    this.setState({tagFilters}, callback)
   }
 
   updateTagFilters(tag, setAsOnly) {
@@ -159,18 +172,10 @@ class TodoListing extends Component {
   }
 
   get todosByTagSelection() {
-    let { tagFilters } = this.state
+    const { tagFilters } = this.state
     const { userTodos } = this.props
 
     console.log('todosByTagSelection tagFilters:', tagFilters)
-
-    tagFilters.forEach(tag => {
-      if (!this.tagList().includes(tag)) {
-        tagFilters = tagFilters.filter(t => t !== tag)
-        this.setState({tagFilters})
-      }
-    })
-    console.log('todosByTagSelection tagFilters post:', tagFilters)
 
     if (tagFilters.length === 0) return userTodos
 
