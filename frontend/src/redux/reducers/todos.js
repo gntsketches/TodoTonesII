@@ -124,14 +124,22 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
       let count
       if (state.listPlayMode === 'Rand') {
         count = Math.floor(Math.random() * state.playlist.length)
-      } else if (action.payload === 'back') {
-        // this probs a problem in 'Once' mode
-        count = state.playCounter === 0 ? state.playlist.length-1 : state.playCounter-1
       } else if (typeof action.payload === 'number') {
         count = action.payload
+      } else if (action.payload === 'back') {
+        const nowPlayingIndex = state.playlist.findIndex(todo => todo._id === state.nowPlaying._id)
+        if (nowPlayingIndex === -1) {
+          count = 0
+        } else {
+          count = nowPlayingIndex === 0 ? state.playlist.length-1 : nowPlayingIndex-1
+        }
       } else {
-        // needs >= comparison as filtering may shrink playlist
-        count = state.playCounter >= state.playlist.length-1 ? 0 : state.playCounter+1
+        const nowPlayingIndex = state.playlist.findIndex(todo => todo._id === state.nowPlaying._id)
+        if (nowPlayingIndex === -1) {
+          count = 0
+        } else {
+          count = nowPlayingIndex >= state.playlist.length-1 ? 0 : nowPlayingIndex+1
+        }
       }
 
       return {

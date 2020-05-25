@@ -2,59 +2,23 @@
 
 TODO Next Up
     (Switch to single-button play/pause in both editor and list)
-    check code to determine 'playing' eigthNote &#9834;
-    how does nowPlaying get its title?
     LIST PLAY
+        prohibit remove of last tag
         delete Todo should remove it from the Playlist
             remove it from nowPlaying?
                 yes
-            filter todo to switch out nowPlaying?
-                no
-                well.. it might be ideal not to, but tracking conditions of playCounter get crazy
-                of course, switching it out might also be complicated
-                beginning to think:
-                    better to manage playlist 'count' by playlist.find(id of nowPlaying) and then adjust from there...
-anyway fyi when you filter a todo, that does call setNowPlaying
-    updateTagFilters (TodoListing)
-        setState & callback updatePlaylist (TodoListing)
-            setPlaylist (redux)
-            saga setPlaylist (sets nowPlaying... via playCounter!)
-                do you always want to setNowPlaying when you set the playlist? maybe a conditional?
-                    why is it doing it now? ...
-
-SO: a b c d e
-    when b is nowPlaying, remove a from list
-        b still has 8n - in #1 spot
-            then list skips to d in #3 spot (b/c counter was on 2)
-
-
-
-
-Saved a new todo and it was 'off' and didn't show up in the playlist
-    on refresh came back lit, but still not in playlist
-        needed to click it off and on
-
-
-        what if you change the list filter while playing a todo not in the new list?
-            it looses its title in nowPlaying...
-            what if the playCounter is higher than playlist.length?
-                it goes back to 0 (I think)
-                not exactly. the playCounter stays the same... nothing is updating it
-                    I think.
-
-
-
-
-        if you save a todo from the editor while the list is playing, it gets lost and doesn't update
-        Why is the list highlighting a Todo even when you're logged out?
-
     EDITOR
         update everything in the list & now playing on save
-        (also what if you're playing someone else's list or the Radio?)
+        Saved a new todo and it was 'off' and didn't show up in the playlist
+            on refresh came back lit, but still not in playlist
+            needed to click it off and on
+        if you save a todo from the editor while the list is playing, it gets lost and doesn't update
+            Why is the list highlighting a Todo even when you're logged out?
         when the todo is altered show a 'update' above the play button,
             & disable save unless altered
             use same compare function for both
             also, save should update the nowPlaying, (IF it's that one playing!)
+        (also what if you're playing someone else's list or the Radio?)
 
 
     There's a general UI question about auto-update vs 'chosen' updates
@@ -280,8 +244,17 @@ NEXT GOAL: SORT BY TAG AND PLAY
 
 *** LEARNED ***********************************************************************************
     re: you are managing fetchUserTodos (fetchPublicUserTodos) by passing it into TodoListing
-    So, the thing about keeping this off redux is: if you want to manager higher-level state you have to put up with callbacks
-    also you're having to duplicate the fetch logic in PublicUser and UserCompose...
+        So, the thing about keeping this off redux is: if you want to manager higher-level state you have to put up with callbacks
+        also you're having to duplicate the fetch logic in PublicUser and UserCompose...
+
+    tracking the flow is useful:
+        anyway fyi when you filter a todo, that does call setNowPlaying
+            updateTagFilters (TodoListing)
+                setState & callback updatePlaylist (TodoListing)
+                    setPlaylist (redux)
+                    saga setPlaylist (sets nowPlaying... via playCounter!)
+                        do you always want to setNowPlaying when you set the playlist? maybe a conditional?
+                            why is it doing it now? ...
 
 
 

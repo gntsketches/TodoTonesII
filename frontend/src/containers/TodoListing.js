@@ -58,7 +58,7 @@ class TodoListing extends Component {
 
   componentDidMount() {
     this.props.fetchPublicUserTodos(()=> {
-      this.setState({tagFilters: this.tagList})
+      this.setState({tagFilters: this.tagList}, this.updatePlaylist)
     })
   }
 
