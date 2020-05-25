@@ -8,6 +8,8 @@ TODO Next Up
         currently you are defining a playlist only by tags!
         start with no tags selected. 'back' to tagList = [], playlist all
         u can keep the left/right click thing
+        OK so:
+            working ok, but if you delete a Todo which  is in taglist, then empty taglist doesn't return all
 
     LIST PLAY
         what happens if you try to delete Todo when you are logged out?
@@ -262,6 +264,16 @@ NEXT GOAL: SORT BY TAG AND PLAY
                     saga setPlaylist (sets nowPlaying... via playCounter!)
                         do you always want to setNowPlaying when you set the playlist? maybe a conditional?
                             why is it doing it now? ...
+
+    balance between 'command' and 'listen' code
+        instructing: on delete, remove tag from tagFilters
+        listening: in the todosByTagSelection,
+            remove any tag that's not in the (new) tagList
+        when/where/why/what's-it-called for these styles?
+            (in this case, you *don't* want to do it in delete
+            because other Todos may have that tag.
+            unless it was a call to a check-the-tags helper)
+
 
 
 

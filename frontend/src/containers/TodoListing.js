@@ -60,7 +60,8 @@ class TodoListing extends Component {
   componentDidMount() {
     console.log('TodoListing mount')
     this.props.fetchPublicUserTodos(()=> {
-      this.setState({tagFilters: this.tagList()}, this.updatePlaylist)
+      // this.setState({tagFilters: this.tagList()}, this.updatePlaylist)  // nope...
+      this.updatePlaylist()
     })
   }
 
@@ -126,7 +127,7 @@ class TodoListing extends Component {
 
   updateTagFilters(tag, setAsOnly) {
     const { tagFilters } = this.state
-    // console.log('tag, tagFilters', tag, tagFilters)
+    console.log('tag, tagFilters', tag, tagFilters)
 
     if (setAsOnly) {
       // console.log('setAsOnly')
@@ -158,10 +159,20 @@ class TodoListing extends Component {
   }
 
   get todosByTagSelection() {
-    const { tagFilters } = this.state
+    let { tagFilters } = this.state
     const { userTodos } = this.props
 
-    // if (tagFilters.length === 0) return userTodos
+    console.log('todosByTagSelection tagFilters:', tagFilters)
+
+    tagFilters.forEach(tag => {
+      if (!this.tagList().includes(tag)) {
+        tagFilters = tagFilters.filter(t => t !== tag)
+        this.setState({tagFilters})
+      }
+    })
+    console.log('todosByTagSelection tagFilters post:', tagFilters)
+
+    if (tagFilters.length === 0) return userTodos
 
     const todosByTagSelection = []
     // note now this puts todos in the order of the tagFilters array... switching them around...
