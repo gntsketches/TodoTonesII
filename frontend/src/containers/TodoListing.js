@@ -66,14 +66,14 @@ class TodoListing extends Component {
     const { playlist, setPlaylist } = this.props;
     if (playlist.length === 0 && this.todosByTagSelection.length !== 0) {
       // console.log('length 0')
-      setPlaylist(this.todosByTagSelection, false)
+      setPlaylist(this.todosByTagSelection, true, false)
     }
   }
 
   handlePlaySelection = () => {
     // console.log('TodoListing handlePlaySelection props', this.props)
     this.props.toggleListPlay(true)
-    this.props.setPlaylist(this.todosByTagSelection, true)
+    this.props.setPlaylist(this.todosByTagSelection, true, true)
     // console.log('handlePlaySelection playList', this.props.playlist)
     // this.props.setNowPlaying(this.props.playlist[0])  // testing redux synchronous. vs doing this in Sagas. this references previous state! clear localstorage and try it...
     // this.props.playPause('play')
@@ -91,14 +91,6 @@ class TodoListing extends Component {
       this.props.fetchPublicUserTodos()
     })
     // .catch((err) => console.log(err))
-  }
-
-  updatePlaylist = () => {
-    const { userTodos, playlist , setPlaylist} = this.props
-
-    if (playlist[0] && userTodos[0] && playlist[0].username === userTodos[0].username) {
-      setPlaylist(this.todosByTagSelection)
-    }
   }
 
   updateTagFilters(tag, setAsOnly) {
@@ -122,22 +114,19 @@ class TodoListing extends Component {
         this.setState({tagFilters: [...tagFilters, tag]}, this.updatePlaylist)
       }
     }
+  }
 
-    // Prev:
-    // if (tagFilters.includes(tag)) {
-    //   this.setState({tagFilters: tagFilters.filter(e => e !== tag)}, ()=> {
-    //     this.updatePlaylist()
-    //   })
-    // } else if (tagFilters.length === this.tagList.length-1) {
-    //   this.setState({tagFilters: []}, this.updatePlaylist)
-    // } else {
-    //   this.setState({tagFilters: [...tagFilters, tag]}, this.updatePlaylist)
-    // }
+  updatePlaylist = () => {
+    const { userTodos, playlist , setPlaylist} = this.props
+
+    if (playlist[0] && userTodos[0] && playlist[0].username === userTodos[0].username) {
+      setPlaylist(this.todosByTagSelection, false, false)
+    }
   }
 
   get todosByTagSelection() {
     const { tagFilters } = this.state
-    const { userTodos, playlist, setPlaylist } = this.props
+    const { userTodos } = this.props
 
     // if (tagFilters.length === 0) return userTodos
 

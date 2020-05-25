@@ -87,7 +87,6 @@ const mapDispatchToProps = {
   fetchTodos,
   setEditingTodo,
   playPause,
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)

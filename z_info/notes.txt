@@ -15,13 +15,24 @@ TODO Next Up
                 beginning to think:
                     better to manage playlist 'count' by playlist.find(id of nowPlaying) and then adjust from there...
 anyway fyi when you filter a todo, that does call setNowPlaying
-    TodoListing: updateTagFilters
-        TodoListing setState & callback TodoListing: updatePlaylist
-            redux setPlaylist
+    updateTagFilters (TodoListing)
+        setState & callback updatePlaylist (TodoListing)
+            setPlaylist (redux)
             saga setPlaylist (sets nowPlaying... via playCounter!)
                 do you always want to setNowPlaying when you set the playlist? maybe a conditional?
                     why is it doing it now? ...
 
+SO: a b c d e
+    when b is nowPlaying, remove a from list
+        b still has 8n - in #1 spot
+            then list skips to d in #3 spot (b/c counter was on 2)
+
+
+
+
+Saved a new todo and it was 'off' and didn't show up in the playlist
+    on refresh came back lit, but still not in playlist
+        needed to click it off and on
 
 
         what if you change the list filter while playing a todo not in the new list?

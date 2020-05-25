@@ -62,9 +62,9 @@ export function playPause(playPause) {
   return { type: PLAY_PAUSE, playPause}
 }
 
-export function setPlaylist(playlist, play) {
+export function setPlaylist(playlist, setNowPlaying, play) {
   // console.log('setPlaylist action', playlist)
-  return { type: 'SET_PLAYLIST', playlist, play}
+  return { type: 'SET_PLAYLIST', playlist, setNowPlaying, play}
 }
 
 export function advancePlayCounter(payload) {

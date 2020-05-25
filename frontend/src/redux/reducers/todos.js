@@ -101,7 +101,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
 
     case 'SET_PLAYLIST':
       const { playlist } = action
-      // console.log('reducer setPlaylist', playlist)
+      console.log('reducer setPlaylist', playlist)
       return {
         ...state,
         playlist: action.playlist,

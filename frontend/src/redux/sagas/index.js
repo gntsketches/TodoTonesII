@@ -122,8 +122,9 @@ function* playPauseSaga(action) {
 }
 
 function* setPlaylist(action) {
-  // SET_PLAY_COUNTER
-  yield put(setNowPlaying(action.playlist[store.getState().todos.playCounter]))
+  if (action.setNowPlaying) {
+    yield put(setNowPlaying(action.playlist[store.getState().todos.playCounter]))
+  }
   if (action.play) {
     yield put(playPause('play'))
   }
