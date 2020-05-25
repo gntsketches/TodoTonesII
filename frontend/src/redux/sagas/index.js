@@ -150,7 +150,7 @@ function* rootSaga() {
   yield takeEvery(UPDATE_TODO, updateTodo)
   yield takeEvery(PLAY_PAUSE, playPauseSaga)
   yield takeEvery('SET_PLAYLIST', setPlaylist)
-  yield takeEvery('ADVANCE_PLAY_COUNTER', advancePlaylist)
+  yield takeEvery('ADVANCE_PLAY_COUNTER', advancePlaylist)  // handlePlayCounterUpdate?
 
 }
 

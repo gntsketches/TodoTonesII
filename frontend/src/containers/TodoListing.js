@@ -88,7 +88,10 @@ class TodoListing extends Component {
       if (this.props.editingTodo._id === todo._id) {
         this.props.setEditingTodo({title: '', description: '', tags: ''}) // if you're going to keep doing that it should be a constant!
       }
-      this.props.fetchPublicUserTodos()
+      this.props.fetchPublicUserTodos(()=> {
+        this.updatePlaylist()
+        // considering nowPlaying & playCounter
+      })
     })
     // .catch((err) => console.log(err))
   }

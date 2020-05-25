@@ -2,11 +2,23 @@
 
 TODO Next Up
     (Switch to single-button play/pause in both editor and list)
+        and bring back save/update
     LIST PLAY
         prohibit remove of last tag
         delete Todo should remove it from the Playlist
             remove it from nowPlaying?
                 yes
+            condition delete after nowPlaying:
+                don't change now playing or playCounter
+            condition delete is nowPlaying:
+                leave counter unless it's last, setNowPlaying
+            condition delete before nowPlaying:
+                set playCounter back one, don't change nowPlaying
+            handle in TodoListing?
+            handle in reducers?
+            handle in Sagas?
+
+        what happens if you try to delete that to do when you are logged out?
     EDITOR
         update everything in the list & now playing on save
         Saved a new todo and it was 'off' and didn't show up in the playlist
