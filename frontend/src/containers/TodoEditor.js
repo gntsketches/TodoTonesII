@@ -44,7 +44,7 @@ class TodoEditor extends Component {
           this.props.fetchPublicUserTodos()
           setEditingTodo(savedTodoData)
         })
-        // .catch((err) => console.log(err))
+        .catch((err) => console.log(err))
       } else {
         services.userTodosAPI.updateTodo(newEditingTodo, user._id)
         .then((res) => res.json())

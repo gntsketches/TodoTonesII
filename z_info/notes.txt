@@ -3,39 +3,31 @@
 TODO Next Up
     (Switch to single-button play/pause in both editor and list)
         and bring back save/update
+    Wait a minute.
+        must every todo have a tag?
+        currently you are defining a playlist only by tags!
+        start with no tags selected. 'back' to tagList = [], playlist all
+        u can keep the left/right click thing
+
     LIST PLAY
-        prohibit remove of last tag
-        delete Todo should remove it from the Playlist
-            remove it from nowPlaying?
-                yes
-            condition 1 delete after nowPlaying:
-                don't change now playing or playCounter
-            condition 2 delete is nowPlaying:
-                leave counter unless it's last, setNowPlaying
-            condition 3 delete before nowPlaying:
-                set playCounter back one, don't change nowPlayin
-            handle in TodoListing?
-                is it 'safe' to call stuff after updatePlaylist?
-                in 2, reducers set 0 if nowPlaying not on list. can't use in this form.
-
-
-            handle in reducers?
-            handle in Sagas?
-
-        what happens if you try to delete that to do when you are logged out?
+        what happens if you try to delete Todo when you are logged out?
     EDITOR
-        update everything in the list & now playing on save
-        Saved a new todo and it was 'off' and didn't show up in the playlist
-            on refresh came back lit, but still not in playlist
-            needed to click it off and on
-        if you save a todo from the editor while the list is playing, it gets lost and doesn't update
-            Why is the list highlighting a Todo even when you're logged out?
+        if you save a todo from the editor which is also the nowPlaying,
+            playlist updates, but it doesn't update the nowPlaying automatically
+            but you can do that with a compare in the editor
+
+        Why is the list highlighting a Todo even when you're logged out?
         when the todo is altered show a 'update' above the play button,
             & disable save unless altered
             use same compare function for both
             also, save should update the nowPlaying, (IF it's that one playing!)
         (also what if you're playing someone else's list or the Radio?)
-
+    ALTERNATE PLAYLIST MANAGEMENT:
+        don't track the playCounter. remove it from redux
+        instead, use some sort of getter to get the index of nowPlaying
+        potential benefit is that you don't have to track and update both and keep them in synch
+        especially considering further list filter or display conditions (created, updated, alphabetical)
+            eg: save might not always just append to end of list
 
     There's a general UI question about auto-update vs 'chosen' updates
         for both Editor and List. pros and cons on both sides.
@@ -99,7 +91,6 @@ TODO Hmm
             and maybe a file division for public/secure routes
         Note how userId isn't actually used in create/update/delete todo
             so can people who are not logged in obtain todoId to hack it?
-    What if you delete the currently editing todo?
 
 
 TODOS ACCESS:
@@ -293,7 +284,7 @@ NEXT GOAL: SORT BY TAG AND PLAY
 
 
 
-optimize todo recognition: https://www.jetbrains.com/help/webstorm/using-todo.html
+    optimize todo recognition: https://www.jetbrains.com/help/webstorm/using-todo.html
 
 
 

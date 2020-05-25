@@ -44,7 +44,7 @@ class User extends Component {
       // console.log('data', data)
       this.setState({todos: data}, callback)
     })
-    // .catch((err) => console.log(err))
+    .catch((err) => console.log(err))
   }
 
   render() {

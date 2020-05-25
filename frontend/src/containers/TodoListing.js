@@ -58,16 +58,22 @@ class TodoListing extends Component {
   }
 
   componentDidMount() {
+    console.log('TodoListing mount')
     this.props.fetchPublicUserTodos(()=> {
-      this.setState({tagFilters: this.tagList}, this.updatePlaylist)
+      this.setState({tagFilters: this.tagList()}, this.updatePlaylist)
     })
   }
 
-  componentDidUpdate() {
-    const { playlist, setPlaylist } = this.props;
+  componentDidUpdate(prevProps, prevState) {
+    console.log('updateing TodoListing')
+    const { tagFilters } = this.state
+    const { userTodos, playlist, setPlaylist } = this.props;
     if (playlist.length === 0 && this.todosByTagSelection.length !== 0) {
-      // console.log('length 0')
       setPlaylist(this.todosByTagSelection, true, false)
+    }
+    if (prevProps.userTodos !== userTodos) {
+      console.log('userTodos different', prevProps.userTodos, userTodos)
+      setPlaylist(this.todosByTagSelection, false, false)
     }
   }
 
@@ -125,7 +131,7 @@ class TodoListing extends Component {
     if (setAsOnly) {
       // console.log('setAsOnly')
       if (tagFilters.length === 1 && tagFilters[0] === tag) {
-        this.setState({tagFilters: this.tagList}, this.updatePlaylist)
+        this.setState({tagFilters: this.tagList()}, this.updatePlaylist)
       } else {
         this.setState({tagFilters: [tag]}, this.updatePlaylist)
       }
@@ -171,11 +177,11 @@ class TodoListing extends Component {
     return todosByTagSelection
   }
 
-  get tagList() {
-    const { userTodos } = this.props
+  tagList(todoList) {  // make non-getter, accept a param to double as static method
+    const todos = todoList || this.props.userTodos
 
     const tagList = []
-    userTodos.forEach(todo => {  // do with reduce!
+    todos.forEach(todo => {  // do with reduce!
       todo.tags.forEach(tag => {
         if (!tagList.includes(tag)) tagList.push(tag)
       })
@@ -189,7 +195,7 @@ class TodoListing extends Component {
     const { tagFilters } = this.state
     // console.log('renderTags tagFilters', tagFilters)
 
-    const tagListJSX = this.tagList.map((tag, i) => {
+    const tagListJSX = this.tagList().map((tag, i) => {
       // const background = tagFilters.length === 0 || tagFilters.includes(tag) ? 'white' : '#888'
       const background = tagFilters.includes(tag) ? 'white' : '#888'
       const color = tagFilters.includes(tag) ? '#888' : 'white'
