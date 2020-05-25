@@ -8,13 +8,17 @@ TODO Next Up
         delete Todo should remove it from the Playlist
             remove it from nowPlaying?
                 yes
-            condition delete after nowPlaying:
+            condition 1 delete after nowPlaying:
                 don't change now playing or playCounter
-            condition delete is nowPlaying:
+            condition 2 delete is nowPlaying:
                 leave counter unless it's last, setNowPlaying
-            condition delete before nowPlaying:
-                set playCounter back one, don't change nowPlaying
+            condition 3 delete before nowPlaying:
+                set playCounter back one, don't change nowPlayin
             handle in TodoListing?
+                is it 'safe' to call stuff after updatePlaylist?
+                in 2, reducers set 0 if nowPlaying not on list. can't use in this form.
+
+
             handle in reducers?
             handle in Sagas?
 

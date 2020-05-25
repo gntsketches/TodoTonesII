@@ -122,6 +122,7 @@ function* playPauseSaga(action) {
 }
 
 function* setPlaylist(action) {
+  console.log('saga setPlaylist', action)
   if (action.setNowPlaying) {
     yield put(setNowPlaying(action.playlist[store.getState().todos.playCounter]))
   }
@@ -138,6 +139,9 @@ function* advancePlaylist(action) {
   }
   console.log('saga state.todos.playCounter', state.todos.playCounter)
   yield put(setNowPlaying(state.todos.playlist[state.todos.playCounter]))
+}
+
+function* updateNowPlaying() {
   audioModule.updateAudioStatus()
 }
 
@@ -151,6 +155,7 @@ function* rootSaga() {
   yield takeEvery(PLAY_PAUSE, playPauseSaga)
   yield takeEvery('SET_PLAYLIST', setPlaylist)
   yield takeEvery('ADVANCE_PLAY_COUNTER', advancePlaylist)  // handlePlayCounterUpdate?
+  yield takeEvery('SET_NOW_PLAYING', updateNowPlaying)
 
 }
 

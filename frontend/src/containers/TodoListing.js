@@ -17,6 +17,7 @@ import {
   advancePlayCounter,
 } from '../redux/actions/todos'
 import images from '../assets/images/index.js'
+import {loadFromLocalStorage} from "../redux/persist"
 
 
 const Todo = ({ todo, id, onDelete, onLeftClick, onRightClick, highlighted, playing }) => {
@@ -81,6 +82,8 @@ class TodoListing extends Component {
 
   handleDelete = (e, todo) => {
     e.stopPropagation()
+    const { playlist, nowPlaying, playCounter, advancePlayCounter, setNowPlaying } = this.props
+
     services.userTodosAPI.deleteTodo(todo._id)
     .then((res) => res.json())
     .then((todoDeleteResponse) => {
@@ -89,8 +92,27 @@ class TodoListing extends Component {
         this.props.setEditingTodo({title: '', description: '', tags: ''}) // if you're going to keep doing that it should be a constant!
       }
       this.props.fetchPublicUserTodos(()=> {
-        this.updatePlaylist()
-        // considering nowPlaying & playCounter
+        const deletedIndex = playlist.findIndex(t => t._id === todo._id)
+        // console.log('deletedIndex', deletedIndex)
+        if (deletedIndex > playCounter) {
+          this.updatePlaylist()
+        } else if (deletedIndex === playCounter) {
+          this.updatePlaylist()  // can call setNowPlaying in saga, which might happen after playCounter is set below...?
+          // console.log('playCounter post', playCounter)
+          // console.log('playlist post', playlist)
+          const newPlayCounter = deletedIndex >= playlist.length ? 0 : deletedIndex
+          // console.log('newPlayCounter', newPlayCounter)
+          if (deletedIndex >= playlist.length) {
+            advancePlayCounter(newPlayCounter)
+          }
+          const newNowPlaying = deletedIndex >= playlist.length-1 ?
+            playlist[0] : playlist[newPlayCounter+1]
+          // console.log('newNowPlaying', newNowPlaying)
+          setNowPlaying(newNowPlaying)
+        } else {
+          this.updatePlaylist()
+          advancePlayCounter(playCounter - 1)
+        }
       })
     })
     // .catch((err) => console.log(err))
@@ -123,6 +145,8 @@ class TodoListing extends Component {
     const { userTodos, playlist , setPlaylist} = this.props
 
     if (playlist[0] && userTodos[0] && playlist[0].username === userTodos[0].username) {
+      // this checks to only update playlist if it's this page's playlist (so you can filter other pages without changing the tune)
+      // what if there are no userTodos or no playlist?
       setPlaylist(this.todosByTagSelection, false, false)
     }
   }
@@ -311,6 +335,7 @@ const mapStateToProps = (state) => {
     listPlay: state.todos.listPlay,
     listPlayMode: state.todos.listPlayMode,
     playlist: state.todos.playlist,
+    playCounter: state.todos.playCounter,
   }
 }
 
